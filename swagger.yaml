@@ -36,7 +36,7 @@ paths:
                 properties:
                   token:
                     type: "string"
-        '401' :
+        '401':
           description: "Login failed"
           content:
             application/json:
