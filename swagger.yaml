@@ -22,3 +22,9 @@ components:
         message:
           type: string
   parameters:
+  securitySchemes:
+    admin:
+      type: apiKey
+      in: header
+      name: X-ADMIN-TOKEN
+      description: Credentials or access token for API
