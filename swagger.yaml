@@ -51,7 +51,7 @@ paths:
       - admin: []
       responses:
         '200':
-          description: "User info(logged in)"
+          description: "User info (logged in)"
           content:
             application/json:
               schema:
