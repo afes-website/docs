@@ -4,6 +4,7 @@ info:
   title: Afes73 website API
 servers:
   - url: https://api.afes.info/
+  - url: http://localhost:8000/ # for local test
 
 paths:
 
