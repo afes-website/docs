@@ -65,7 +65,7 @@ paths:
                   name:
                     type: string
         '401':
-          description: "not logged in"
+          description: "Not logged in"
           content:
             application/json:
               schema:
