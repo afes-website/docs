@@ -7,6 +7,69 @@ servers:
   - url: http://localhost:8000/ # for local test
 
 paths:
+  /admin/login:
+    post:
+      summary: Login and get API Key
+      tags:
+      - admin auth
+      requestBody:
+        description: credentials
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+              - id
+              - password
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: "Login Successful"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  token:
+                    type: "string"
+        '401' :
+          description: "Login failed"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/user:
+    get:
+      summary: get logged in user info
+      tags:
+      - admin auth
+      security:
+      - admin: []
+      responses:
+        '200':
+          description: "User info(logged in)"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                required:
+                  - id
+                  - name
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+        '401':
+          description: "not logged in"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
