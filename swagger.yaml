@@ -42,6 +42,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        '429':
+          description: "Too many login attempts"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /admin/user:
     get:
       summary: get logged in user info
