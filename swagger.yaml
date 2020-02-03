@@ -90,6 +90,29 @@ components:
           format: int32
         message:
           type: string
+    BlogArticleInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+        title:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    BlogArticle:
+      allOf:
+      - $ref: '#/components/schemas/BlogArticleInfo'
+      - properties:
+          content:
+            type: string
   parameters:
   securitySchemes:
     admin:
