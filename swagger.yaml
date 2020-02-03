@@ -76,6 +76,159 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /blog/articles:
+    get:
+      summary: get list of articles
+      tags:
+      - blog
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: '#/components/schemas/BlogArticleInfo'
+        style: form
+        explode: true
+        required: true
+        description: Numeric ID of the user to get
+      responses:
+        '200':
+          description: "list of articles"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  allOf:
+                  - $ref: "#/components/schemas/BlogArticleInfo"
+                  - required:
+                    - id
+                    - author
+                    - category
+                    - title
+                    - created_at
+                    - updated_at
+    post:
+      summary: get list of articles
+      tags:
+      - blog
+      security:
+      - admin: []
+      requestBody:
+        description: Numeric ID of the user to get
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BlogArticle'
+              - required:
+                - author
+                - category
+                - title
+                - content
+        required: true
+      responses:
+        '200':
+          description: "list of articles"
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/BlogArticle"
+                - required:
+                  - id
+                  - author
+                  - category
+                  - title
+                  - created_at
+                  - updated_at
+  /blog/articles/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+      description: id of an article
+    get:
+      summary: get specified article
+      tags:
+      - blog
+      responses:
+        '200':
+          description: "article info"
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/BlogArticle"
+                - required:
+                  - id
+                  - author
+                  - category
+                  - title
+                  - created_at
+                  - updated_at
+        '404':
+          description: "no article found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: update specified article
+      tags:
+      - blog
+      security:
+      - admin: []
+      requestBody:
+        description: Numeric ID of the user to get
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/BlogArticle'
+              - required:
+                - author
+                - category
+                - title
+                - content
+        required: true
+      responses:
+        '200':
+          description: "list of articles"
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/BlogArticle"
+                - required:
+                  - id
+                  - author
+                  - category
+                  - title
+                  - created_at
+                  - updated_at
+        '404':
+          description: "no article found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: update specified article
+      tags:
+      - blog
+      security:
+      - admin: []
+      responses:
+        '204':
+          description: "deletion successful"
+        '404':
+          description: "no article found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
