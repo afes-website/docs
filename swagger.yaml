@@ -112,7 +112,7 @@ paths:
       tags:
       - blog
       security:
-      - admin: []
+      - blogWriter: []
       requestBody:
         description: Numeric ID of the user to get
         content:
@@ -179,7 +179,7 @@ paths:
       tags:
       - blog
       security:
-      - admin: []
+      - blogWriter: []
       requestBody:
         description: Numeric ID of the user to get
         content:
@@ -219,7 +219,7 @@ paths:
       tags:
       - blog
       security:
-      - admin: []
+      - blogWriter: []
       responses:
         '204':
           description: "deletion successful"
@@ -273,3 +273,9 @@ components:
       in: header
       name: X-ADMIN-TOKEN
       description: Credentials or access token for API
+    blogWriter:
+      type: apiKey
+      in: header
+      name: X-BLOG-WRITER-TOKEN
+      description: Credentials or access token for API
+    
