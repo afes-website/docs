@@ -108,7 +108,7 @@ paths:
                     - created_at
                     - updated_at
     post:
-      summary: get list of articles
+      summary: create new post
       tags:
       - blog
       security:
