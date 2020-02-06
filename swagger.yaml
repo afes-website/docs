@@ -85,11 +85,11 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: '#/components/schemas/BlogArticleInfo'
+          $ref: '#/components/schemas/BlogArticle'
         style: form
         explode: true
-        required: true
-        description: Numeric ID of the user to get
+        required: false
+        description: params to filter
       responses:
         '200':
           description: "list of articles"
@@ -99,60 +99,34 @@ paths:
                 type: "array"
                 items:
                   allOf:
-                  - $ref: "#/components/schemas/BlogArticleInfo"
+                  - $ref: "#/components/schemas/BlogArticle"
                   - required:
                     - id
-                    - author
+                    - user_id
                     - category
                     - title
                     - created_at
                     - updated_at
-    post:
-      summary: create new post
-      tags:
-      - blog
-      security:
-      - blogWriter: []
-      requestBody:
-        description: Numeric ID of the user to get
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/BlogArticle'
-              - required:
-                - author
-                - category
-                - title
-                - content
-        required: true
-      responses:
-        '200':
-          description: "list of articles"
-          content:
-            application/json:
-              schema:
-                allOf:
-                - $ref: "#/components/schemas/BlogArticle"
-                - required:
-                  - id
-                  - author
-                  - category
-                  - title
-                  - created_at
-                  - updated_at
   /blog/articles/{id}:
     parameters:
     - in: path
       name: id
       required: true
       schema:
-        type: integer
+        type: string
       description: id of an article
     get:
-      summary: get specified article
+      summary: get info of the article
       tags:
       - blog
+      parameters:
+      - in: query
+        name: filter
+        required: false
+        schema:
+          $ref: '#/components/schemas/BlogArticle'
+        style: form
+        explode: true
       responses:
         '200':
           description: "article info"
@@ -163,11 +137,18 @@ paths:
                 - $ref: "#/components/schemas/BlogArticle"
                 - required:
                   - id
-                  - author
+                  - user_id
                   - category
                   - title
+                  - revision_id
                   - created_at
                   - updated_at
+        '400':
+          description: "bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         '404':
           description: "no article found"
           content:
@@ -175,60 +156,128 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
     patch:
-      summary: update specified article
+      summary: update the article
+      security:
+      - admin: []
+      tags:
+      - blog
+      requestBody:
+        description: data to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogArticle'
+      responses:
+        '200':
+          description: "info of specified revision"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogArticle'
+        
+        '404':
+          description: "no sprcified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blog/revisions/:
+    get:
+      summary: get list of revisions
+      tags:
+      - blog
+      security:
+      - admin: []
+      responses:
+        '200':
+          description: "list of revisions"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRevision'
+    post:
+      summary: create new revision
       tags:
       - blog
       security:
       - blogWriter: []
       requestBody:
-        description: Numeric ID of the user to get
+        description: params to filter
         content:
           application/json:
             schema:
-              allOf:
-              - $ref: '#/components/schemas/BlogArticle'
-              - required:
-                - author
-                - category
-                - title
-                - content
-        required: true
+              $ref: '#/components/schemas/BlogRevision'
       responses:
-        '200':
-          description: "list of articles"
+        '201':
+          description: "created"
           content:
             application/json:
               schema:
-                allOf:
-                - $ref: "#/components/schemas/BlogArticle"
-                - required:
-                  - id
-                  - author
-                  - category
-                  - title
-                  - created_at
-                  - updated_at
-        '404':
-          description: "no article found"
+                $ref: '#/components/schemas/BlogRevision'
+        '400':
+          description: "some params are invalid"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      summary: update specified article
+                $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int32
+      description: id of an revision
+    get:
+      summary: get the revision
       tags:
       - blog
       security:
+      - admin: []
       - blogWriter: []
       responses:
-        '204':
-          description: "deletion successful"
-        '404':
-          description: "no article found"
+        '200':
+          description: "info of specified revision"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/BlogRevision'
+        '404':
+          description: "no sprcified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: update the revision
+      security:
+      - admin: []
+      - blogWriter: []
+      tags:
+      - blog
+      requestBody:
+        description: data to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogRevision'
+      responses:
+        '200':
+          description: "info of specified revision"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '404':
+          description: "no sprcified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
 components:
   schemas:
@@ -243,29 +292,57 @@ components:
           format: int32
         message:
           type: string
-    BlogArticleInfo:
+    BlogArticle:
       type: object
       properties:
         id:
-          type: string
-        author:
           type: string
         category:
           type: string
         title:
           type: string
+        revision_id:
+          type: integer
+          format: int32
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-    BlogArticle:
-      allOf:
-      - $ref: '#/components/schemas/BlogArticleInfo'
-      - properties:
-          content:
-            type: string
+    BlogRevision:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        article_id:
+          type: string
+        user_id:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        content:
+          type: string
+        status:
+          type: string
+          enum: [waiting, accepted, rejected]
+          description: >
+            * `waiting` - Waiting for acceptance
+            
+            * `accepted` - Accepted and ready to be published
+            
+            * `rejected` - Rejected and could not to be published
+      required:
+      - id
+      - title
+      - article_id
+      - user_id
+      - timestamp
+      - status
   parameters:
   securitySchemes:
     admin:
