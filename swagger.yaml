@@ -176,6 +176,12 @@ paths:
                     - title
                     - created_at
                     - updated_at
+        '400':
+          description: "bad params"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /blog/articles/{id}:
     parameters:
     - in: path
@@ -243,6 +249,15 @@ paths:
       - blog
       security:
       - admin: []
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: '#/components/schemas/BlogRevision'
+        style: form
+        explode: true
+        required: false
+        description: params to filter
       responses:
         '200':
           description: "list of revisions"
@@ -252,6 +267,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BlogRevision'
+        '400':
+          description: "bad params"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       summary: create new revision
       tags:
