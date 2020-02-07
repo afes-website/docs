@@ -331,7 +331,6 @@ paths:
       summary: update the revision
       security:
       - admin: []
-      - blogWriter: []
       tags:
       - blog
       requestBody:
