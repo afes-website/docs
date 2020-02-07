@@ -245,6 +245,7 @@ paths:
   /blog/revisions/:
     get:
       summary: get list of revisions
+      description: 'note: writer can get only owned revisions'
       tags:
       - blog
       security:
