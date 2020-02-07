@@ -188,14 +188,6 @@ paths:
       summary: get info of the article
       tags:
       - blog
-      parameters:
-      - in: query
-        name: filter
-        required: false
-        schema:
-          $ref: '#/components/schemas/BlogArticle'
-        style: form
-        explode: true
       responses:
         '200':
           description: "article info"
@@ -212,12 +204,6 @@ paths:
                   - revision_id
                   - created_at
                   - updated_at
-        '400':
-          description: "bad request"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
         '404':
           description: "no article found"
           content:
