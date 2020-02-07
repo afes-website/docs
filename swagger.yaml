@@ -174,7 +174,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlogArticle'
-        
         '404':
           description: "no sprcified revision found"
           content:
@@ -355,4 +354,3 @@ components:
       in: header
       name: X-BLOG-WRITER-TOKEN
       description: Credentials or access token for API
-    
