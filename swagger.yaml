@@ -76,6 +76,75 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /writer/login:
+    post:
+      summary: Login and get API Key
+      tags:
+      - writer auth
+      requestBody:
+        description: credentials
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+              - id
+              - password
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: "Login Successful"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  token:
+                    type: "string"
+        '401':
+          description: "Login failed"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '429':
+          description: "Too many login attempts"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /writer/user:
+    get:
+      summary: get logged in user info
+      tags:
+      - writer auth
+      security:
+      - writer: []
+      responses:
+        '200':
+          description: "User info (logged in)"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                required:
+                  - id
+                  - name
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+        '401':
+          description: "Not logged in"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /blog/articles:
     get:
       summary: get list of articles
