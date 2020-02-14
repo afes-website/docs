@@ -353,34 +353,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    delete:
-      summary: remove the revision
-      security:
-      - admin: []
-      - blogWriter: []
-      tags:
-      - blog
-      responses:
-        '204':
-          description: "remove successful"
-        '409':
-          description: "begin used revision could not be deleted"
-          content:
-            applications/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          description: "blogWriter can delete only owned revisions"
-          content:
-            applications/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: "no sprcified revision found"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
 
 
 components:
