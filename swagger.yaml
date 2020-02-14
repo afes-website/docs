@@ -241,6 +241,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    delete:
+      summary: remove the article
+      security:
+      - admin: []
+      tags:
+      - blog
+      responses:
+      '204':
+        description: "remove successful"
+      '404':
+        description: "no specified revision found"
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
   /blog/revisions/:
     get:
