@@ -361,27 +361,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}/accept:
     patch:
-      summary: update the revision
+      summary: accept the revision
       security:
       - admin: []
       tags:
       - blog
-      requestBody:
-        description: data to update
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BlogRevision'
       responses:
         '200':
-          description: "info of specified revision"
+          description: "operation successful"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlogRevision'
         '404':
-          description: "no sprcified revision found"
+          description: "no specified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}/reject:
+    patch:
+      summary: reject the revision
+      security:
+      - admin: []
+      tags:
+      - blog
+      responses:
+        '200':
+          description: "operation successful"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '404':
+          description: "no specified revision found"
           content:
             application/json:
               schema:
