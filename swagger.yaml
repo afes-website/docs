@@ -248,13 +248,14 @@ paths:
       tags:
       - blog
       responses:
-      '204':
-        description: "remove successful"
-      '404':
-        description: "no specified revision found"
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        '204':
+          description: "remove successful"
+        '404':
+          description: "no specified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
   /blog/revisions/:
     get:
