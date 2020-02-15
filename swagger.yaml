@@ -260,11 +260,12 @@ paths:
   /blog/revisions/:
     get:
       summary: get list of revisions
-      description: 'note: writer can get only owned revisions'
+      description: 'note: writer can see only owned revision'
       tags:
       - blog
       security:
       - admin: []
+      - blogWriter: []
       parameters:
       - in: query
         name: filter
@@ -325,6 +326,7 @@ paths:
       description: id of an revision
     get:
       summary: get the revision
+      description: 'note: writer can see only owned revision'
       tags:
       - blog
       security:
@@ -337,6 +339,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BlogRevision'
+        '403':
+          description: "the revision could not be seen by the user"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
         '404':
           description: "no sprcified revision found"
           content:
