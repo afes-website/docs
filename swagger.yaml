@@ -76,6 +76,332 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /writer/login:
+    post:
+      summary: Login and get API Key
+      tags:
+      - writer auth
+      requestBody:
+        description: credentials
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+              - id
+              - password
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: "Login Successful"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  token:
+                    type: "string"
+        '401':
+          description: "Login failed"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '429':
+          description: "Too many login attempts"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /writer/user:
+    get:
+      summary: get logged in user info
+      tags:
+      - writer auth
+      security:
+      - writer: []
+      responses:
+        '200':
+          description: "User info (logged in)"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                required:
+                  - id
+                  - name
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+        '401':
+          description: "Not logged in"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /blog/articles:
+    get:
+      summary: get list of articles
+      tags:
+      - blog
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: '#/components/schemas/BlogArticle'
+        style: form
+        explode: true
+        required: false
+        description: params to filter
+      responses:
+        '200':
+          description: "list of articles"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  allOf:
+                  - $ref: "#/components/schemas/BlogArticle"
+                  - properties:
+                    summary:
+                      type: string
+                  - required:
+                    - id
+                    - user_id
+                    - category
+                    - title
+                    - created_at
+                    - updated_at
+                    - summary
+        '400':
+          description: "bad params"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blog/articles/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: id of an article
+    get:
+      summary: get info of the article
+      tags:
+      - blog
+      responses:
+        '200':
+          description: "article info"
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/BlogArticle"
+                - properties:
+                  content:
+                    type: string
+                - required:
+                  - id
+                  - user_id
+                  - category
+                  - title
+                  - revision_id
+                  - created_at
+                  - updated_at
+                  - content
+        '404':
+          description: "no article found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: update the article
+      security:
+      - admin: []
+      tags:
+      - blog
+      requestBody:
+        description: data to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogArticle'
+      responses:
+        '200':
+          description: "info of specified revision"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogArticle'
+        '404':
+          description: "no sprcified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: remove the article
+      security:
+      - admin: []
+      tags:
+      - blog
+      responses:
+        '204':
+          description: "remove successful"
+        '404':
+          description: "no specified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blog/revisions/:
+    get:
+      summary: get list of revisions
+      description: 'note: writer can see only owned revision'
+      tags:
+      - blog
+      security:
+      - admin: []
+      - blogWriter: []
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: '#/components/schemas/BlogRevision'
+        style: form
+        explode: true
+        required: false
+        description: params to filter
+      responses:
+        '200':
+          description: "list of revisions"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRevision'
+        '400':
+          description: "bad params"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: create new revision
+      tags:
+      - blog
+      security:
+      - blogWriter: []
+      requestBody:
+        description: params to filter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogRevision'
+      responses:
+        '201':
+          description: "created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '400':
+          description: "some params are invalid"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int32
+      description: id of an revision
+    get:
+      summary: get the revision
+      description: 'note: writer can see only owned revision'
+      tags:
+      - blog
+      security:
+      - admin: []
+      - blogWriter: []
+      responses:
+        '200':
+          description: "info of specified revision"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '403':
+          description: "the revision could not be seen by the user"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+        '404':
+          description: "no sprcified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}/accept:
+    patch:
+      summary: accept the revision
+      security:
+      - admin: []
+      tags:
+      - blog
+      responses:
+        '200':
+          description: "operation successful"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '404':
+          description: "no specified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blog/revisions/{id}/reject:
+    patch:
+      summary: reject the revision
+      security:
+      - admin: []
+      tags:
+      - blog
+      responses:
+        '200':
+          description: "operation successful"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRevision'
+        '404':
+          description: "no specified revision found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 
 components:
   schemas:
@@ -90,10 +416,66 @@ components:
           format: int32
         message:
           type: string
+    BlogArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        title:
+          type: string
+        revision_id:
+          type: integer
+          format: int32
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    BlogRevision:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        article_id:
+          type: string
+        user_id:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        content:
+          type: string
+        status:
+          type: string
+          enum: [waiting, accepted, rejected]
+          description: >
+            * `waiting` - Waiting for acceptance
+            
+            * `accepted` - Accepted and ready to be published
+            
+            * `rejected` - Rejected and could not to be published
+      required:
+      - id
+      - title
+      - article_id
+      - user_id
+      - timestamp
+      - status
   parameters:
   securitySchemes:
     admin:
       type: apiKey
       in: header
       name: X-ADMIN-TOKEN
+      description: Credentials or access token for API
+    blogWriter:
+      type: apiKey
+      in: header
+      name: X-BLOG-WRITER-TOKEN
       description: Credentials or access token for API
