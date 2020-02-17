@@ -1,4 +1,4 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
   version: 1.0.0
   title: Afes73 website API
@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               required:
               - id
               - password
@@ -27,23 +27,23 @@ paths:
                 password:
                   type: string
       responses:
-        "200":
-          description: "Login Successful"
+        200:
+          description: Login Successful
           content:
             application/json:
               schema:
-                type: "object"
+                type: object
                 properties:
                   token:
-                    type: "string"
-        "401":
-          description: "Login failed"
+                    type: string
+        401:
+          description: Login failed
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "429":
-          description: "Too many login attempts"
+        429:
+          description: Too many login attempts
           content:
             application/json:
               schema:
@@ -56,12 +56,12 @@ paths:
       security:
       - admin: []
       responses:
-        "200":
-          description: "User info (logged in)"
+        200:
+          description: User info (logged in)
           content:
             application/json:
               schema:
-                type: "object"
+                type: object
                 required:
                 - id
                 - name
@@ -70,8 +70,8 @@ paths:
                     type: string
                   name:
                     type: string
-        "401":
-          description: "Not logged in"
+        401:
+          description: Not logged in
           content:
             application/json:
               schema:
@@ -86,7 +86,7 @@ paths:
         content:
           application/json:
             schema:
-              type: "object"
+              type: object
               required:
               - id
               - password
@@ -96,23 +96,23 @@ paths:
                 password:
                   type: string
       responses:
-        "200":
-          description: "Login Successful"
+        200:
+          description: Login Successful
           content:
             application/json:
               schema:
-                type: "object"
+                type: object
                 properties:
                   token:
-                    type: "string"
-        "401":
-          description: "Login failed"
+                    type: string
+        401:
+          description: Login failed
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "429":
-          description: "Too many login attempts"
+        429:
+          description: Too many login attempts
           content:
             application/json:
               schema:
@@ -125,12 +125,12 @@ paths:
       security:
       - writer: []
       responses:
-        "200":
-          description: "User info (logged in)"
+        200:
+          description: User info (logged in)
           content:
             application/json:
               schema:
-                type: "object"
+                type: object
                 required:
                 - id
                 - name
@@ -139,8 +139,8 @@ paths:
                     type: string
                   name:
                     type: string
-        "401":
-          description: "Not logged in"
+        401:
+          description: Not logged in
           content:
             application/json:
               schema:
@@ -160,12 +160,12 @@ paths:
         required: false
         description: params to filter
       responses:
-        "200":
-          description: "list of articles"
+        200:
+          description: list of articles
           content:
             application/json:
               schema:
-                type: "array"
+                type: array
                 items:
                   allOf:
                   - $ref: "#/components/schemas/BlogArticle"
@@ -180,8 +180,8 @@ paths:
                     - created_at
                     - updated_at
                     - summary
-        "400":
-          description: "bad params"
+        400:
+          description: bad params
           content:
             application/json:
               schema:
@@ -199,8 +199,8 @@ paths:
       tags:
       - blog
       responses:
-        "200":
-          description: "article info"
+        200:
+          description: article info
           content:
             application/json:
               schema:
@@ -218,8 +218,8 @@ paths:
                   - created_at
                   - updated_at
                   - content
-        "404":
-          description: "no article found"
+        404:
+          description: no article found
           content:
             application/json:
               schema:
@@ -237,14 +237,14 @@ paths:
             schema:
               $ref: "#/components/schemas/BlogArticle"
       responses:
-        "200":
-          description: "info of specified revision"
+        200:
+          description: info of specified revision
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogArticle"
-        "404":
-          description: "no sprcified revision found"
+        404:
+          description: no sprcified revision found
           content:
             application/json:
               schema:
@@ -256,10 +256,10 @@ paths:
       tags:
       - blog
       responses:
-        "204":
-          description: "remove successful"
-        "404":
-          description: "no specified revision found"
+        204:
+          description: remove successful
+        404:
+          description: no specified revision found
           content:
             application/json:
               schema:
@@ -284,16 +284,16 @@ paths:
         required: false
         description: params to filter
       responses:
-        "200":
-          description: "list of revisions"
+        200:
+          description: list of revisions
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/BlogRevision"
-        "400":
-          description: "bad params"
+        400:
+          description: bad params
           content:
             application/json:
               schema:
@@ -311,14 +311,14 @@ paths:
             schema:
               $ref: "#/components/schemas/BlogRevision"
       responses:
-        "201":
-          description: "created"
+        201:
+          description: created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
-        "400":
-          description: "some params are invalid"
+        400:
+          description: some params are invalid
           content:
             application/json:
               schema:
@@ -341,22 +341,22 @@ paths:
       - admin: []
       - blogWriter: []
       responses:
-        "200":
-          description: "info of specified revision"
+        200:
+          description: info of specified revision
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
-        "403":
-          description: "the revision could not be seen by the user"
+        403:
+          description: the revision could not be seen by the user
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
 
 
-        "404":
-          description: "no sprcified revision found"
+        404:
+          description: no sprcified revision found
           content:
             application/json:
               schema:
@@ -369,14 +369,14 @@ paths:
       tags:
       - blog
       responses:
-        "200":
-          description: "operation successful"
+        200:
+          description: operation successful
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
-        "404":
-          description: "no specified revision found"
+        404:
+          description: no specified revision found
           content:
             application/json:
               schema:
@@ -389,14 +389,14 @@ paths:
       tags:
       - blog
       responses:
-        "200":
-          description: "operation successful"
+        200:
+          description: operation successful
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
-        "404":
-          description: "no specified revision found"
+        404:
+          description: no specified revision found
           content:
             application/json:
               schema:
