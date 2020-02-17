@@ -3,8 +3,8 @@ info:
   version: 1.0.0
   title: Afes73 website API
 servers:
-  - url: https://api.afes.info/
-  - url: http://localhost:8000/ # for local test
+- url: https://api.afes.info/
+- url: http://localhost:8000/ # for local test
 
 paths:
   /admin/login:
@@ -27,7 +27,7 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: "Login Successful"
           content:
             application/json:
@@ -36,13 +36,13 @@ paths:
                 properties:
                   token:
                     type: "string"
-        '401':
+        "401":
           description: "Login failed"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        '429':
+        "429":
           description: "Too many login attempts"
           content:
             application/json:
@@ -56,21 +56,21 @@ paths:
       security:
       - admin: []
       responses:
-        '200':
+        "200":
           description: "User info (logged in)"
           content:
             application/json:
               schema:
                 type: "object"
                 required:
-                  - id
-                  - name
+                - id
+                - name
                 properties:
                   id:
                     type: string
                   name:
                     type: string
-        '401':
+        "401":
           description: "Not logged in"
           content:
             application/json:
@@ -96,7 +96,7 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: "Login Successful"
           content:
             application/json:
@@ -105,13 +105,13 @@ paths:
                 properties:
                   token:
                     type: "string"
-        '401':
+        "401":
           description: "Login failed"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        '429':
+        "429":
           description: "Too many login attempts"
           content:
             application/json:
@@ -125,21 +125,21 @@ paths:
       security:
       - writer: []
       responses:
-        '200':
+        "200":
           description: "User info (logged in)"
           content:
             application/json:
               schema:
                 type: "object"
                 required:
-                  - id
-                  - name
+                - id
+                - name
                 properties:
                   id:
                     type: string
                   name:
                     type: string
-        '401':
+        "401":
           description: "Not logged in"
           content:
             application/json:
@@ -154,13 +154,13 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: '#/components/schemas/BlogArticle'
+          $ref: "#/components/schemas/BlogArticle"
         style: form
         explode: true
         required: false
         description: params to filter
       responses:
-        '200':
+        "200":
           description: "list of articles"
           content:
             application/json:
@@ -170,8 +170,8 @@ paths:
                   allOf:
                   - $ref: "#/components/schemas/BlogArticle"
                   - properties:
-                    summary:
-                      type: string
+                      summary:
+                        type: string
                   - required:
                     - id
                     - user_id
@@ -180,12 +180,12 @@ paths:
                     - created_at
                     - updated_at
                     - summary
-        '400':
+        "400":
           description: "bad params"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /blog/articles/{id}:
     parameters:
     - in: path
@@ -199,7 +199,7 @@ paths:
       tags:
       - blog
       responses:
-        '200':
+        "200":
           description: "article info"
           content:
             application/json:
@@ -207,8 +207,8 @@ paths:
                 allOf:
                 - $ref: "#/components/schemas/BlogArticle"
                 - properties:
-                  content:
-                    type: string
+                    content:
+                      type: string
                 - required:
                   - id
                   - user_id
@@ -218,7 +218,7 @@ paths:
                   - created_at
                   - updated_at
                   - content
-        '404':
+        "404":
           description: "no article found"
           content:
             application/json:
@@ -235,20 +235,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BlogArticle'
+              $ref: "#/components/schemas/BlogArticle"
       responses:
-        '200':
+        "200":
           description: "info of specified revision"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogArticle'
-        '404':
+                $ref: "#/components/schemas/BlogArticle"
+        "404":
           description: "no sprcified revision found"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
       summary: remove the article
       security:
@@ -256,19 +256,19 @@ paths:
       tags:
       - blog
       responses:
-        '204':
+        "204":
           description: "remove successful"
-        '404':
+        "404":
           description: "no specified revision found"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 
   /blog/revisions/:
     get:
       summary: get list of revisions
-      description: 'note: writer can see only owned revision'
+      description: "note: writer can see only owned revision"
       tags:
       - blog
       security:
@@ -278,26 +278,26 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: '#/components/schemas/BlogRevision'
+          $ref: "#/components/schemas/BlogRevision"
         style: form
         explode: true
         required: false
         description: params to filter
       responses:
-        '200':
+        "200":
           description: "list of revisions"
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BlogRevision'
-        '400':
+                  $ref: "#/components/schemas/BlogRevision"
+        "400":
           description: "bad params"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
       summary: create new revision
       tags:
@@ -309,20 +309,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BlogRevision'
+              $ref: "#/components/schemas/BlogRevision"
       responses:
-        '201':
+        "201":
           description: "created"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogRevision'
-        '400':
+                $ref: "#/components/schemas/BlogRevision"
+        "400":
           description: "some params are invalid"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /blog/revisions/{id}:
     parameters:
     - in: path
@@ -334,33 +334,33 @@ paths:
       description: id of an revision
     get:
       summary: get the revision
-      description: 'note: writer can see only owned revision'
+      description: "note: writer can see only owned revision"
       tags:
       - blog
       security:
       - admin: []
       - blogWriter: []
       responses:
-        '200':
+        "200":
           description: "info of specified revision"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogRevision'
-        '403':
+                $ref: "#/components/schemas/BlogRevision"
+        "403":
           description: "the revision could not be seen by the user"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 
 
-        '404':
+        "404":
           description: "no sprcified revision found"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /blog/revisions/{id}/accept:
     patch:
       summary: accept the revision
@@ -369,18 +369,18 @@ paths:
       tags:
       - blog
       responses:
-        '200':
+        "200":
           description: "operation successful"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogRevision'
-        '404':
+                $ref: "#/components/schemas/BlogRevision"
+        "404":
           description: "no specified revision found"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /blog/revisions/{id}/reject:
     patch:
       summary: reject the revision
@@ -389,18 +389,18 @@ paths:
       tags:
       - blog
       responses:
-        '200':
+        "200":
           description: "operation successful"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogRevision'
-        '404':
+                $ref: "#/components/schemas/BlogRevision"
+        "404":
           description: "no specified revision found"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 
 
 components:
