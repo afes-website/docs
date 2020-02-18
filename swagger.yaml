@@ -362,6 +362,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   /blog/revisions/{id}/accept:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int32
+      description: id of an revision
     patch:
       summary: accept the revision
       security:
@@ -382,6 +390,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   /blog/revisions/{id}/reject:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int32
+      description: id of an revision
     patch:
       summary: reject the revision
       security:
