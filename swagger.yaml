@@ -188,12 +188,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /blog/articles/{id}:
     parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: string
-      description: id of an article
+    - $ref: "#/components/parameters/blogArticleId"
     get:
       summary: get info of the article
       tags:
@@ -325,13 +320,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /blog/revisions/{id}:
     parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: integer
-        format: int32
-      description: id of an revision
+    - $ref: "#/components/parameters/blogRevisionId"
     get:
       summary: get the revision
       description: 'note: writer can see only owned revision'
@@ -363,13 +352,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /blog/revisions/{id}/accept:
     parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: integer
-        format: int32
-      description: id of an revision
+    - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: accept the revision
       security:
@@ -391,13 +374,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /blog/revisions/{id}/reject:
     parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: integer
-        format: int32
-      description: id of an revision
+    - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: reject the revision
       security:
@@ -484,6 +461,21 @@ components:
       - timestamp
       - status
   parameters:
+    blogArticleId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: id of an article
+    blogRevisionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        format: int32
+      description: id of an revision
   securitySchemes:
     admin:
       type: apiKey
