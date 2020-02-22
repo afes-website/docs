@@ -238,8 +238,20 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogArticle"
+        400:
+          description: specified revision is not for the article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         404:
           description: no sprcified revision found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        409:
+          description: specified revision is not accepted
           content:
             application/json:
               schema:
