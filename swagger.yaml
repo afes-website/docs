@@ -76,6 +76,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /admin/change_password:
+    post:
+      summary: Change password
+      tags:
+      - admin auth
+      security:
+      - admin: []
+      requestBody:
+        description: new password
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              properties:
+                password:
+                  type: string
+      responses:
+        204:
+          description: password changed successfully
+        400:
+          description: bad password
   /writer/login:
     post:
       summary: Login and get API Key
@@ -145,6 +168,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /writer/change_password:
+    post:
+      summary: Change password
+      tags:
+      - writer auth
+      security:
+      - blogWriter: []
+      requestBody:
+        description: new password
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              properties:
+                password:
+                  type: string
+      responses:
+        204:
+          description: password changed successfully
+        400:
+          description: bad password
   /blog/articles:
     get:
       summary: get list of articles
