@@ -362,7 +362,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BlogRevision"
+              allOf:
+                - $ref: "#/components/schemas/BlogRevision"
+                - properties:
+                    status:
+                      type: string
+                      readOnly: true
       responses:
         201:
           description: created
@@ -491,15 +496,18 @@ components:
         id:
           type: integer
           format: int32
+          readOnly: true
         title:
           type: string
         article_id:
           type: string
         user_id:
           type: string
+          readOnly: true
         timestamp:
           type: string
           format: date-time
+          readOnly: true
         content:
           type: string
         status:
