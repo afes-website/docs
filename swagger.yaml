@@ -541,7 +541,7 @@ components:
       schema:
         type: integer
         format: int32
-      description: id of an revision
+      description: id of a revision
   securitySchemes:
     admin:
       type: apiKey
