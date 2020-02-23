@@ -146,7 +146,7 @@ paths:
       tags:
       - writer auth
       security:
-      - writer: []
+      - blogWriter: []
       responses:
         200:
           description: User info (logged in)
