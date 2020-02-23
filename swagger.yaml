@@ -205,6 +205,15 @@ paths:
         explode: true
         required: false
         description: params to filter
+      - in: query
+        name: summary_length
+        schema:
+          type: integer
+        style: form
+        required: false
+        description: >
+          summary will be cut with this length.
+          if omitted, summary won't be limited with length.
       responses:
         200:
           description: list of articles
