@@ -232,6 +232,7 @@ paths:
                     - user_id
                     - category
                     - title
+                    - author
                     - created_at
                     - updated_at
                     - summary
@@ -285,7 +286,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BlogArticle"
+              allOf:
+              - $ref: "#/components/schemas/BlogArticle"
+              - properties:
+                  author:
+                    type: string
+                    readOnly: true
       responses:
         200:
           description: info of specified revision
@@ -489,6 +495,8 @@ components:
         category:
           type: string
         title:
+          type: string
+        author:
           type: string
         revision_id:
           type: integer
