@@ -214,6 +214,13 @@ paths:
         description: >
           summary will be cut with this length.
           if omitted, summary won't be limited with length.
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: |
+          search query
+          article has match in title or content will be returned
       responses:
         200:
           description: list of articles
