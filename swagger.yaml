@@ -467,6 +467,88 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
+  /images:
+    post:
+      summary: upload new image
+      tags:
+      - images
+      security:
+      - blogWriter: []
+      requestBody:
+        description: params to filter
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  format: binary
+              required:
+              - content
+      responses:
+        201:
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                required:
+                - id
+        400:
+          description: some params are invalid / content is not an image
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /images/{id}:
+    get:
+      summary: get image
+      tags:
+      - images
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: id of an image
+      - in: query
+        name: w
+        required: false
+        schema:
+          type: integer
+        description: width of image
+      - in: query
+        name: h
+        required: false
+        schema:
+          type: integer
+        description: height of image
+      - in: query
+        name: orig
+        required: false
+        schema:
+          type: string
+          enum: ['yes']
+        description: whether you want to get original image
+      responses:
+        200:
+          description: content
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
