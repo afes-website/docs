@@ -200,7 +200,11 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: "#/components/schemas/BlogArticle"
+          allOf:
+          - $ref: "#/components/schemas/BlogArticle"
+          - properties:
+              author_id:
+                type: string
         style: form
         explode: true
         required: false
@@ -239,6 +243,7 @@ paths:
                     - user_id
                     - category
                     - title
+                    - author
                     - created_at
                     - updated_at
                     - summary
@@ -347,7 +352,12 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: "#/components/schemas/BlogRevision"
+          allOf:
+            - $ref: "#/components/schemas/BlogRevision"
+            - properties:
+                author_id:
+                  type: string
+
         style: form
         explode: true
         required: false
@@ -579,6 +589,14 @@ components:
           type: string
         title:
           type: string
+        author:
+          type: object
+          readOnly: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
         revision_id:
           type: integer
           format: int32
@@ -599,9 +617,14 @@ components:
           type: string
         article_id:
           type: string
-        user_id:
-          type: string
+        author:
+          type: object
           readOnly: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
         timestamp:
           type: string
           format: date-time
@@ -613,9 +636,9 @@ components:
           enum: [waiting, accepted, rejected]
           description: >
             * `waiting` - Waiting for acceptance
-            
+
             * `accepted` - Accepted and ready to be published
-            
+
             * `rejected` - Rejected and could not to be published
       required:
       - id
