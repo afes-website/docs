@@ -345,7 +345,12 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: "#/components/schemas/BlogRevision"
+          allOf:
+            - $ref: "#/components/schemas/BlogRevision"
+            - properties:
+                summary:
+                  type: string
+
         style: form
         explode: true
         required: false
@@ -523,9 +528,14 @@ components:
           type: string
         article_id:
           type: string
-        user_id:
-          type: string
+        user:
+          type: object
           readOnly: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
         timestamp:
           type: string
           format: date-time
