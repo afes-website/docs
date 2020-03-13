@@ -397,7 +397,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /blog/contrib/:
+  /blog/revisions/contrib/:
     post:
       summary: create new contrib
       tags:
