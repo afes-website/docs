@@ -397,6 +397,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /blog/contrib/:
+    post:
+      summary: create new contrib
+      tags:
+      - blog
+      requestBody:
+        description: params to filter
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/BlogRevision"
+                - properties:
+                    status:
+                      type: string
+                      readOnly: true
+      responses:
+        201:
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogRevision"
+        400:
+          description: some params are invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /blog/revisions/{id}:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
