@@ -290,8 +290,12 @@ paths:
               - $ref: "#/components/schemas/BlogArticle"
               - properties:
                   author:
-                    type: string
-                    readOnly: true
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
       responses:
         200:
           description: info of specified revision
@@ -497,7 +501,12 @@ components:
         title:
           type: string
         author:
-          type: string
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
         revision_id:
           type: integer
           format: int32
@@ -532,9 +541,9 @@ components:
           enum: [waiting, accepted, rejected]
           description: >
             * `waiting` - Waiting for acceptance
-            
+
             * `accepted` - Accepted and ready to be published
-            
+
             * `rejected` - Rejected and could not to be published
       required:
       - id
