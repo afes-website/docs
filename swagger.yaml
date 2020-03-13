@@ -348,7 +348,7 @@ paths:
           allOf:
             - $ref: "#/components/schemas/BlogRevision"
             - properties:
-                summary:
+                author_id:
                   type: string
 
         style: form
@@ -528,7 +528,7 @@ components:
           type: string
         article_id:
           type: string
-        user:
+        author:
           type: object
           readOnly: true
           properties:
