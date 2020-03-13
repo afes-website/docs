@@ -203,8 +203,8 @@ paths:
           allOf:
           - $ref: "#/components/schemas/BlogArticle"
           - properties:
-              author:
-                readOnly: false
+              author_id:
+                type: string
         style: form
         explode: true
         required: false
