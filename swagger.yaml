@@ -200,7 +200,11 @@ paths:
       - in: query
         name: filter
         schema:
-          $ref: "#/components/schemas/BlogArticle"
+          allOf:
+          - $ref: "#/components/schemas/BlogArticle"
+          - properties:
+              author:
+                readOnly: false
         style: form
         explode: true
         required: false
@@ -286,16 +290,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-              - $ref: "#/components/schemas/BlogArticle"
-              - properties:
-                  author:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      name:
-                        type: string
+              $ref: "#/components/schemas/BlogArticle"
       responses:
         200:
           description: info of specified revision
@@ -502,6 +497,7 @@ components:
           type: string
         author:
           type: object
+          readOnly: true
           properties:
             id:
               type: string
