@@ -413,6 +413,8 @@ paths:
                     status:
                       type: string
                       readOnly: true
+                    article_id:
+                      readOnly: true
       responses:
         201:
           description: created
