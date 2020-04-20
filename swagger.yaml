@@ -648,7 +648,7 @@ components:
           type: string
         article_id:
           type: string
-          pattern: "[A-Za-z0-9_\-]+"
+          pattern: "[A-Za-z0-9_-]+"
         author:
           type: object
           readOnly: true
