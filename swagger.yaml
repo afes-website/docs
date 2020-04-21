@@ -597,7 +597,91 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
+  /ogimage:
+    get:
+      summary: generate og image from data
+      tags:
+      - ogimage
+      parameters:
+      - in: query
+        name: title
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: author
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: category
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: bad params
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ogimage/articles/{id}:
+    get:
+      summary: generate og image from article data
+      tags:
+      - ogimage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: id of article
+      - in: query
+        name: title
+        required: false
+        schema:
+          type: string
+        description: override title
+      - in: query
+        name: author
+        required: false
+        schema:
+          type: string
+        description: override author
+      - in: query
+        name: category
+        required: false
+        schema:
+          type: string
+        description: override category
+      responses:
+        200:
+          description: image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: bad params
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Error:
