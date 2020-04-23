@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.0
+  version: 1.6.0
   title: Afes73 website API
 servers:
 - url: https://api.afes.info/
@@ -593,6 +593,101 @@ paths:
                 format: binary
         404:
           description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ogimage:
+    get:
+      summary: generate og image for static page
+      tags:
+      - ogimage
+      parameters:
+      - in: query
+        name: title
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: bad params
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ogimage/articles/{id}:
+    get:
+      summary: generate og image from article data
+      tags:
+      - ogimage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: id of article
+      responses:
+        200:
+          description: image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: bad params
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ogimage/preview:
+    get:
+      summary: generate og image from param data
+      tags:
+      - ogimage
+      parameters:
+      - in: query
+        name: title
+        required: true
+        schema:
+          type: string
+        description: title
+      - in: query
+        name: author
+        required: false
+        schema:
+          type: string
+        description: author
+      - in: query
+        name: category
+        required: false
+        schema:
+          type: string
+        description: category
+      responses:
+        200:
+          description: image
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: bad params
           content:
             application/json:
               schema:
