@@ -514,6 +514,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /blog/categories/:
+    get:
+      summary: get list of categories
+      tags:
+      - blog
+      responses:
+        200:
+          description: list of categories
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  description: id of category
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description:
+                        name of category
+                    visible:
+                      type: boolean
+                      description: 
+                        should show in top-page or not
+        400:
+          description: bad params
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
   /images:
     post:
