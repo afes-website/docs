@@ -537,7 +537,7 @@ paths:
                     visible:
                       type: boolean
                       description: 
-                        should show in top-page or not
+                        whether should be shown on the top page
 
   /images:
     post:
