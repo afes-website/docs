@@ -538,12 +538,6 @@ paths:
                       type: boolean
                       description: 
                         should show in top-page or not
-        400:
-          description: bad params
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 
   /images:
     post:
