@@ -831,6 +831,8 @@ components:
             * `accepted` - Accepted and ready to be published
 
             * `rejected` - Rejected and could not to be published
+
+            * `canceled` - Canceled for revision updated 
       required:
       - id
       - title
