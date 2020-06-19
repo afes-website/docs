@@ -470,6 +470,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    patch:
+      summary: edit the revision
+      description: "create new revision from the specific revision"
+      tags:
+      - blog
+      security:
+      - admin: []
+      requestBody:
+        description: params to filter
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/BlogRevision"
+                - properties:
+                    status:
+                      type: string
+                      readOnly: true
+      responses:
+        201:
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogRevision"
+        400:
+          description: some params are invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      
   /blog/revisions/{id}/accept:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
@@ -769,6 +801,14 @@ components:
           type: string
           pattern: "[A-Za-z0-9_-]+"
         author:
+          type: object
+          readOnly: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        co_author:
           type: object
           readOnly: true
           properties:
