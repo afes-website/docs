@@ -747,6 +747,8 @@ components:
               type: string
             name:
               type: string
+        handle_name:
+          type: string
         revision_id:
           type: integer
           format: int32
@@ -776,6 +778,8 @@ components:
               type: string
             name:
               type: string
+        handle_name:
+          type: string
         timestamp:
           type: string
           format: date-time
