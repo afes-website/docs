@@ -461,6 +461,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: edit the revision
+      description: create new revision based on the specific revision
+      tags:
+      - blog
+      security:
+      - admin: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogRevision"
+      responses:
+        201:
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogRevision"
+        400:
+          description: some params are invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      
   /blog/revisions/{id}/accept:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
