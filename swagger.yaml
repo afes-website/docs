@@ -481,7 +481,12 @@ paths:
         content:
           application/json:
             schema:
-             $ref: "#/components/schemas/BlogRevision"
+              allOf:
+                - $ref: "#/components/schemas/BlogRevision"
+                - properties:
+                    status:
+                      type: string
+                      readOnly: true
       responses:
         201:
           description: created
