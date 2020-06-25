@@ -463,7 +463,7 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: edit the revision
-      description: "create new revision from the specific revision"
+      description: create new revision as specific user with administrator permission
       tags:
       - blog
       security:
