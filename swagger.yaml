@@ -788,6 +788,7 @@ components:
           type: string
         status:
           type: string
+          readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
             * `waiting` - Waiting for acceptance
