@@ -470,7 +470,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    patch:
+    post:
       summary: edit the revision
       description: "create new revision from the specific revision"
       tags:
@@ -478,16 +478,10 @@ paths:
       security:
       - admin: []
       requestBody:
-        description: params to filter
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/BlogRevision"
-                - properties:
-                    status:
-                      type: string
-                      readOnly: true
+             $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
           description: created
@@ -808,14 +802,6 @@ components:
               type: string
             name:
               type: string
-        co_author:
-          type: object
-          readOnly: true
-          properties:
-            id:
-              type: string
-            name:
-              type: string
         timestamp:
           type: string
           format: date-time
@@ -831,8 +817,6 @@ components:
             * `accepted` - Accepted and ready to be published
 
             * `rejected` - Rejected and could not to be published
-
-            * `canceled` - Canceled for revision updated 
       required:
       - id
       - title
