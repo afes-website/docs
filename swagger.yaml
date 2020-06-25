@@ -357,7 +357,6 @@ paths:
             - properties:
                 author_id:
                   type: string
-
         style: form
         explode: true
         required: false
@@ -388,12 +387,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/BlogRevision"
-                - properties:
-                    status:
-                      type: string
-                      readOnly: true
+              $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
           description: created
@@ -420,9 +414,6 @@ paths:
               allOf:
               - $ref: "#/components/schemas/BlogRevision"
               - properties:
-                  status:
-                    type: string
-                    readOnly: true
                   article_id:
                     readOnly: true
       responses:
@@ -788,6 +779,7 @@ components:
           type: string
         status:
           type: string
+          readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
             * `waiting` - Waiting for acceptance
