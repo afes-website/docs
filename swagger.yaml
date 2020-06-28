@@ -769,6 +769,12 @@ components:
         revision_id:
           type: integer
           format: int32
+        good_count:
+          type: integer
+          format: int32
+        bad_count:
+          type: integer
+          format: int32
         created_at:
           type: string
           format: date-time
