@@ -855,8 +855,10 @@ components:
         good_count:
           type: integer
           format: int32
+          readOnly: true
         bad_count:
           type: integer
+          readOnly: true
           format: int32
         created_at:
           type: string
