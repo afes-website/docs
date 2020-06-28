@@ -338,6 +338,89 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /blog/articles/{id}/good:
+    parameters:
+    - $ref: "#/components/parameters/blogArticleId"
+    put:
+      summary: give "good" to article
+      tags:
+      - blog
+      responses:
+        200:
+          description: success
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: Too many attempts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: remove "good" from article
+      tags:
+      - blog
+      responses:
+        200:
+          description: successfully removed
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: Too many attempts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+  /blog/articles/{id}/bad:
+    parameters:
+    - $ref: "#/components/parameters/blogArticleId"
+    put:
+      summary: give "bad" to article
+      tags:
+      - blog
+      responses:
+        200:
+          description: success
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: Too many attempts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: remove "bad" from article
+      tags:
+      - blog
+      responses:
+        200:
+          description: successfully removed
+        404:
+          description: no article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: Too many attempts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
   /blog/revisions/:
     get:
@@ -768,6 +851,14 @@ components:
           type: string
         revision_id:
           type: integer
+          format: int32
+        good_count:
+          type: integer
+          format: int32
+          readOnly: true
+        bad_count:
+          type: integer
+          readOnly: true
           format: int32
         created_at:
           type: string
