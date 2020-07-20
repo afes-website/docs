@@ -195,7 +195,7 @@ paths:
     get:
       summary: get list of articles
       tags:
-      - blog
+      - blog article
       parameters:
       - in: query
         name: filter
@@ -259,7 +259,7 @@ paths:
     get:
       summary: get info of the article
       tags:
-      - blog
+      - blog article
       responses:
         200:
           description: article info
@@ -291,7 +291,7 @@ paths:
       security:
       - admin: []
       tags:
-      - blog
+      - blog article
       requestBody:
         description: data to update
         content:
@@ -328,7 +328,7 @@ paths:
       security:
       - admin: []
       tags:
-      - blog
+      - blog article
       responses:
         204:
           description: remove successful
@@ -344,7 +344,7 @@ paths:
     put:
       summary: give "good" to article
       tags:
-      - blog
+      -  blog article
       responses:
         200:
           description: success
@@ -363,7 +363,7 @@ paths:
     delete:
       summary: remove "good" from article
       tags:
-      - blog
+      - blog article
       responses:
         200:
           description: successfully removed
@@ -386,7 +386,7 @@ paths:
     put:
       summary: give "bad" to article
       tags:
-      - blog
+      - blog article
       responses:
         200:
           description: success
@@ -405,7 +405,7 @@ paths:
     delete:
       summary: remove "bad" from article
       tags:
-      - blog
+      - blog article
       responses:
         200:
           description: successfully removed
@@ -427,7 +427,7 @@ paths:
       summary: get list of revisions
       description: "note: writer can see only owned revision"
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       - blogWriter: []
@@ -462,7 +462,7 @@ paths:
     post:
       summary: create new revision
       tags:
-      - blog
+      - blog revision
       security:
       - blogWriter: []
       requestBody:
@@ -488,7 +488,7 @@ paths:
     post:
       summary: create new contrib
       tags:
-      - blog
+      - blog revision
       requestBody:
         description: params to filter
         content:
@@ -519,7 +519,7 @@ paths:
       summary: get the revision
       description: "note: writer can see only owned revision"
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       - blogWriter: []
@@ -548,7 +548,7 @@ paths:
       summary: edit the revision
       description: create new revision based on the specific revision
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       requestBody:
@@ -569,7 +569,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-      
+
   /blog/revisions/{id}/accept:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
@@ -578,7 +578,7 @@ paths:
       security:
       - admin: []
       tags:
-      - blog
+      - blog revision
       responses:
         200:
           description: operation successful
@@ -600,7 +600,7 @@ paths:
       security:
       - admin: []
       tags:
-      - blog
+      - blog revision
       responses:
         200:
           description: operation successful
@@ -618,7 +618,7 @@ paths:
     get:
       summary: get list of categories
       tags:
-      - blog
+      - blog revision
       responses:
         200:
           description: list of categories
@@ -636,7 +636,7 @@ paths:
                         name of category
                     visible:
                       type: boolean
-                      description: 
+                      description:
                         whether should be shown on the top page
 
   /images:
