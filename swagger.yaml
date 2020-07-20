@@ -379,7 +379,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  
+
   /blog/articles/{id}/bad:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
