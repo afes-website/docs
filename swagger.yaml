@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.7.0
-  title: Afes73 website API
+  title: 73rd Afes website api
 servers:
 - url: https://api.afes.info/
 - url: http://localhost:8000/ # for local test
