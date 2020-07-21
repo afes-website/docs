@@ -422,6 +422,31 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
+  /blog/categories/:
+    get:
+      summary: get list of categories
+      tags:
+      - blog article
+      responses:
+        200:
+          description: list of categories
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  description: id of category
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description:
+                        name of category
+                    visible:
+                      type: boolean
+                      description:
+                        whether should be shown on the top page
+
   /blog/revisions/:
     get:
       summary: get list of revisions
@@ -614,30 +639,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /blog/categories/:
-    get:
-      summary: get list of categories
-      tags:
-      - blog revision
-      responses:
-        200:
-          description: list of categories
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  description: id of category
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description:
-                        name of category
-                    visible:
-                      type: boolean
-                      description:
-                        whether should be shown on the top page
 
   /images:
     post:
