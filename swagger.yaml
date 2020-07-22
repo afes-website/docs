@@ -9,8 +9,8 @@ servers:
 paths:
   /admin/login:
     post:
-      summary: ログイン認証とAPIキーの受け取り
-      description: 5回/分まで試行できます
+      summary: ログイン認証と API キーの受け取り
+      description: 5回/分まで試行可能
       tags:
       - admin auth
       requestBody:
@@ -38,28 +38,28 @@ paths:
                   token:
                     type: string
         401:
-          description: idかパスワードが間違っています
+          description: 認証失敗
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: 試行回数の上限に達しました
+          description: 試行回数の上限に到達
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /admin/user:
     get:
-      summary: ログイン中のAdminの情報の取得
-      description: AdminのAPI KEYから、ログイン中のアカウントのidのnameを取得します
+      summary: ログイン中の Admin の情報の取得
+      description: Admin の API KEY から、アカウント情報を取得
       tags:
       - admin auth
       security:
       - admin: []
       responses:
         200:
-          description: ログイン中のAdminユーザー情報
+          description: ログイン中の Admin ユーザー情報
           content:
             application/json:
               schema:
@@ -73,7 +73,7 @@ paths:
                   name:
                     type: string
         401:
-          description: ログインしていません; 無効なAdmin Tokenです
+          description: Admin Token が無効
           content:
             application/json:
               schema:
@@ -98,9 +98,9 @@ paths:
                   type: string
       responses:
         204:
-          description: パスワードを変更しました
+          description: 処理完了
         400:
-          description: 新しいパスワードが条件を満たしていません
+          description: 新しいパスワードが条件を満たしていない
 
   /writer/login:
     post:
