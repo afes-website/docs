@@ -9,11 +9,11 @@ servers:
 paths:
   /admin/login:
     post:
-      summary: Login and get API Key
+      summary: ログイン認証とAPIキーの受け取り
       tags:
       - admin auth
       requestBody:
-        description: credentials
+        description: 認証情報
         content:
           application/json:
             schema:
@@ -28,7 +28,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Login Successful
+          description: ログイン成功
           content:
             application/json:
               schema:
@@ -37,27 +37,27 @@ paths:
                   token:
                     type: string
         401:
-          description: Login failed
+          description: idかパスワードが間違っています
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many login attempts
+          description: 試行回数の上限に達しました
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /admin/user:
     get:
-      summary: get logged in user info
+      summary: ログイン中のAdminの情報の取得
       tags:
       - admin auth
       security:
       - admin: []
       responses:
         200:
-          description: User info (logged in)
+          description: ログイン中のAdminユーザー情報
           content:
             application/json:
               schema:
@@ -71,20 +71,20 @@ paths:
                   name:
                     type: string
         401:
-          description: Not logged in
+          description: ログインしていません
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /admin/change_password:
     post:
-      summary: Change password
+      summary: パスワード変更
       tags:
       - admin auth
       security:
       - admin: []
       requestBody:
-        description: new password
+        description: 新しいパスワード
         content:
           application/json:
             schema:
@@ -96,9 +96,9 @@ paths:
                   type: string
       responses:
         204:
-          description: password changed successfully
+          description: パスワードを変更しました
         400:
-          description: bad password
+          description: 新しいパスワードが条件を満たしていません
   /writer/login:
     post:
       summary: Login and get API Key
