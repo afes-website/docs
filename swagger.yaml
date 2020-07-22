@@ -10,6 +10,7 @@ paths:
   /admin/login:
     post:
       summary: ログイン認証とAPIキーの受け取り
+      description: 5回/分まで試行できます
       tags:
       - admin auth
       requestBody:
@@ -28,7 +29,7 @@ paths:
                   type: string
       responses:
         200:
-          description: ログイン成功
+          description: Admin api token
           content:
             application/json:
               schema:
@@ -51,6 +52,7 @@ paths:
   /admin/user:
     get:
       summary: ログイン中のAdminの情報の取得
+      description: AdminのAPI KEYから、ログイン中のアカウントのidのnameを取得します
       tags:
       - admin auth
       security:
@@ -71,7 +73,7 @@ paths:
                   name:
                     type: string
         401:
-          description: ログインしていません
+          description: ログインしていません; 無効なAdmin Tokenです
           content:
             application/json:
               schema:
@@ -84,7 +86,7 @@ paths:
       security:
       - admin: []
       requestBody:
-        description: 新しいパスワード
+        description: 新しいパスワード(8文字以上)
         content:
           application/json:
             schema:
