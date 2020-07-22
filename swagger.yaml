@@ -198,7 +198,7 @@ paths:
 
   /blog/articles:
     get:
-      summary: get list of articles
+      summary: article のリストを取得
       tags:
       - blog article
       parameters:
@@ -213,26 +213,31 @@ paths:
         style: form
         explode: true
         required: false
-        description: params to filter
+        description: |
+          article の検索条件
+          AND 検索
       - in: query
         name: summary_length
         schema:
           type: integer
         style: form
         required: false
-        description: >
-          summary will be cut with this length.
-          if omitted, summary won't be limited with length.
+        description: |
+          指定すると、 summary がarticle 本文の指定字数分の部分文字列になる
+          指定しない場合、 summary は article の本文 (content) と同一
       - in: query
         name: q
         schema:
           type: string
         description: |
-          search query
-          article has match in title or content will be returned
+          検索クエリ
+          title, content から検索
+          filter との AND 検索
       responses:
         200:
-          description: list of articles
+          description: |
+            検索条件をすべて満たした article の配列
+            該当するものがない場合は空の配列
           content:
             application/json:
               schema:
@@ -243,6 +248,7 @@ paths:
                   - properties:
                       summary:
                         type: string
+                        description: article 本文より、先頭から summary_length 字分の部分文字列
                   - required:
                     - id
                     - user_id
@@ -253,7 +259,7 @@ paths:
                     - updated_at
                     - summary
         400:
-          description: bad params
+          description: 誤ったパラメータが含まれている
           content:
             application/json:
               schema:
