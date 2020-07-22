@@ -104,11 +104,11 @@ paths:
 
   /writer/login:
     post:
-      summary: Login and get API Key
+      summary: ログイン認証と API キーの受け取り
       tags:
       - writer auth
       requestBody:
-        description: credentials
+        description: 認証情報
         content:
           application/json:
             schema:
@@ -123,7 +123,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Login Successful
+          description: Admin api token
           content:
             application/json:
               schema:
@@ -132,27 +132,28 @@ paths:
                   token:
                     type: string
         401:
-          description: Login failed
+          description: 認証失敗
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many login attempts
+          description: 試行回数の上限に到達
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /writer/user:
     get:
-      summary: get logged in user info
+      summary: ログイン中の Writer の情報の取得
+      description: Writer の API KEY から、アカウント情報を取得
       tags:
       - writer auth
       security:
       - blogWriter: []
       responses:
         200:
-          description: User info (logged in)
+          description: ログイン中のAdminユーザー情報
           content:
             application/json:
               schema:
@@ -173,13 +174,13 @@ paths:
                 $ref: "#/components/schemas/Error"
   /writer/change_password:
     post:
-      summary: Change password
+      summary: パスワード変更
       tags:
       - writer auth
       security:
       - blogWriter: []
       requestBody:
-        description: new password
+        description: 新しいパスワード(8文字以上)
         content:
           application/json:
             schema:
@@ -191,9 +192,9 @@ paths:
                   type: string
       responses:
         204:
-          description: password changed successfully
+          description: 処理完了
         400:
-          description: bad password
+          description: 新しいパスワードが条件を満たしていない
 
   /blog/articles:
     get:
