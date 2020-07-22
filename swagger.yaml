@@ -101,6 +101,7 @@ paths:
           description: パスワードを変更しました
         400:
           description: 新しいパスワードが条件を満たしていません
+
   /writer/login:
     post:
       summary: Login and get API Key
@@ -193,6 +194,7 @@ paths:
           description: password changed successfully
         400:
           description: bad password
+
   /blog/articles:
     get:
       summary: get list of articles
@@ -381,7 +383,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
   /blog/articles/{id}/bad:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
@@ -423,7 +424,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
   /blog/categories/:
     get:
       summary: get list of categories
@@ -563,8 +563,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
-
         404:
           description: no sprcified revision found
           content:
@@ -596,7 +594,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
   /blog/revisions/{id}/accept:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
@@ -724,6 +721,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
   /ogimage:
     get:
       summary: generate og image for static page
@@ -914,6 +912,7 @@ components:
       - user_id
       - timestamp
       - status
+
   parameters:
     blogArticleId:
       in: path
@@ -930,6 +929,7 @@ components:
         type: integer
         format: int32
       description: id of a revision
+
   securitySchemes:
     admin:
       type: apiKey
