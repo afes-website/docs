@@ -268,12 +268,12 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     get:
-      summary: get info of the article
+      summary: article の情報を返す
       tags:
       - blog article
       responses:
         200:
-          description: article info
+          description: article の情報
           content:
             application/json:
               schema:
@@ -292,59 +292,63 @@ paths:
                   - updated_at
                   - content
         404:
-          description: no article found
+          description: id に該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     patch:
-      summary: update the article
+      summary: article を更新する
+      description: |
+        article に対応する要素を渡す事で更新する事ができる
+        一部の要素のみを渡すと、渡された要素のみを更新する
       security:
       - admin: []
       tags:
       - blog article
       requestBody:
-        description: data to update
+        description: 更新したいデータ
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogArticle"
       responses:
         200:
-          description: info of specified revision
+          description: 新しい article の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogArticle"
         400:
-          description: specified revision is not for the article
+          description: 指定された revision の article_id とパスの article_id が一致しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         404:
-          description: no sprcified revision found
+          description: 指定された revision は存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         409:
-          description: specified revision is not accepted
+          description: 指定された revision の状態が accepted でない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove the article
+      summary: article を削除する
+      description: article オブジェクトを削除するのみで revision は削除されない
       security:
       - admin: []
       tags:
       - blog article
       responses:
         204:
-          description: remove successful
+          description: 削除完了 返り値なし
         404:
-          description: no specified revision found
+          description: 指定された article が存在しない
           content:
             application/json:
               schema:
