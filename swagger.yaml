@@ -357,39 +357,39 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     put:
-      summary: give "good" to article
+      summary: article に対して good を押す
       tags:
       -  blog article
       responses:
         200:
-          description: success
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当の article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove "good" from article
+      summary: article から good を1つ除去する
       tags:
       - blog article
       responses:
         200:
-          description: successfully removed
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
@@ -398,67 +398,68 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     put:
-      summary: give "bad" to article
+      summary: article に対して bad を押す
       tags:
       - blog article
       responses:
         200:
-          description: success
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove "bad" from article
+      summary: article から bad を1つ除去する
       tags:
       - blog article
       responses:
         200:
           description: successfully removed
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /blog/categories/:
     get:
-      summary: get list of categories
+      summary: category のリストを取得する
       tags:
       - blog article
       responses:
         200:
-          description: list of categories
+          description: category のリスト
           content:
             application/json:
               schema:
                 type: object
                 additionalProperties:
-                  description: id of category
+                  description: category の ID
                   type: object
                   properties:
                     name:
                       type: string
                       description:
-                        name of category
+                        category の名前
                     visible:
                       type: boolean
-                      description:
-                        whether should be shown on the top page
+                      description: |
+                        top ページのカテゴリー一覧にて表示するか否か
+                        通常、公開されているかどうかを示しています。
 
   /blog/revisions/:
     get:
