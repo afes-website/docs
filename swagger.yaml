@@ -218,7 +218,7 @@ paths:
         explode: true
         required: false
         description: |
-          article の検索条件
+          article の検索条件  
           AND 検索
       - in: query
         name: summary_length
@@ -227,20 +227,20 @@ paths:
         style: form
         required: false
         description: |
-          指定すると、 summary がarticle 本文の指定字数分の部分文字列になる
+          指定すると、 summary がarticle 本文の指定字数分の部分文字列になる  
           指定しない場合、 summary は article の本文 (content) と同一
       - in: query
         name: q
         schema:
           type: string
         description: |
-          検索クエリ
-          title, content から検索
+          検索クエリ  
+          title, content から検索  
           filter との AND 検索
       responses:
         200:
           description: |
-            検索条件をすべて満たした article の配列
+            検索条件をすべて満たした article の配列  
             該当するものがない場合は空の配列
           content:
             application/json:
@@ -304,7 +304,7 @@ paths:
     patch:
       summary: article を更新する
       description: |
-        article に対応する要素を渡す事で更新する事ができる
+        article に対応する要素を渡す事で更新する事ができる  
         一部の要素のみを渡すと、渡された要素のみを更新する
       security:
       - admin: []
@@ -462,14 +462,14 @@ paths:
                     visible:
                       type: boolean
                       description: |
-                        top ページのカテゴリー一覧にて表示するか否か
+                        top ページのカテゴリー一覧にて表示するか否か  
                         通常、公開されているかどうかを示しています。
 
   /blog/revisions/:
     get:
       summary: revision のリストを取得
       description: |
-        admin の場合は 全 revision を取得できる
+        admin の場合は 全 revision を取得できる  
         writer の場合は revision の author と writer の ID が一致するもののみ取得できる
       tags:
       - blog revision
@@ -496,7 +496,7 @@ paths:
       responses:
         200:
           description: |
-            検索条件をすべて満たした revision の配列
+            検索条件をすべて満たした revision の配列  
             該当するものがない場合は空の配列
           content:
             application/json:
@@ -539,13 +539,13 @@ paths:
     post:
       summary: 寄稿を投稿する
       description: |
-        投稿された寄稿は「名もなき麻布生」名義で revision として作成される
+        投稿された寄稿は「名もなき麻布生」名義で revision として作成される  
         「名もなき麻布生」 は ID anonymous, password は空文字列のものを用意する
       tags:
       - blog revision
       requestBody:
         description: |
-          投稿したい寄稿の情報
+          投稿したい寄稿の情報  
           article_id: バックエンド側で重複しないように「contrib_(英数列5文字)」となるように設定する
         content:
           application/json:
@@ -601,7 +601,7 @@ paths:
     post:
       summary: revision を編集する
       description: |
-        指定された revision を元に新たに revision を作成する
+        指定された revision を元に新たに revision を作成する  
         指定された元の revision は更新されない
       tags:
       - blog revision
@@ -609,7 +609,7 @@ paths:
       - admin: []
       requestBody:
         description: |
-          更新したい情報
+          更新したい情報  
           指定されなかった要素がある場合は、元の revision と同一の内容になる
         content:
           application/json:
@@ -696,7 +696,7 @@ paths:
       responses:
         201:
           description: |
-            image の id
+            image の id  
             id: 自動生成のランダムな40文字の英数列
           content:
             application/json:
@@ -805,8 +805,8 @@ paths:
       responses:
         200:
           description: |
-            画像
-            title: `\n`または改行コードが含まれている場合改行される
+            画像  
+            title: `\n`または改行コードが含まれている場合改行される  
             author: article に handle_name が設定されている場合、 handle_name が代わりに表示される
           content:
             image/*:
