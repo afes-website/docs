@@ -948,11 +948,11 @@ components:
           readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
-            * `waiting` - admin の審査待ちの状態
+            * `waiting` - admin の審査待ち
 
-            * `accepted` - 承認された状態 この状態の revision のみ公開できる
+            * `accepted` - 承認済 この状態の revision のみ公開可能
 
-            * `rejected` - 公開が拒否された状態
+            * `rejected` - 却下済
       required:
       - id
       - title
