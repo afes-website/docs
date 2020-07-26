@@ -98,7 +98,7 @@ paths:
                   type: string
       responses:
         204:
-          description: 処理完了
+          description: 成功 返り値なし
         400:
           description: 新しいパスワードが条件を満たしていない
 
@@ -192,7 +192,7 @@ paths:
                   type: string
       responses:
         204:
-          description: 処理完了
+          description: 成功 返り値なし
         400:
           description: 新しいパスワードが条件を満たしていない
 
@@ -350,7 +350,7 @@ paths:
       - blog article
       responses:
         204:
-          description: 削除完了 返り値なし
+          description: 成功 返り値なし
         404:
           description: 指定された article が存在しない
           content:
@@ -524,7 +524,7 @@ paths:
               $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
-          description: 完了
+          description: revision の情報
           content:
             application/json:
               schema:
@@ -557,7 +557,7 @@ paths:
                     readOnly: true
       responses:
         201:
-          description: 投稿完了
+          description: revision の情報
           content:
             application/json:
               schema:
@@ -662,7 +662,7 @@ paths:
       - blog revision
       responses:
         200:
-          description: 成功
+          description: 成功 返り値なし
           content:
             application/json:
               schema:
@@ -948,7 +948,7 @@ components:
           readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
-            * `waiting` - admin の審査まちの状態
+            * `waiting` - admin の審査待ちの状態
 
             * `accepted` - 承認された状態 この状態の revision のみ公開できる
 
