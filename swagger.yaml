@@ -1,19 +1,20 @@
 openapi: 3.0.0
 info:
   version: 1.7.0
-  title: Afes73 website API
+  title: 73rd Afes website API
 servers:
 - url: https://api.afes.info/
 - url: http://localhost:8000/ # for local test
 
 paths:
-  /admin/login:
+  /admin/login/:
     post:
-      summary: Login and get API Key
+      summary: ログイン認証と admin API token の受け取り
+      description: 5回/分まで試行可能
       tags:
       - admin auth
       requestBody:
-        description: credentials
+        description: 認証情報
         content:
           application/json:
             schema:
@@ -28,7 +29,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Login Successful
+          description: admin API token
           content:
             application/json:
               schema:
@@ -37,27 +38,28 @@ paths:
                   token:
                     type: string
         401:
-          description: Login failed
+          description: 認証失敗
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many login attempts
+          description: 試行回数の上限に到達
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /admin/user:
+  /admin/user/:
     get:
-      summary: get logged in user info
+      summary: ログイン中の admin の情報の取得
+      description: admin API token から、アカウント情報を取得
       tags:
       - admin auth
       security:
       - admin: []
       responses:
         200:
-          description: User info (logged in)
+          description: ログイン中の admin ユーザー情報
           content:
             application/json:
               schema:
@@ -71,20 +73,20 @@ paths:
                   name:
                     type: string
         401:
-          description: Not logged in
+          description: admin API Token が無効
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /admin/change_password:
+  /admin/change_password/:
     post:
-      summary: Change password
+      summary: パスワード変更
       tags:
       - admin auth
       security:
       - admin: []
       requestBody:
-        description: new password
+        description: 新しいパスワード(8文字以上)
         content:
           application/json:
             schema:
@@ -96,16 +98,17 @@ paths:
                   type: string
       responses:
         204:
-          description: password changed successfully
+          description: 成功 返り値なし
         400:
-          description: bad password
-  /writer/login:
+          description: 新しいパスワードが条件を満たしていない
+
+  /writer/login/:
     post:
-      summary: Login and get API Key
+      summary: ログイン認証と writer API token の受け取り
       tags:
       - writer auth
       requestBody:
-        description: credentials
+        description: 認証情報
         content:
           application/json:
             schema:
@@ -120,7 +123,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Login Successful
+          description: writer API token
           content:
             application/json:
               schema:
@@ -129,27 +132,28 @@ paths:
                   token:
                     type: string
         401:
-          description: Login failed
+          description: 認証失敗
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many login attempts
+          description: 試行回数の上限に到達
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /writer/user:
+  /writer/user/:
     get:
-      summary: get logged in user info
+      summary: ログイン中の writer の情報の取得
+      description: writer API token から、アカウント情報を取得
       tags:
       - writer auth
       security:
       - blogWriter: []
       responses:
         200:
-          description: User info (logged in)
+          description: ログイン中の writer ユーザー情報
           content:
             application/json:
               schema:
@@ -163,20 +167,20 @@ paths:
                   name:
                     type: string
         401:
-          description: Not logged in
+          description: writer API token が無効
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /writer/change_password:
+  /writer/change_password/:
     post:
-      summary: Change password
+      summary: パスワード変更
       tags:
       - writer auth
       security:
       - blogWriter: []
       requestBody:
-        description: new password
+        description: 新しいパスワード(8文字以上)
         content:
           application/json:
             schema:
@@ -188,14 +192,15 @@ paths:
                   type: string
       responses:
         204:
-          description: password changed successfully
+          description: 成功 返り値なし
         400:
-          description: bad password
-  /blog/articles:
+          description: 新しいパスワードが条件を満たしていない
+
+  /blog/articles/:
     get:
-      summary: get list of articles
+      summary: article のリストを取得
       tags:
-      - blog
+      - blog article
       parameters:
       - in: query
         name: filter
@@ -205,29 +210,38 @@ paths:
           - properties:
               author_id:
                 type: string
+              created_at:
+                readOnly: true
+              updated_at:
+                readOnly: true
         style: form
         explode: true
         required: false
-        description: params to filter
+        description: |
+          article の検索条件  
+          AND 検索
       - in: query
         name: summary_length
         schema:
           type: integer
         style: form
         required: false
-        description: >
-          summary will be cut with this length.
-          if omitted, summary won't be limited with length.
+        description: |
+          指定すると、 summary がarticle 本文の指定字数分の部分文字列になる  
+          指定しない場合、 summary は article の本文 (content) と同一
       - in: query
         name: q
         schema:
           type: string
         description: |
-          search query
-          article has match in title or content will be returned
+          検索クエリ  
+          title, content から検索  
+          filter との AND 検索
       responses:
         200:
-          description: list of articles
+          description: |
+            検索条件をすべて満たした article の配列  
+            該当するものがない場合は空の配列
           content:
             application/json:
               schema:
@@ -238,6 +252,7 @@ paths:
                   - properties:
                       summary:
                         type: string
+                        description: article 本文より、先頭から summary_length 字分の部分文字列
                   - required:
                     - id
                     - user_id
@@ -248,7 +263,7 @@ paths:
                     - updated_at
                     - summary
         400:
-          description: bad params
+          description: 誤ったパラメータが含まれている
           content:
             application/json:
               schema:
@@ -257,12 +272,12 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     get:
-      summary: get info of the article
+      summary: article の情報を返す
       tags:
-      - blog
+      - blog article
       responses:
         200:
-          description: article info
+          description: article の情報
           content:
             application/json:
               schema:
@@ -281,153 +296,183 @@ paths:
                   - updated_at
                   - content
         404:
-          description: no article found
+          description: ID に該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     patch:
-      summary: update the article
+      summary: article を更新する
+      description: |
+        article に対応する要素を渡す事で更新する事ができる  
+        一部の要素のみを渡すと、渡された要素のみを更新する
       security:
       - admin: []
       tags:
-      - blog
+      - blog article
       requestBody:
-        description: data to update
+        description: 更新したいデータ
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogArticle"
       responses:
         200:
-          description: info of specified revision
+          description: 新しい article の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogArticle"
         400:
-          description: specified revision is not for the article
+          description: 指定された revision の article_id とパスの article_id が一致しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         404:
-          description: no sprcified revision found
+          description: 指定された revision は存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         409:
-          description: specified revision is not accepted
+          description: 指定された revision の状態が accepted でない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove the article
+      summary: article を削除する
+      description: article オブジェクトを削除するのみで revision は削除されない
       security:
       - admin: []
       tags:
-      - blog
+      - blog article
       responses:
         204:
-          description: remove successful
+          description: 成功 返り値なし
         404:
-          description: no specified revision found
+          description: 指定された article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /blog/articles/{id}/good:
+  /blog/articles/{id}/good/:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     put:
-      summary: give "good" to article
+      summary: article に対して good を押す
       tags:
-      - blog
+      -  blog article
       responses:
         200:
-          description: success
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当の article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove "good" from article
+      summary: article から good を1つ除去する
       tags:
-      - blog
+      - blog article
       responses:
         200:
-          description: successfully removed
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  
-  /blog/articles/{id}/bad:
+  /blog/articles/{id}/bad/:
     parameters:
     - $ref: "#/components/parameters/blogArticleId"
     put:
-      summary: give "bad" to article
+      summary: article に対して bad を押す
       tags:
-      - blog
+      - blog article
       responses:
         200:
-          description: success
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     delete:
-      summary: remove "bad" from article
+      summary: article から bad を1つ除去する
       tags:
-      - blog
+      - blog article
       responses:
         200:
-          description: successfully removed
+          description: 成功 返り値なし
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         429:
-          description: Too many attempts
+          description: リクエスト過多(具体的な値は未定)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /blog/categories/:
+    get:
+      summary: category のリストを取得する
+      tags:
+      - blog article
+      responses:
+        200:
+          description: category のリスト
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  description: category の ID
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description:
+                        category の名前
+                    visible:
+                      type: boolean
+                      description: |
+                        top ページのカテゴリー一覧にて表示するか否か  
+                        通常、公開されているかどうかを示しています。
 
   /blog/revisions/:
     get:
-      summary: get list of revisions
-      description: "note: writer can see only owned revision"
+      summary: revision のリストを取得
+      description: |
+        admin の場合は 全 revision を取得できる  
+        writer の場合は revision の author と writer が一致するもののみ取得できる
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       - blogWriter: []
@@ -440,13 +485,19 @@ paths:
             - properties:
                 author_id:
                   type: string
+                timestamp:
+                  readOnly: false
         style: form
         explode: true
         required: false
-        description: params to filter
+        description: |
+          revision の検索条件
+          AND 検索
       responses:
         200:
-          description: list of revisions
+          description: |
+            検索条件をすべて満たした revision の配列  
+            該当するものがない場合は空の配列
           content:
             application/json:
               schema:
@@ -454,43 +505,48 @@ paths:
                 items:
                   $ref: "#/components/schemas/BlogRevision"
         400:
-          description: bad params
+          description: 誤ったパラメータが含まれている
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: create new revision
+      summary: 新しい revision を作る
       tags:
-      - blog
+      - blog revision
       security:
       - blogWriter: []
       requestBody:
-        description: params to filter
+        description: 作成したい revision の情報
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
-          description: created
+          description: revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに過不足がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /blog/revisions/contrib/:
     post:
-      summary: create new contrib
+      summary: 寄稿を投稿する
+      description: |
+        投稿された寄稿は「名もなき麻布生」名義で revision として作成される  
+        「名もなき麻布生」 は ID anonymous, password は空文字列のものを用意する
       tags:
-      - blog
+      - blog revision
       requestBody:
-        description: params to filter
+        description: |
+          投稿したい寄稿の情報  
+          article_id: バックエンド側で重複しないように「contrib_(英数列5文字)」となるように設定する
         content:
           application/json:
             schema:
@@ -501,13 +557,13 @@ paths:
                     readOnly: true
       responses:
         201:
-          description: created
+          description: revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに誤りがある
           content:
             application/json:
               schema:
@@ -516,138 +572,117 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     get:
-      summary: get the revision
-      description: "note: writer can see only owned revision"
+      summary: revision を取得する
+      description: writer の場合、 自身が author ではない revision は取得できない
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       - blogWriter: []
       responses:
         200:
-          description: info of specified revision
+          description: revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         403:
-          description: the revision could not be seen by the user
+          description: 該当する revision の閲覧権限がない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
-
         404:
-          description: no sprcified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: edit the revision
-      description: create new revision based on the specific revision
+      summary: revision を編集する
+      description: |
+        指定された revision を元に新たに revision を作成する  
+        指定された元の revision は更新されない
       tags:
-      - blog
+      - blog revision
       security:
       - admin: []
       requestBody:
+        description: |
+          更新したい情報  
+          指定されなかった要素がある場合は、元の revision と同一の内容になる
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
-          description: created
+          description: 新しい revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-      
-  /blog/revisions/{id}/accept:
+  /blog/revisions/{id}/accept/:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
-      summary: accept the revision
+      summary: revision を承認する
+      description: revision の status を accept にする
       security:
       - admin: []
       tags:
-      - blog
+      - blog revision
       responses:
         200:
-          description: operation successful
+          description: 新しい revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         404:
-          description: no specified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /blog/revisions/{id}/reject:
+  /blog/revisions/{id}/reject/:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
-      summary: reject the revision
+      summary: revision を拒否する
       security:
       - admin: []
       tags:
-      - blog
+      - blog revision
       responses:
         200:
-          description: operation successful
+          description: 成功 返り値なし
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         404:
-          description: no specified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /blog/categories/:
-    get:
-      summary: get list of categories
-      tags:
-      - blog
-      responses:
-        200:
-          description: list of categories
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  description: id of category
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description:
-                        name of category
-                    visible:
-                      type: boolean
-                      description: 
-                        whether should be shown on the top page
 
-  /images:
+  /images/:
     post:
-      summary: upload new image
+      summary: 新しい image を投稿する
       tags:
       - images
       security:
       - blogWriter: []
       requestBody:
-        description: params to filter
+        description: image の情報
         content:
           multipart/form-data:
             schema:
@@ -660,7 +695,9 @@ paths:
               - content
       responses:
         201:
-          description: created
+          description: |
+            image の ID  
+            id: 自動生成のランダムな40文字の英数列
           content:
             application/json:
               schema:
@@ -671,14 +708,19 @@ paths:
                 required:
                 - id
         400:
-          description: some params are invalid / content is not an image
+          description: パラメータに問題があるか、アップロードされたものが画像でない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /images/{id}:
+  /images/{id}/:
     get:
-      summary: get image
+      summary: ID から image を取得する
+      description: |
+        orig を指定すると、アップロードされた元サイズの画像が取得される  
+        幅・高さの両方を指定すると、縦横でそれぞれ拡大縮小をする  
+        幅・高さの片方を指定すると、画像全体を適切に拡大縮小する  
+        すべて指定しない場合は、縦幅が最大600、横幅が最大1080になるように設定される  
       tags:
       - images
       parameters:
@@ -687,26 +729,26 @@ paths:
         required: true
         schema:
           type: string
-        description: id of an image
+        description: image の ID
       - in: query
         name: w
         required: false
         schema:
           type: integer
-        description: width of image
+        description: image の幅
       - in: query
         name: h
         required: false
         schema:
           type: integer
-        description: height of image
+        description: image の高さ
       - in: query
         name: orig
         required: false
         schema:
           type: string
           enum: ['yes']
-        description: whether you want to get original image
+        description: オリジナルの画像を取得するかどうか
       responses:
         200:
           description: content
@@ -716,39 +758,41 @@ paths:
                 type: string
                 format: binary
         404:
-          description: not found
+          description: 指定された image が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /ogimage:
+
+  /ogimage/:
     get:
-      summary: generate og image for static page
+      summary: 固定ページ用の ogimage を生成する
       tags:
       - ogimage
       parameters:
       - in: query
         name: title
+        description: タイトル `\n` または `%0A` で改行
         required: true
         schema:
           type: string
       responses:
         200:
-          description: image
+          description: 画像
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /ogimage/articles/{id}:
     get:
-      summary: generate og image from article data
+      summary: article から ogimage を生成する
       tags:
       - ogimage
       parameters:
@@ -757,30 +801,33 @@ paths:
         required: true
         schema:
           type: string
-        description: id of article
+        description: article の ID
       responses:
         200:
-          description: image
+          description: |
+            画像  
+            title: `\n` または `%0A` で改行  
+            author: article に handle_name が設定されている場合、 handle_name が代わりに表示される
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /ogimage/preview:
+  /ogimage/preview/:
     get:
-      summary: generate og image from param data
+      summary: ogimage を指定されたパラメータから生成する
       tags:
       - ogimage
       parameters:
@@ -789,13 +836,13 @@ paths:
         required: true
         schema:
           type: string
-        description: title
+        description: title `\n` または `%0A` で改行
       - in: query
         name: author
         required: false
         schema:
           type: string
-        description: author
+        description: author (handle_name 設定時は handle_name)
       - in: query
         name: category
         required: false
@@ -804,14 +851,14 @@ paths:
         description: category
       responses:
         200:
-          description: image
+          description: 画像
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
@@ -863,9 +910,11 @@ components:
         created_at:
           type: string
           format: date-time
+          readOnly: true
         updated_at:
           type: string
           format: date-time
+          readOnly: true
     BlogRevision:
       type: object
       properties:
@@ -899,11 +948,11 @@ components:
           readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
-            * `waiting` - Waiting for acceptance
+            * `waiting` - admin の審査待ち
 
-            * `accepted` - Accepted and ready to be published
+            * `accepted` - 承認済 この状態の revision のみ公開可能
 
-            * `rejected` - Rejected and could not to be published
+            * `rejected` - 却下済
       required:
       - id
       - title
@@ -911,6 +960,7 @@ components:
       - user_id
       - timestamp
       - status
+
   parameters:
     blogArticleId:
       in: path
@@ -918,7 +968,7 @@ components:
       required: true
       schema:
         type: string
-      description: id of an article
+      description: article の ID
     blogRevisionId:
       in: path
       name: id
@@ -926,15 +976,16 @@ components:
       schema:
         type: integer
         format: int32
-      description: id of a revision
+      description: revision の ID
+
   securitySchemes:
     admin:
       type: apiKey
       in: header
       name: X-ADMIN-TOKEN
-      description: Credentials or access token for API
+      description: API token の情報
     blogWriter:
       type: apiKey
       in: header
       name: X-BLOG-WRITER-TOKEN
-      description: Credentials or access token for API
+      description: API token の情報
