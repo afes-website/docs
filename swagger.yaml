@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.7.0
-  title: 73rd Afes website api
+  title: 73rd Afes website API
 servers:
 - url: https://api.afes.info/
 - url: http://localhost:8000/ # for local test
@@ -9,7 +9,7 @@ servers:
 paths:
   /admin/login/:
     post:
-      summary: ログイン認証と API キーの受け取り
+      summary: ログイン認証と Admin API token の受け取り
       description: 5回/分まで試行可能
       tags:
       - admin auth
@@ -29,7 +29,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Admin api token
+          description: Admin API token
           content:
             application/json:
               schema:
@@ -51,15 +51,15 @@ paths:
                 $ref: "#/components/schemas/Error"
   /admin/user/:
     get:
-      summary: ログイン中の Admin の情報の取得
-      description: Admin の API KEY から、アカウント情報を取得
+      summary: ログイン中の admin の情報の取得
+      description: admin API token から、アカウント情報を取得
       tags:
       - admin auth
       security:
       - admin: []
       responses:
         200:
-          description: ログイン中の Admin ユーザー情報
+          description: ログイン中の admin ユーザー情報
           content:
             application/json:
               schema:
@@ -73,7 +73,7 @@ paths:
                   name:
                     type: string
         401:
-          description: Admin Token が無効
+          description: admin API Token が無効
           content:
             application/json:
               schema:
@@ -104,7 +104,7 @@ paths:
 
   /writer/login/:
     post:
-      summary: ログイン認証と API キーの受け取り
+      summary: ログイン認証と writer API token の受け取り
       tags:
       - writer auth
       requestBody:
@@ -123,7 +123,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Admin api token
+          description: writer API token
           content:
             application/json:
               schema:
@@ -146,14 +146,14 @@ paths:
   /writer/user/:
     get:
       summary: ログイン中の Writer の情報の取得
-      description: Writer の API KEY から、アカウント情報を取得
+      description: Writer API token から、アカウント情報を取得
       tags:
       - writer auth
       security:
       - blogWriter: []
       responses:
         200:
-          description: ログイン中のAdminユーザー情報
+          description: ログイン中の writer ユーザー情報
           content:
             application/json:
               schema:
@@ -470,7 +470,7 @@ paths:
       summary: revision のリストを取得
       description: |
         admin の場合は 全 revision を取得できる  
-        writer の場合は revision の author と writer の ID が一致するもののみ取得できる
+        writer の場合は revision の author と writer が一致するもののみ取得できる
       tags:
       - blog revision
       security:
@@ -573,7 +573,7 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     get:
       summary: revision を取得する
-      description: writer の場合、user_id が一致していない revision は取得できない
+      description: writer の場合、 自身が author ではない revision は取得できない
       tags:
       - blog revision
       security:
@@ -772,7 +772,7 @@ paths:
       parameters:
       - in: query
         name: title
-        description: タイトル `\n`または改行コードで改行
+        description: タイトル `\n` または `%0A` で改行
         required: true
         schema:
           type: string
@@ -836,7 +836,7 @@ paths:
         required: true
         schema:
           type: string
-        description: title `\n`または改行コードで改行
+        description: title `\n` または `%0A` で改行
       - in: query
         name: author
         required: false
