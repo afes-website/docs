@@ -748,7 +748,7 @@ paths:
         schema:
           type: string
           enum: ['yes']
-        description: オリジナルの画像を取得するかどうか
+        description: 指定した場合、オリジナルの画像が返ってくる
       responses:
         200:
           description: content
