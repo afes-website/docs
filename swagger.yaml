@@ -422,7 +422,7 @@ paths:
       - blog article
       responses:
         200:
-          description: successfully removed
+          description: 成功 返り値なし
         404:
           description: 該当する article が存在しない
           content:
@@ -463,8 +463,10 @@ paths:
 
   /blog/revisions/:
     get:
-      summary: get list of revisions
-      description: "note: writer can see only owned revision"
+      summary: revision のリストを取得
+      description: |
+        admin の場合は 全 revision を取得できる
+        writer の場合は revision の author と writer の ID が一致するもののみ取得できる
       tags:
       - blog revision
       security:
@@ -482,10 +484,14 @@ paths:
         style: form
         explode: true
         required: false
-        description: params to filter
+        description: |
+          revision の検索条件
+          AND 検索
       responses:
         200:
-          description: list of revisions
+          description: |
+            検索条件をすべて満たした revision の配列
+            該当するものがない場合は空の配列
           content:
             application/json:
               schema:
@@ -493,43 +499,48 @@ paths:
                 items:
                   $ref: "#/components/schemas/BlogRevision"
         400:
-          description: bad params
+          description: 誤ったパラメータが含まれている
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: create new revision
+      summary: 新しい revision を作る
       tags:
       - blog revision
       security:
       - blogWriter: []
       requestBody:
-        description: params to filter
+        description: 作成したい revision の情報
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
-          description: created
+          description: 完了
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに過不足がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /blog/revisions/contrib/:
     post:
-      summary: create new contrib
+      summary: 寄稿を投稿する
+      description: |
+        投稿された寄稿は「名もなき麻布生」名義で revision として作成される
+        「名もなき麻布生」 は ID anonymous, password は空文字列のものを用意する
       tags:
       - blog revision
       requestBody:
-        description: params to filter
+        description: |
+          投稿したい寄稿の情報
+          article_id: バックエンド側で重複しないように「contrib_(英数列5文字)」となるように設定する
         content:
           application/json:
             schema:
@@ -540,13 +551,13 @@ paths:
                     readOnly: true
       responses:
         201:
-          description: created
+          description: 投稿完了
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに誤りがある
           content:
             application/json:
               schema:
@@ -555,8 +566,8 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     get:
-      summary: get the revision
-      description: "note: writer can see only owned revision"
+      summary: revision を取得する
+      description: writer の場合、user_id が一致していない revision は取得できない
       tags:
       - blog revision
       security:
@@ -564,44 +575,49 @@ paths:
       - blogWriter: []
       responses:
         200:
-          description: info of specified revision
+          description: revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         403:
-          description: the revision could not be seen by the user
+          description: 該当する revision の閲覧権限がない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         404:
-          description: no sprcified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: edit the revision
-      description: create new revision based on the specific revision
+      summary: revision を編集する
+      description: |
+        指定された revision を元に新たに revision を作成する
+        指定された元の revision は更新されない
       tags:
       - blog revision
       security:
       - admin: []
       requestBody:
+        description: |
+          更新したい情報
+          指定されなかった要素がある場合は、元の revision と同一の内容になる
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/BlogRevision"
       responses:
         201:
-          description: created
+          description: 新しい revision の情報
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         400:
-          description: some params are invalid
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
@@ -610,14 +626,15 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
-      summary: accept the revision
+      summary: revision を承認する
+      description: revision の status を accept にする
       security:
       - admin: []
       tags:
       - blog revision
       responses:
         200:
-          description: operation successful
+          description: 新しい revision の情報
           content:
             application/json:
               schema:
@@ -632,20 +649,20 @@ paths:
     parameters:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
-      summary: reject the revision
+      summary: revision を拒否する
       security:
       - admin: []
       tags:
       - blog revision
       responses:
         200:
-          description: operation successful
+          description: 成功
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         404:
-          description: no specified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
@@ -653,13 +670,13 @@ paths:
 
   /images:
     post:
-      summary: upload new image
+      summary: 新しい imgae を投稿する
       tags:
       - images
       security:
       - blogWriter: []
       requestBody:
-        description: params to filter
+        description: image の情報
         content:
           multipart/form-data:
             schema:
@@ -672,7 +689,9 @@ paths:
               - content
       responses:
         201:
-          description: created
+          description: |
+            image の id
+            id: 自動生成のランダムな40文字の英数列
           content:
             application/json:
               schema:
@@ -683,14 +702,19 @@ paths:
                 required:
                 - id
         400:
-          description: some params are invalid / content is not an image
+          description: パラメータに問題があるが、アップロードされたものが画像でない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /images/{id}:
     get:
-      summary: get image
+      summary: |
+        id から image を取得する
+        original を指定すると、アップロードされた元ファイルの画像が取得される
+        幅・高さの両方を指定すると、縦横でそれぞれ拡大縮小をする
+        幅・高さの片方を指定すると、画像全体を適切に拡大縮小する
+        すべて指定しない場合は、縦幅が最大600、横幅が最大1080になるように設定される
       tags:
       - images
       parameters:
@@ -699,26 +723,26 @@ paths:
         required: true
         schema:
           type: string
-        description: id of an image
+        description: image の id
       - in: query
         name: w
         required: false
         schema:
           type: integer
-        description: width of image
+        description: image の幅
       - in: query
         name: h
         required: false
         schema:
           type: integer
-        description: height of image
+        description: image の高さ
       - in: query
         name: orig
         required: false
         schema:
           type: string
           enum: ['yes']
-        description: whether you want to get original image
+        description: オリジナルの画像を取得するかどうか
       responses:
         200:
           description: content
@@ -728,7 +752,7 @@ paths:
                 type: string
                 format: binary
         404:
-          description: not found
+          description: 指定された image が存在しない
           content:
             application/json:
               schema:
@@ -736,32 +760,33 @@ paths:
 
   /ogimage:
     get:
-      summary: generate og image for static page
+      summary: 固定ページ用の ogimage を生成する
       tags:
       - ogimage
       parameters:
       - in: query
         name: title
+        description: タイトル `\n`または改行コードで改行
         required: true
         schema:
           type: string
       responses:
         200:
-          description: image
+          description: 画像
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /ogimage/articles/{id}:
     get:
-      summary: generate og image from article data
+      summary: article から ogimage を生成する
       tags:
       - ogimage
       parameters:
@@ -770,30 +795,33 @@ paths:
         required: true
         schema:
           type: string
-        description: id of article
+        description: article の id
       responses:
         200:
-          description: image
+          description: |
+            画像
+            title: `\n`または改行コードが含まれている場合改行される
+            author: article に handle_name が設定されている場合、 handle_name が代わりに表示される
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         404:
-          description: no article found
+          description: 該当する article が存在しない
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
   /ogimage/preview:
     get:
-      summary: generate og image from param data
+      summary: ogimage を指定されたパラメータから生成する
       tags:
       - ogimage
       parameters:
@@ -802,13 +830,13 @@ paths:
         required: true
         schema:
           type: string
-        description: title
+        description: title `\n`または改行コードで改行
       - in: query
         name: author
         required: false
         schema:
           type: string
-        description: author
+        description: author (handle_name 設定時は handle_name)
       - in: query
         name: category
         required: false
@@ -817,14 +845,14 @@ paths:
         description: category
       responses:
         200:
-          description: image
+          description: 画像
           content:
             image/*:
               schema:
                 type: string
                 format: binary
         400:
-          description: bad params
+          description: パラメータに不備がある
           content:
             application/json:
               schema:
