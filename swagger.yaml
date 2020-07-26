@@ -806,7 +806,7 @@ paths:
         200:
           description: |
             画像  
-            title: `\n` または `%0A` で改行
+            title: `\n` または `%0A` で改行  
             author: article に handle_name が設定されている場合、 handle_name が代わりに表示される
           content:
             image/*:
