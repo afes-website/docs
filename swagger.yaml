@@ -708,7 +708,7 @@ paths:
                 required:
                 - id
         400:
-          description: パラメータに問題があるが、アップロードされたものが画像でない
+          description: パラメータに問題があるか、アップロードされたものが画像でない
           content:
             application/json:
               schema:
