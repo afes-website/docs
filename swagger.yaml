@@ -485,6 +485,8 @@ paths:
             - properties:
                 author_id:
                   type: string
+                timestamp:
+                  readOnly: false
         style: form
         explode: true
         required: false
