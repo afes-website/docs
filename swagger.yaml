@@ -646,7 +646,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/BlogRevision"
         404:
-          description: no specified revision found
+          description: 該当する revision が存在しない
           content:
             application/json:
               schema:
