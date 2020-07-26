@@ -9,7 +9,7 @@ servers:
 paths:
   /admin/login/:
     post:
-      summary: ログイン認証と Admin API token の受け取り
+      summary: ログイン認証と admin API token の受け取り
       description: 5回/分まで試行可能
       tags:
       - admin auth
@@ -29,7 +29,7 @@ paths:
                   type: string
       responses:
         200:
-          description: Admin API token
+          description: admin API token
           content:
             application/json:
               schema:
@@ -145,8 +145,8 @@ paths:
                 $ref: "#/components/schemas/Error"
   /writer/user/:
     get:
-      summary: ログイン中の Writer の情報の取得
-      description: Writer API token から、アカウント情報を取得
+      summary: ログイン中の writer の情報の取得
+      description: writer API token から、アカウント情報を取得
       tags:
       - writer auth
       security:
