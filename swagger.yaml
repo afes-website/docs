@@ -948,11 +948,11 @@ components:
           readOnly: true
           enum: [waiting, accepted, rejected]
           description: >
-            * `waiting` - Waiting for acceptance
+            * `waiting` - admin の審査まちの状態
 
-            * `accepted` - Accepted and ready to be published
+            * `accepted` - 承認された状態 この状態の revision のみ公開できる
 
-            * `rejected` - Rejected and could not to be published
+            * `rejected` - 公開が拒否された状態
       required:
       - id
       - title
@@ -968,7 +968,7 @@ components:
       required: true
       schema:
         type: string
-      description: id of an article
+      description: article の ID
     blogRevisionId:
       in: path
       name: id
@@ -976,16 +976,16 @@ components:
       schema:
         type: integer
         format: int32
-      description: id of a revision
+      description: revision の ID
 
   securitySchemes:
     admin:
       type: apiKey
       in: header
       name: X-ADMIN-TOKEN
-      description: Credentials or access token for API
+      description: API token の情報
     blogWriter:
       type: apiKey
       in: header
       name: X-BLOG-WRITER-TOKEN
-      description: Credentials or access token for API
+      description: API token の情報
