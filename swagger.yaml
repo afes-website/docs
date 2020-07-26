@@ -296,7 +296,7 @@ paths:
                   - updated_at
                   - content
         404:
-          description: id に該当する article が存在しない
+          description: ID に該当する article が存在しない
           content:
             application/json:
               schema:
@@ -696,7 +696,7 @@ paths:
       responses:
         201:
           description: |
-            image の id  
+            image の ID  
             id: 自動生成のランダムな40文字の英数列
           content:
             application/json:
@@ -715,7 +715,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /images/{id}/:
     get:
-      summary: id から image を取得する
+      summary: ID から image を取得する
       description: |
         original を指定すると、アップロードされた元ファイルの画像が取得される  
         幅・高さの両方を指定すると、縦横でそれぞれ拡大縮小をする  
@@ -729,7 +729,7 @@ paths:
         required: true
         schema:
           type: string
-        description: image の id
+        description: image の ID
       - in: query
         name: w
         required: false
@@ -801,7 +801,7 @@ paths:
         required: true
         schema:
           type: string
-        description: article の id
+        description: article の ID
       responses:
         200:
           description: |
