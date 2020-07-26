@@ -210,6 +210,10 @@ paths:
           - properties:
               author_id:
                 type: string
+              created_at:
+                readOnly: true
+              updated_at:
+                readOnly: true
         style: form
         explode: true
         required: false
@@ -904,9 +908,11 @@ components:
         created_at:
           type: string
           format: date-time
+          readOnly: true
         updated_at:
           type: string
           format: date-time
+          readOnly: true
     BlogRevision:
       type: object
       properties:
