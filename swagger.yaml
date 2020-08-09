@@ -957,17 +957,17 @@ paths:
           予約情報の検索条件  
           AND 検索
       responses:
-          200:
-            description: |
-              検索条件をすべて満たした article の配列   
-              該当するものがない場合は空の配列  
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    allOf:
-                    - $ref: "#/components/schemas/reservationInfo"
+        200:
+          description: |
+            検索条件をすべて満たした予約情報の配列   
+            該当するものがない場合は空の配列  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                  - $ref: "#/components/schemas/reservationInfo"
 
 components:
   schemas:
