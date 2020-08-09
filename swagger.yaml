@@ -863,6 +863,111 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    
+  /reservation/:
+    post:
+      summary: 予約申し込み
+      tags:
+      - reservation
+      requestBody:
+        description: 予約するための個人情報
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/reservationInfo"
+      responses:
+        200:
+          description: |
+            予約ID  
+            またメールにメール認証用のコードを送付
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservation_id:
+                    type: string
+  /reservation/auth_email/:
+    post:
+      summary: メール認証
+      tags:
+      - reservation
+      requestBody:
+        description: メール認証用の情報
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/reservationInfo"
+                - properties:
+                    email:
+                      type: string
+                      writeOnly: false
+      responses:
+        200:
+          description: |
+            予約情報の一部
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/reservationInfo"
+  /reservation/{id}/:
+    parameters:
+    - $ref: "#/components/parameters/reservationId"
+    get:
+      security:
+        - admin: []
+      summary: 予約情報の確認
+      responses:
+        200:
+          description: |
+              予約情報
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/reservationInfo"
+                  - properties:
+                      email:
+                        type: string
+                        writeOnly: false
+                      name:
+                        type: string
+                        writeOnly: false
+                      address:
+                        type: string
+                        writeOnly: false
+                      cellphone:
+                        type: string
+                        writeOnly: false
+  /reservation/search/:
+    get:
+      security:
+        - admin: []
+      summary: 予約情報の検索
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: "#/components/schemas/reservationPrivateInfo"
+        style: form
+        explode: true
+        required: false
+        description: |
+          予約情報の検索条件  
+          AND 検索
+      responses:
+          200:
+            description: |
+              検索条件をすべて満たした article の配列   
+              該当するものがない場合は空の配列  
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                    - $ref: "#/components/schemas/reservationInfo"
 
 components:
   schemas:
@@ -960,6 +1065,37 @@ components:
       - user_id
       - timestamp
       - status
+    reservationPrivateInfo:
+      type: object
+      allOf:
+        - properties:
+            name:
+              type: string
+              writeOnly: true
+            address:
+              type: string
+              writeOnly: true
+            cellphone:
+              type: string
+              writeOnly: true
+        - $ref: "#/components/schemas/reservationInfo"
+    reservationInfo:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        people_count:
+          type: string
+        time_id:
+          type: string
+      required:
+        - email
+        - name
+        - address
+        - cellphone
+        - people_count
+        - time_id
 
   parameters:
     blogArticleId:
@@ -977,6 +1113,13 @@ components:
         type: integer
         format: int32
       description: revision の ID
+    reservationId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: 予約 ID
 
   securitySchemes:
     admin:
