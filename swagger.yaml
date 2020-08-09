@@ -1096,6 +1096,41 @@ components:
         - cellphone
         - people_count
         - time_id
+    guestInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        enter_time:
+          type: string
+        exit_time:
+          type: string
+        location:
+          type: string
+        guest_type:
+          type: string
+    exhStatus:
+      properties:
+        count:
+          type: object
+          additionalProperties:
+            type: integer
+        limit:
+          type: integer
+    activityLog:
+      type: array
+      items:
+        type: object
+        properties:
+          timestamp:
+            type: string
+          guest_id:
+            type: string
+          guest_type:
+            type: string
+          log_type:
+            type: string
+            enum: [enter, exit]
 
   parameters:
     blogArticleId:
