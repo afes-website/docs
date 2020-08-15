@@ -1016,7 +1016,7 @@ paths:
       responses:
         200:
           description:
-            guest 
+            guest の一覧
           content:
             application/json:
               schema:
@@ -1031,7 +1031,7 @@ paths:
       responses:
         200:
           description:
-            guest 
+            入場者情報 
           content:
             application/json:
               schema:
@@ -1044,7 +1044,7 @@ paths:
       responses:
         200:
           description:
-            guest 
+            対象者の行動ログ
           content:
             application/json:
               schema:
@@ -1128,7 +1128,7 @@ paths:
       responses:
         200:
           description:
-            Log
+            展示に関係する行動ログのリスト
           content:
             application/json:
               schema:
