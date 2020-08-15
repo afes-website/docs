@@ -968,6 +968,180 @@ paths:
                 items:
                   allOf:
                   - $ref: "#/components/schemas/reservationInfo"
+  
+  /general/enter/:
+    post:
+      summary: 文化祭入場処理
+      requestBody:
+        description: 入場に使用する情報
+        content:
+          application/json:
+            schema:
+              properties:
+                reservation_id:
+                  type: string
+                guest_id:
+                  type: string
+                  description: リストバンドの ID
+      responses:
+        200:
+          description: |
+            退場時刻  
+            予約情報を参照して設定
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exit_time:
+                    type: string
+  /general/exit/:
+    post:
+      summary: 文化祭退場処理
+      requestBody:
+        description: 来場者の ID
+        content:
+          application/json:
+            schema:
+              properties:
+                guest_id:
+                  type: string
+                  description: 来場者の ID
+      responses:
+        200:
+          description: 返り値なし
+  /general/guest/:
+    get:
+      summary: 入場者一覧の取得
+      responses:
+        200:
+          description:
+            guest 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/guestInfo"
+  /general/guest/{id}/:
+    parameters:
+    - $ref: "#/components/parameters/guestId"
+    get:
+      summary: 入場者の情報の取得
+      responses:
+        200:
+          description:
+            guest 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guestInfo"
+  /general/guest/{id}/log/:
+    parameters:
+    - $ref: "#/components/parameters/guestId"
+    get:
+      summary: 対象者の行動ログの取得
+      responses:
+        200:
+          description:
+            guest 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/activityLog"
+  /exh/status/:
+    get:
+      summary: 全展示・校内の情報をの取得
+      responses:
+        200:
+          description:
+            各展示・校内の情報と滞在状況
+          content:
+            application/json:
+              schema:
+                type: object  
+                properties:
+                  exh:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/exhStatus"
+                  all:
+                    $ref: "#/components/schemas/exhStatus"
+  /exh/status/{id}/:
+    parameters:
+      - $ref: "#/components/parameters/exhibitionId"
+    get:
+      summary: 展示の情報をの取得
+      responses:
+        200:
+          description:
+            展示の情報と滞在状況
+          content:
+            application/json:
+              schema:
+                type: object  
+                properties:
+                  exh:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/exhStatus"
+                  all:
+                    $ref: "#/components/schemas/exhStatus"
+  /exh/enter/:
+    post:
+      summary: 展示入室処理
+      requestBody:
+        description: 入室者の情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+      responses:
+        200:
+          description: |
+            展示の滞在者数に関する情報
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exhStatus"
+  /exh/exit/:
+    post:
+      summary: 展示退室
+      requestBody:
+        description: 入室者の情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+      responses:
+        200:
+          description: |
+            展示の滞在者数に関する情報
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exhStatus"
+  /exh/log/:
+    get:
+      summary: 展示のスキャンログの取得
+      responses:
+        200:
+          description:
+            Log
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/activityLog"
 
 components:
   schemas:
@@ -1101,13 +1275,27 @@ components:
       properties:
         id:
           type: string
-        enter_time:
+        entered_at:
           type: string
-        exit_time:
+          format: date-time
+        exit_scheduled_time:
           type: string
+          format: date-time
+        exited_at:
+          type: string
+          format: date_time
         location:
           type: string
-        guest_type:
+        color:
+          $ref: "#/components/schemas/wristBandColor"
+    wristBandColor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        hex:
           type: string
     exhStatus:
       properties:
@@ -1117,20 +1305,22 @@ components:
             type: integer
         limit:
           type: integer
+        room_id:
+          type: string
     activityLog:
-      type: array
-      items:
-        type: object
-        properties:
-          timestamp:
-            type: string
-          guest_id:
-            type: string
-          guest_type:
-            type: string
-          log_type:
-            type: string
-            enum: [enter, exit]
+      properties:
+        timestamp:
+          type: string
+        guest:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+        log_type:
+          type: string
+          enum: [enter, exit]
 
   parameters:
     blogArticleId:
@@ -1155,6 +1345,20 @@ components:
       schema:
         type: string
       description: 予約 ID
+    guestId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: リストバンド ID
+    exhibitionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: 展示 ID
 
   securitySchemes:
     admin:
