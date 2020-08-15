@@ -915,6 +915,8 @@ paths:
     parameters:
     - $ref: "#/components/parameters/reservationId"
     get:
+      tags:
+      - reservation
       security:
         - admin: []
       summary: 予約情報の確認
@@ -942,6 +944,8 @@ paths:
                         writeOnly: false
   /reservation/search/:
     get:
+      tags:
+      - reservation
       security:
         - admin: []
       summary: 予約情報の検索
@@ -971,6 +975,8 @@ paths:
   
   /general/enter/:
     post:
+      tags:
+      - general
       summary: 文化祭入場処理
       requestBody:
         description: 入場に使用する情報
@@ -997,6 +1003,8 @@ paths:
                     type: string
   /general/exit/:
     post:
+      tags:
+      - general
       summary: 文化祭退場処理
       requestBody:
         description: 来場者の ID
@@ -1012,6 +1020,8 @@ paths:
           description: 返り値なし
   /general/guest/:
     get:
+      tags:
+      - general
       summary: 入場者一覧の取得
       responses:
         200:
@@ -1027,6 +1037,8 @@ paths:
     parameters:
     - $ref: "#/components/parameters/guestId"
     get:
+      tags:
+      - general
       summary: 入場者の情報の取得
       responses:
         200:
@@ -1041,6 +1053,8 @@ paths:
     - $ref: "#/components/parameters/guestId"
     get:
       summary: 対象者の行動ログの取得
+      tags:
+      - general
       responses:
         200:
           description:
@@ -1054,6 +1068,8 @@ paths:
   /exh/status/:
     get:
       summary: 全展示・校内の情報をの取得
+      tags:
+      - exhibition
       responses:
         200:
           description:
@@ -1074,6 +1090,8 @@ paths:
       - $ref: "#/components/parameters/exhibitionId"
     get:
       summary: 展示の情報をの取得
+      tags:
+      - exhibition
       responses:
         200:
           description:
@@ -1085,6 +1103,8 @@ paths:
   /exh/enter/:
     post:
       summary: 展示入室処理
+      tags:
+      - exhibition
       requestBody:
         description: 入室者の情報
         content:
@@ -1105,6 +1125,8 @@ paths:
   /exh/exit/:
     post:
       summary: 展示退室
+      tags:
+      - exhibition
       requestBody:
         description: 入室者の情報
         content:
@@ -1125,6 +1147,8 @@ paths:
   /exh/log/:
     get:
       summary: 展示のスキャンログの取得
+      tags:
+      - exhibition
       responses:
         200:
           description:
