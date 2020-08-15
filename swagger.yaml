@@ -1081,14 +1081,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object  
-                properties:
-                  exh:
-                    type: object
-                    additionalProperties:
-                      $ref: "#/components/schemas/exhStatus"
-                  all:
-                    $ref: "#/components/schemas/exhStatus"
+                $ref: "#/components/schemas/exhStatus"
   /exh/enter/:
     post:
       summary: 展示入室処理
