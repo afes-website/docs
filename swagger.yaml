@@ -1154,7 +1154,13 @@ paths:
                     additionalProperties:
                       $ref: "#/components/schemas/exhStatus"
                   all:
-                    $ref: "#/components/schemas/exhStatus"
+                    type: object
+                    allOf:
+                    - $ref: "#/components/schemas/exhStatus"
+                    - properties:
+                        room_id:
+                          writeOnly: true
+                      
   /exh/status/{id}/:
     parameters:
       - $ref: "#/components/parameters/exhibitionId"
