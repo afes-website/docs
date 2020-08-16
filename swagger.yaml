@@ -1044,7 +1044,6 @@ paths:
             | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである |
             | `RESERVER_CANNOT_ENTER` | 予約者は入場可能時間外にある |
             | `WRISTBAND_COLOR_CONFLICTED` | リストバンドの色と退場予定時間が一致しない |
-            | `UNAUTHORIZED` | 認証されていない |
           content:
             application/json:
               schema:
@@ -1230,7 +1229,6 @@ paths:
             | `PEOPLE_LIMIT_OVER` | 人数制限に達した |
             | `GUEST_ALREADY_LEFT` | すでに退場済みである |
             | `EXIT_TIME_OVER` | 退場予定時刻を過ぎている |
-            | `UNAUTHORIZED` | 認証されていない |
           content:
             application/json:
               schema:
@@ -1266,7 +1264,6 @@ paths:
             | :----------|  :-- |
             | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
             | `GUEST_ALREADY_LEFT` | すでに退場済みである |
-            | `UNAUTHORIZED` | 認証されていない
           content:
             application/json:
               schema:
