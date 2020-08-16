@@ -987,7 +987,7 @@ paths:
       responses:
         200:
           description: |
-            検索条件をすべて満たした予約情報の配列   
+            検索条件をすべて満たした予約情報の配列  
             該当するものがない場合は空の配列  
           content:
             application/json:
