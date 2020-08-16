@@ -1427,7 +1427,7 @@ components:
           format: date-time
         exited_at:
           type: string
-          format: date_time
+          format: date-time
         exh_id:
           type: string
         color:
