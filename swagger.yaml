@@ -1276,7 +1276,7 @@ components:
           type: string
           writeOnly: true
         people_count:
-          type: string
+          type: integer
         time_id:
           type: string
       required:
