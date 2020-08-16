@@ -1333,6 +1333,8 @@ components:
               type: string
             type:
               type: string
+        exh_id:
+          type: string
         log_type:
           type: string
           enum: [enter, exit]
