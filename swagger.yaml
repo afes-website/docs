@@ -1146,7 +1146,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /exh/status/:
     get:
-      summary: 全展示・校内の情報をの取得
+      summary: 全展示・校内の情報の取得
       tags:
       - exhibition
       security:
@@ -1176,7 +1176,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/exhibitionId"
     get:
-      summary: 展示の情報をの取得
+      summary: 展示の情報の取得
       tags:
       - exhibition
       security:
