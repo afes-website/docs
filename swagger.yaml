@@ -863,6 +863,427 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    
+  /reservation/:
+    post:
+      summary: 予約申し込み
+      tags:
+      - reservation
+      requestBody:
+        description: 予約するための個人情報
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/reservationPrivateInfo"
+      responses:
+        200:
+          description: |
+            予約ID  
+            またメールにメール認証用のコードを送付
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservation_id:
+                    type: string
+        429:
+          description: 試行回数の上限に到達 (3回 / 10分)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              
+  /reservation/auth_email/:
+    post:
+      summary: メール認証
+      tags:
+      - reservation
+      requestBody:
+        description: メール認証用の情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auth_id:
+                  type: string
+                  writeOnly: false
+      responses:
+        200:
+          description: |
+            予約情報の一部
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/reservationInfo"
+        400:
+          description: すでに使用された・または存在しない予約 ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: 試行回数の上限に到達 (3回 / 10分)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /reservation/{id}/:
+    parameters:
+    - $ref: "#/components/parameters/reservationId"
+    get:
+      tags:
+      - reservation
+      security:
+        - admin: []
+      summary: 予約情報の確認
+      responses:
+        200:
+          description: |
+              予約情報
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/reservationInfo"
+                  - properties:
+                      email:
+                        type: string
+                        writeOnly: false
+                      name:
+                        type: string
+                        writeOnly: false
+                      address:
+                        type: string
+                        writeOnly: false
+                      cellphone:
+                        type: string
+                        writeOnly: false
+        404:
+          description: ID に該当する予約情報が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /reservation/search/:
+    get:
+      tags:
+      - reservation
+      security:
+        - admin: []
+      summary: 予約情報の検索
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          $ref: "#/components/schemas/reservationPrivateInfo"
+        style: form
+        explode: true
+        required: false
+        description: |
+          予約情報の検索条件  
+          AND 検索
+      responses:
+        200:
+          description: |
+            検索条件をすべて満たした予約情報の配列  
+            該当するものがない場合は空の配列  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                  - $ref: "#/components/schemas/reservationInfo"
+        400:
+          description: 誤ったパラメータが含まれている
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+  /general/enter/:
+    post:
+      tags:
+      - general
+      security:
+      - admin: []
+      summary: 文化祭入場処理
+      requestBody:
+        description: 入場に使用する情報
+        content:
+          application/json:
+            schema:
+              properties:
+                reservation_id:
+                  type: string
+                guest_id:
+                  type: string
+                  description: リストバンドの ID
+      responses:
+        200:
+          description: |
+            退場時刻  
+            予約情報を参照して設定
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exit_time:
+                    type: string
+        400:
+          description: |  
+            Status Code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :---------- | :-- |
+            | `INVALID_WRISTBAND_CODE` | リストバンド ID の形式が正しくない |
+            | `ALREADY_USED_WRISTBAND` | そのリストバンドは入場処理済みである |
+            | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
+            | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである |
+            | `OUT_OF_RESERVATION_TIME` | 予約者は入場可能時間外にある |
+            | `WRONG_WRISTBAND_COLOR` | リストバンドの色と退場予定時間が一致しない |
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /general/exit/:
+    post:
+      tags:
+      - general
+      security:
+      - admin: []
+      summary: 文化祭退場処理
+      requestBody:
+        description: 来場者の ID
+        content:
+          application/json:
+            schema:
+              properties:
+                guest_id:
+                  type: string
+      responses:
+        200:
+          description: 返り値なし
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        409:
+          description: 該当する Guest はすでに退場済み
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /general/guest/:
+    get:
+      tags:
+      - general
+      security:
+      - admin: []
+      summary: 来場者一覧の取得
+      responses:
+        200:
+          description:
+            guest の一覧
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/guestInfo"
+  /general/guest/{id}/:
+    parameters:
+    - $ref: "#/components/parameters/guestId"
+    get:
+      tags:
+      - general
+      security:
+      - admin: []
+      summary: 来場者の情報の取得
+      responses:
+        200:
+          description:
+            来場者情報 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/guestInfo"
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /general/guest/{id}/log/:
+    parameters:
+    - $ref: "#/components/parameters/guestId"
+    get:
+      summary: 対象者の行動ログの取得
+      tags:
+      - general
+      security:
+      - admin: []
+      responses:
+        200:
+          description:
+            対象者の行動ログ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/activityLog"
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exh/status/:
+    get:
+      summary: 全展示・校内の情報の取得
+      tags:
+      - exhibition
+      security:
+      - admin: []
+      responses:
+        200:
+          description:
+            各展示・校内の情報と滞在状況
+          content:
+            application/json:
+              schema:
+                type: object  
+                properties:
+                  exh:
+                    type: object
+                    additionalProperties:
+                      $ref: "#/components/schemas/exhStatus"
+                  all:
+                    type: object
+                    allOf:
+                    - $ref: "#/components/schemas/exhStatus"
+                    - properties:
+                        room_id:
+                          writeOnly: true
+                      
+  /exh/status/{id}/:
+    parameters:
+      - $ref: "#/components/parameters/exhibitionId"
+    get:
+      summary: 展示の情報の取得
+      tags:
+      - exhibition
+      security:
+      - blogWriter: []
+      responses:
+        200:
+          description:
+            展示の情報と滞在状況
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exhStatus"
+        404:
+          description: 該当する展示が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exh/enter/:
+    post:
+      summary: 展示入室処理
+      tags:
+      - exhibition
+      security:
+      - blogWriter: []
+      requestBody:
+        description: 入室者の情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+      responses:
+        200:
+          description: |
+            展示の滞在者数に関する情報
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exhStatus"
+        400:
+          description: |  
+            status code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :----------|  :-- |
+            | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
+            | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
+            | `PEOPLE_LIMIT_EXCEEDED` | 人数制限に達した |
+            | `GUEST_ALREADY_EXITED` | すでに退場済みである |
+            | `EXIT_TIME_EXCEEDED` | 退場予定時刻を過ぎている |
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exh/exit/:
+    post:
+      summary: 展示退室
+      tags:
+      - exhibition
+      security:
+      - blogWriter: []
+      requestBody:
+        description: 入室者の情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+      responses:
+        200:
+          description: |
+            展示の滞在者数に関する情報
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exhStatus"
+        400:
+          description: |  
+            Status Code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :----------|  :-- |
+            | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
+            | `GUEST_ALREADY_EXITED` | すでに退場済みである |
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exh/log/:
+    get:
+      summary: 展示のスキャンログの取得
+      tags:
+      - exhibition
+      security:
+      - blogWriter: []
+      responses:
+        200:
+          description:
+            展示に関係する行動ログのリスト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/activityLog"
 
 components:
   schemas:
@@ -876,6 +1297,8 @@ components:
           type: integer
           format: int32
         message:
+          type: string
+        status_code:
           type: string
     BlogArticle:
       type: object
@@ -960,6 +1383,89 @@ components:
       - user_id
       - timestamp
       - status
+    reservationPrivateInfo:
+      type: object
+      allOf:
+        - properties:
+            name:
+              type: string
+              writeOnly: true
+            address:
+              type: string
+              writeOnly: true
+            cellphone:
+              type: string
+              writeOnly: true
+        - $ref: "#/components/schemas/reservationInfo"
+    reservationInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        people_count:
+          type: integer
+        time_id:
+          type: string
+      required:
+        - email
+        - name
+        - address
+        - cellphone
+        - people_count
+        - time_id
+    guestInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        entered_at:
+          type: string
+          format: date-time
+        exit_scheduled_time:
+          type: string
+          format: date-time
+        exited_at:
+          type: string
+          format: date-time
+        exh_id:
+          type: string
+        color:
+          $ref: "#/components/schemas/wristBandColor"
+    wristBandColor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        hex:
+          type: string
+    exhStatus:
+      properties:
+        count:
+          type: object
+          additionalProperties:
+            type: integer
+        limit:
+          type: integer
+        room_id:
+          type: string
+    activityLog:
+      properties:
+        timestamp:
+          type: string
+        guest:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+        exh_id:
+          type: string
+        log_type:
+          type: string
+          enum: [enter, exit]
 
   parameters:
     blogArticleId:
@@ -977,6 +1483,27 @@ components:
         type: integer
         format: int32
       description: revision の ID
+    reservationId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: 予約 ID
+    guestId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: リストバンド ID
+    exhibitionId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: 展示 ID
 
   securitySchemes:
     admin:
