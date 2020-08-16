@@ -1227,7 +1227,7 @@ paths:
             | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
             | `PEOPLE_LIMIT_EXCEEDED` | 人数制限に達した |
             | `GUEST_ALREADY_EXITED` | すでに退場済みである |
-            | `EXIT_TIME_EXCEEDED` | 退場予定時刻を過ぎている 
+            | `EXIT_TIME_EXCEEDED` | 退場予定時刻を過ぎている |
           content:
             application/json:
               schema:
