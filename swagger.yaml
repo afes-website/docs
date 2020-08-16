@@ -1274,7 +1274,6 @@ components:
       properties:
         email:
           type: string
-          writeOnly: true
         people_count:
           type: integer
         time_id:
