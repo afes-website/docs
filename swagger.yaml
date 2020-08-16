@@ -897,12 +897,11 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/reservationInfo"
-                - properties:
-                    email:
-                      type: string
-                      writeOnly: false
+              type: object
+              properties:
+                auth_id:
+                  type: string
+                  writeOnly: false
       responses:
         200:
           description: |
