@@ -1299,7 +1299,7 @@ components:
         exited_at:
           type: string
           format: date_time
-        location:
+        exh_id:
           type: string
         color:
           $ref: "#/components/schemas/wristBandColor"
