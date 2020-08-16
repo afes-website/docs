@@ -1073,7 +1073,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        429:
+        409:
           description: 該当する Guest はすでに退場済み
           content:
             application/json:
