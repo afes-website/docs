@@ -1227,7 +1227,7 @@ paths:
             | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
             | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
             | `PEOPLE_LIMIT_OVER` | 人数制限に達した |
-            | `GUEST_ALREADY_LEFT` | すでに退場済みである |
+            | `GUEST_ALREADY_EXITED` | すでに退場済みである |
             | `EXIT_TIME_OVER` | 退場予定時刻を過ぎている |
           content:
             application/json:
@@ -1263,7 +1263,7 @@ paths:
             | Status Code | Explanation |
             | :----------|  :-- |
             | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
-            | `GUEST_ALREADY_LEFT` | すでに退場済みである |
+            | `GUEST_ALREADY_EXITED` | すでに退場済みである |
           content:
             application/json:
               schema:
