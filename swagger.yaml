@@ -1080,7 +1080,7 @@ paths:
     get:
       tags:
       - general
-      summary: 入場者一覧の取得
+      summary: 来場者一覧の取得
       responses:
         200:
           description:
@@ -1097,11 +1097,11 @@ paths:
     get:
       tags:
       - general
-      summary: 入場者の情報の取得
+      summary: 来場者の情報の取得
       responses:
         200:
           description:
-            入場者情報 
+            来場者情報 
           content:
             application/json:
               schema:
