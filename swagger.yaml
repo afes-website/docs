@@ -1043,7 +1043,7 @@ paths:
             | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
             | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである |
             | `RESERVER_CANNOT_ENTER` | 予約者は入場可能時間外にある |
-            | `WRISTBAND_COLOR_CONFLICTED` | リストバンドの色と退場予定時間が一致しない |
+            | `WRONG_WRISTBAND_COLOR` | リストバンドの色と退場予定時間が一致しない |
           content:
             application/json:
               schema:
