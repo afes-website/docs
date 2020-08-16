@@ -887,6 +887,13 @@ paths:
                 properties:
                   reservation_id:
                     type: string
+        429:
+          description: 試行回数の上限に到達 (3回 / 10分)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              
   /reservation/auth_email/:
     post:
       summary: メール認証
@@ -910,6 +917,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/reservationInfo"
+        400:
+          description: すでに使用された・または存在しない予約 ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: 試行回数の上限に到達 (3回 / 10分)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /reservation/{id}/:
     parameters:
     - $ref: "#/components/parameters/reservationId"
@@ -941,6 +960,12 @@ paths:
                       cellphone:
                         type: string
                         writeOnly: false
+        404:
+          description: ID に該当する予約情報が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /reservation/search/:
     get:
       tags:
@@ -971,6 +996,12 @@ paths:
                 items:
                   allOf:
                   - $ref: "#/components/schemas/reservationInfo"
+        400:
+          description: 誤ったパラメータが含まれている
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   
   /general/enter/:
     post:
@@ -1000,6 +1031,22 @@ paths:
                 properties:
                   exit_time:
                     type: string
+        400:
+          description: |  
+            Status Code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :----------|  :-- |
+            | `INVALID_WRISTBAND_CODE` | リストバンドの形式が正しくない |
+            | `ALREADY_USED_WRISTBAND` | そのリストバンドは入場処理済みである |
+            | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
+            | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである |
+            | `RESERVER_CANNOT_ENTER` | 予約者は入場可能時間外にある |
+            | `WRISTBAND_COLOR_CONFLICTED` | リストバンドの色と退場予定時間が一致しない |
+            | `UNAUTHORIZED` | 認証されていない |
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /general/exit/:
     post:
       tags:
@@ -1017,6 +1064,18 @@ paths:
       responses:
         200:
           description: 返り値なし
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: 該当する Guest はすでに退場済み
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /general/guest/:
     get:
       tags:
@@ -1047,6 +1106,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/guestInfo"
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /general/guest/{id}/log/:
     parameters:
     - $ref: "#/components/parameters/guestId"
@@ -1064,6 +1129,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/activityLog"
+        404:
+          description: ID に該当する Guest が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /exh/status/:
     get:
       summary: 全展示・校内の情報をの取得
@@ -1099,6 +1170,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/exhStatus"
+        404:
+          description: 該当する展示が存在しない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /exh/enter/:
     post:
       summary: 展示入室処理
@@ -1121,6 +1198,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/exhStatus"
+        400:
+          description: |  
+            status code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :----------|  :-- |
+            | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
+            | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
+            | `PEOPLE_LIMIT_OVER` | 人数制限に達した |
+            | `GUEST_ALREADY_LEFT` | すでに退場済みである |
+            | `EXIT_TIME_OVER` | 退場予定時刻を過ぎている |
+            | `UNAUTHORIZED` | 認証されていない |
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /exh/exit/:
     post:
       summary: 展示退室
@@ -1143,6 +1235,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/exhStatus"
+        400:
+          description: |  
+            Status Code とエラー内容が下記の通り対応
+            | Status Code | Explanation |
+            | :----------|  :-- |
+            | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
+            | `GUEST_ALREADY_LEFT` | すでに退場済みである |
+            | `UNAUTHORIZED` | 認証されていない
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /exh/log/:
     get:
       summary: 展示のスキャンログの取得
@@ -1171,6 +1275,8 @@ components:
           type: integer
           format: int32
         message:
+          type: string
+        status_code:
           type: string
     BlogArticle:
       type: object
