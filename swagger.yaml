@@ -1038,7 +1038,7 @@ paths:
             Status Code とエラー内容が下記の通り対応
             | Status Code | Explanation |
             | :---------- | :-- |
-            | `INVALID_WRISTBAND_CODE` | リストバンドの形式が正しくない |
+            | `INVALID_WRISTBAND_CODE` | リストバンド ID の形式が正しくない |
             | `ALREADY_USED_WRISTBAND` | そのリストバンドは入場処理済みである |
             | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
             | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである |
