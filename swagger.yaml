@@ -234,6 +234,9 @@ paths:
     patch:
       summary: article を更新する
       description: |
+        必要な権限:
+        - blogAdmin
+
         article に対応する要素を渡す事で更新する事ができる  
         一部の要素のみを渡すと、渡された要素のみを更新する
       security:
@@ -273,7 +276,11 @@ paths:
                 $ref: "#/components/schemas/Error"
     delete:
       summary: article を削除する
-      description: article オブジェクトを削除するのみで revision は削除されない
+      description: |
+        必要な権限:
+        - blogAdmin
+
+        article オブジェクトを削除するのみで revision は削除されない
       security:
       - auth: []
       tags:
@@ -399,8 +406,8 @@ paths:
     get:
       summary: revision のリストを取得
       description: |
-        admin の場合は 全 revision を取得できる  
-        writer の場合は revision の author と writer が一致するもののみ取得できる
+        権限 blogAdmin を持っている場合は 全 revision を取得できる  
+        権限 blogWriter を持っている場合は revision の author と writer が一致するもののみ取得できる
       tags:
       - blog revision
       security:
@@ -441,6 +448,10 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: 新しい revision を作る
+      description: |
+        必要な権限:
+        - blogWriter
+
       tags:
       - blog revision
       security:
@@ -502,7 +513,8 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     get:
       summary: revision を取得する
-      description: writer の場合、 自身が author ではない revision は取得できない
+      description: |
+        権限 blogAdmin を持っていない場合、 自身が author ではない revision は取得できない
       tags:
       - blog revision
       security:
@@ -529,6 +541,9 @@ paths:
     post:
       summary: revision を編集する
       description: |
+        必要な権限:
+        - blogAdmin
+
         指定された revision を元に新たに revision を作成する  
         指定された元の revision は更新されない
       tags:
@@ -561,7 +576,11 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: revision を承認する
-      description: revision の status を accept にする
+      description: |
+        必要な権限:
+        - blogAdmin
+
+        revision の status を accept にする
       security:
       - auth: []
       tags:
@@ -584,6 +603,10 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: revision を拒否する
+      description: |
+        必要な権限:
+        - blogAdmin
+
       security:
       - auth: []
       tags:
@@ -861,6 +884,10 @@ paths:
     parameters:
     - $ref: "#/components/parameters/reservationId"
     get:
+      description: |
+        必要な権限:
+        - reservation
+
       tags:
       - reservation
       security:
@@ -896,6 +923,10 @@ paths:
                 $ref: "#/components/schemas/Error"
   /reservation/search/:
     get:
+      description: |
+        必要な権限:
+        - reservation
+
       tags:
       - reservation
       security:
@@ -933,6 +964,10 @@ paths:
   
   /general/enter/:
     post:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
@@ -978,6 +1013,10 @@ paths:
                 $ref: "#/components/schemas/Error"
   /general/exit/:
     post:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
@@ -1008,6 +1047,10 @@ paths:
                 $ref: "#/components/schemas/Error"
   /general/guest/:
     get:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
@@ -1027,6 +1070,10 @@ paths:
     parameters:
     - $ref: "#/components/parameters/guestId"
     get:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
@@ -1051,6 +1098,10 @@ paths:
     - $ref: "#/components/parameters/guestId"
     get:
       summary: 対象者の行動ログの取得
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
@@ -1074,6 +1125,10 @@ paths:
   /exh/status/:
     get:
       summary: 全展示・校内の情報の取得
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - exhibition
       security:
@@ -1104,6 +1159,10 @@ paths:
       - $ref: "#/components/parameters/exhibitionId"
     get:
       summary: 展示の情報の取得
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
@@ -1125,6 +1184,10 @@ paths:
   /exh/enter/:
     post:
       summary: 展示入室処理
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
@@ -1163,6 +1226,10 @@ paths:
   /exh/exit/:
     post:
       summary: 展示退室
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
@@ -1198,6 +1265,10 @@ paths:
   /exh/log/:
     get:
       summary: 展示のスキャンログの取得
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
