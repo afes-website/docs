@@ -962,6 +962,9 @@ paths:
                 items:
                   allOf:
                   - $ref: "#/components/schemas/reservationInfo"
+                  - properties:
+                      reservation_id:
+                        type: string
         400:
           description: 誤ったパラメータが含まれている
           content:
