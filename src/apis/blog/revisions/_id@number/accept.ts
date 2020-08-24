@@ -1,9 +1,9 @@
 import { BlogRevision } from "../@types";
-import { AdminAuthToken } from "@/apis/@types";
+import { AuthToken } from "../../../@types";
 
 export interface Methods {
   patch: {
-    reqHeaders: AdminAuthToken;
+    reqHeaders: AuthToken;
     resBody: BlogRevision;
   };
 }

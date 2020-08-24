@@ -1,16 +1,16 @@
 import { BlogArticle, BlogArticleParameter } from "./@types";
-import { AdminAuthToken } from "@/apis/@types";
+import { AuthToken } from "../../@types";
 
 export interface Methods {
   get: {
     resBody: BlogArticle;
   };
   patch: {
-    reqHeaders: AdminAuthToken;
+    reqHeaders: AuthToken;
     reqBody: BlogArticleParameter;
     resBody: BlogArticle;
   };
   delete: {
-    reqHeaders: AdminAuthToken;
+    reqHeaders: AuthToken;
   };
 }

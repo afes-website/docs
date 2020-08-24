@@ -1,10 +1,10 @@
-import { AdminAuthToken } from "@/apis/@types";
+import { AuthToken } from "../@types";
 
 export interface Methods {
   post: {
     reqBody: {
       password: string;
     };
-    reqHeaders: AdminAuthToken;
+    reqHeaders: AuthToken;
   };
 }

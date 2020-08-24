@@ -1,4 +1,4 @@
-import { BlogRevision } from "@/apis/blog/revisions/@types";
+import { BlogRevision } from "../@types";
 
 export type NewBlogContribRevision = Omit<
   BlogRevision,

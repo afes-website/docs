@@ -1,4 +1,5 @@
-import { WriterUserInfo } from "../../writer/user";
+import { UserInfo } from "../../auth/user";
+
 export interface BlogArticle {
   id: string;
   category: string;
@@ -7,7 +8,7 @@ export interface BlogArticle {
   created_at: string;
   updated_at: string;
   content: string;
-  author: WriterUserInfo;
+  author: UserInfo;
   handle_name: string | null;
 }
 

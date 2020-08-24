@@ -1,4 +1,4 @@
-import { Categories } from "@/apis/blog/categories/@types";
+import { Categories } from "./@types";
 
 export interface Methods {
   get: {

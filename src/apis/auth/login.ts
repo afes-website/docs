@@ -1,11 +1,11 @@
-interface WriterUserCredentials {
+interface UserCredentials {
   id: string;
   password: string;
 }
 
 export interface Methods {
   post: {
-    reqBody: WriterUserCredentials;
+    reqBody: UserCredentials;
     resBody: {
       token: string;
     };

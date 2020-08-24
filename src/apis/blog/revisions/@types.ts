@@ -1,9 +1,10 @@
-import { WriterUserInfo } from "../../writer/user";
+import { UserInfo } from "../../auth/user";
+
 export interface BlogRevision {
   id: number;
   title: string;
   article_id: string;
-  author: WriterUserInfo;
+  author: UserInfo;
   handle_name: string | null;
   timestamp: string;
   content: string;

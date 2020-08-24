@@ -1,7 +1,8 @@
-import { WriterAuthToken } from "../@types";
+import { AuthToken } from "../@types";
+
 export interface Methods {
   post: {
-    reqHeaders: WriterAuthToken;
+    reqHeaders: AuthToken;
 
     reqFormat: FormData;
     reqBody: {

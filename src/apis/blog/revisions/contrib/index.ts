@@ -1,5 +1,5 @@
-import { BlogRevision } from "@/apis/blog/revisions/@types";
-import { NewBlogContribRevision } from "@/apis/blog/revisions/contrib/@types";
+import { BlogRevision } from "../@types";
+import { NewBlogContribRevision } from "./@types";
 
 export interface Methods {
   post: {

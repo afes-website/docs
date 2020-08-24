@@ -1,9 +1,9 @@
 import { BlogRevision } from "../@types";
-import { AdminAuthToken, WriterAuthToken } from "@/apis/@types";
+import { AuthToken } from "../../../@types";
 
 export interface Methods {
   get: {
-    reqHeaders: WriterAuthToken | AdminAuthToken;
+    reqHeaders: AuthToken;
     resBody: BlogRevision;
   };
 }
