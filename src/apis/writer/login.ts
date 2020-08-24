@@ -3,7 +3,7 @@ interface WriterUserCredentials {
   password: string;
 }
 
-interface Methods {
+export interface Methods {
   post: {
     reqBody: WriterUserCredentials;
     resBody: {

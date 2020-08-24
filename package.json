@@ -3,10 +3,18 @@
   "version": "1.7.0",
   "description": "73rd Afes website API",
   "repository": "https://github.com/afes-website/docs",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "scripts": {
     "api:build": "aspida",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare": "npm run build",
+    "build": "pwd && aspida --build && tsc --build tsconfig.json && echo done"
   },
+  "license": "MIT",
   "dependencies": {
     "aspida": "^0.20.3"
   },

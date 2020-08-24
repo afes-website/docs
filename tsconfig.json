@@ -11,7 +11,8 @@
     "declaration": true,
     "target": "es6",
     "lib": [
-      "esnext"
+      "esnext",
+      "dom"
     ],
     "skipLibCheck": true,
     "strict": true,
