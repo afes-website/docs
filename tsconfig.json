@@ -3,11 +3,6 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "outDir": "./dist",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
     "declaration": true,
     "target": "es6",
     "lib": [
