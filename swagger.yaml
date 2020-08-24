@@ -7,12 +7,12 @@ servers:
 - url: http://localhost:8000/ # for local test
 
 paths:
-  /admin/login/:
+  /auth/login/:
     post:
-      summary: ログイン認証と admin API token の受け取り
+      summary: ログイン認証と API token の受け取り
       description: 5回/分まで試行可能
       tags:
-      - admin auth
+      - auth
       requestBody:
         description: 認証情報
         content:
@@ -29,7 +29,7 @@ paths:
                   type: string
       responses:
         200:
-          description: admin API token
+          description: API token
           content:
             application/json:
               schema:
@@ -49,14 +49,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /admin/user/:
+  /auth/user/:
     get:
-      summary: ログイン中の admin の情報の取得
-      description: admin API token から、アカウント情報を取得
+      summary: ログイン中のユーザーの情報の取得
+      description: API token から、アカウント情報を取得
       tags:
-      - admin auth
+      - auth
       security:
-      - admin: []
+      - auth: []
       responses:
         200:
           description: ログイン中の admin ユーザー情報
@@ -72,113 +72,49 @@ paths:
                     type: string
                   name:
                     type: string
+                  permissions:
+                    type: object
+                    required:
+                    - admin
+                    - blogWriter
+                    - blogAdmin
+                    - exhibition
+                    - general
+                    - reservation
+                    properties:
+                      admin:
+                        type: boolean
+                        description: DB の操作をする権限
+                      blogAdmin:
+                        type: boolean
+                        description: blogArticleの操作、全Revisionの閲覧
+                      blogWriter:
+                        type: boolean
+                        description: blogRevision の作成
+                      exhibition:
+                        type: boolean
+                        description: |
+                          IDが等しい展示を持つ  
+                          入退室スキャン、展示内滞在状況の確認
+                      general:
+                        type: boolean
+                        description: 入退場スキャン、校内滞在状況の確認
+                      reservation:
+                        type: boolean
+                        description: 予約情報の読み取り
         401:
-          description: admin API Token が無効
+          description: API Token が無効
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /admin/change_password/:
+  /auth/change_password/:
     post:
       summary: パスワード変更
       tags:
-      - admin auth
+      - auth
       security:
-      - admin: []
-      requestBody:
-        description: 新しいパスワード(8文字以上)
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - password
-              properties:
-                password:
-                  type: string
-      responses:
-        204:
-          description: 成功 返り値なし
-        400:
-          description: 新しいパスワードが条件を満たしていない
-
-  /writer/login/:
-    post:
-      summary: ログイン認証と writer API token の受け取り
-      tags:
-      - writer auth
-      requestBody:
-        description: 認証情報
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - id
-              - password
-              properties:
-                id:
-                  type: string
-                password:
-                  type: string
-      responses:
-        200:
-          description: writer API token
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-        401:
-          description: 認証失敗
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        429:
-          description: 試行回数の上限に到達
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /writer/user/:
-    get:
-      summary: ログイン中の writer の情報の取得
-      description: writer API token から、アカウント情報を取得
-      tags:
-      - writer auth
-      security:
-      - blogWriter: []
-      responses:
-        200:
-          description: ログイン中の writer ユーザー情報
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - id
-                - name
-                properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-        401:
-          description: writer API token が無効
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /writer/change_password/:
-    post:
-      summary: パスワード変更
-      tags:
-      - writer auth
-      security:
-      - blogWriter: []
+      - auth: []
       requestBody:
         description: 新しいパスワード(8文字以上)
         content:
@@ -304,10 +240,13 @@ paths:
     patch:
       summary: article を更新する
       description: |
+        必要な権限:
+        - blogAdmin
+
         article に対応する要素を渡す事で更新する事ができる  
         一部の要素のみを渡すと、渡された要素のみを更新する
       security:
-      - admin: []
+      - auth: []
       tags:
       - blog article
       requestBody:
@@ -343,9 +282,13 @@ paths:
                 $ref: "#/components/schemas/Error"
     delete:
       summary: article を削除する
-      description: article オブジェクトを削除するのみで revision は削除されない
+      description: |
+        必要な権限:
+        - blogAdmin
+
+        article オブジェクトを削除するのみで revision は削除されない
       security:
-      - admin: []
+      - auth: []
       tags:
       - blog article
       responses:
@@ -469,13 +412,12 @@ paths:
     get:
       summary: revision のリストを取得
       description: |
-        admin の場合は 全 revision を取得できる  
-        writer の場合は revision の author と writer が一致するもののみ取得できる
+        自身が author であるような revision のみ取得可能  
+        ただし権限 blogAdmin を持っている場合、全ての revision を取得可能
       tags:
       - blog revision
       security:
-      - admin: []
-      - blogWriter: []
+      - auth: []
       parameters:
       - in: query
         name: filter
@@ -512,10 +454,14 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: 新しい revision を作る
+      description: |
+        必要な権限:
+        - blogWriter
+
       tags:
       - blog revision
       security:
-      - blogWriter: []
+      - auth: []
       requestBody:
         description: 作成したい revision の情報
         content:
@@ -573,12 +519,13 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     get:
       summary: revision を取得する
-      description: writer の場合、 自身が author ではない revision は取得できない
+      description: |
+        自身が author であるような revision のみ取得可能  
+        ただし権限 blogAdmin を持っている場合、全ての revision を取得可能
       tags:
       - blog revision
       security:
-      - admin: []
-      - blogWriter: []
+      - auth: []
       responses:
         200:
           description: revision の情報
@@ -601,12 +548,15 @@ paths:
     post:
       summary: revision を編集する
       description: |
+        必要な権限:
+        - blogAdmin
+
         指定された revision を元に新たに revision を作成する  
         指定された元の revision は更新されない
       tags:
       - blog revision
       security:
-      - admin: []
+      - auth: []
       requestBody:
         description: |
           更新したい情報  
@@ -633,9 +583,13 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: revision を承認する
-      description: revision の status を accept にする
+      description: |
+        必要な権限:
+        - blogAdmin
+
+        revision の status を accept にする
       security:
-      - admin: []
+      - auth: []
       tags:
       - blog revision
       responses:
@@ -656,8 +610,12 @@ paths:
     - $ref: "#/components/parameters/blogRevisionId"
     patch:
       summary: revision を拒否する
+      description: |
+        必要な権限:
+        - blogAdmin
+
       security:
-      - admin: []
+      - auth: []
       tags:
       - blog revision
       responses:
@@ -680,7 +638,7 @@ paths:
       tags:
       - images
       security:
-      - blogWriter: []
+      - auth: []
       requestBody:
         description: image の情報
         content:
@@ -933,10 +891,14 @@ paths:
     parameters:
     - $ref: "#/components/parameters/reservationId"
     get:
+      description: |
+        必要な権限:
+        - reservation
+
       tags:
       - reservation
       security:
-        - admin: []
+        - auth: []
       summary: 予約情報の確認
       responses:
         200:
@@ -968,10 +930,14 @@ paths:
                 $ref: "#/components/schemas/Error"
   /reservation/search/:
     get:
+      description: |
+        必要な権限:
+        - reservation
+
       tags:
       - reservation
       security:
-        - admin: []
+        - auth: []
       summary: 予約情報の検索
       parameters:
       - in: query
@@ -1005,10 +971,14 @@ paths:
   
   /general/enter/:
     post:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
-      - admin: []
+      - auth: []
       summary: 文化祭入場処理
       requestBody:
         description: 入場に使用する情報
@@ -1050,10 +1020,14 @@ paths:
                 $ref: "#/components/schemas/Error"
   /general/exit/:
     post:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
-      - admin: []
+      - auth: []
       summary: 文化祭退場処理
       requestBody:
         description: 来場者の ID
@@ -1080,10 +1054,14 @@ paths:
                 $ref: "#/components/schemas/Error"
   /general/guest/:
     get:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
-      - admin: []
+      - auth: []
       summary: 来場者一覧の取得
       responses:
         200:
@@ -1099,10 +1077,14 @@ paths:
     parameters:
     - $ref: "#/components/parameters/guestId"
     get:
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
-      - admin: []
+      - auth: []
       summary: 来場者の情報の取得
       responses:
         200:
@@ -1123,10 +1105,14 @@ paths:
     - $ref: "#/components/parameters/guestId"
     get:
       summary: 対象者の行動ログの取得
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - general
       security:
-      - admin: []
+      - auth: []
       responses:
         200:
           description:
@@ -1146,10 +1132,14 @@ paths:
   /exh/status/:
     get:
       summary: 全展示・校内の情報の取得
+      description: |
+        必要な権限:
+        - general
+
       tags:
       - exhibition
       security:
-      - admin: []
+      - auth: []
       responses:
         200:
           description:
@@ -1176,10 +1166,14 @@ paths:
       - $ref: "#/components/parameters/exhibitionId"
     get:
       summary: 展示の情報の取得
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
-      - blogWriter: []
+      - auth: []
       responses:
         200:
           description:
@@ -1197,10 +1191,14 @@ paths:
   /exh/enter/:
     post:
       summary: 展示入室処理
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
-      - blogWriter: []
+      - auth: []
       requestBody:
         description: 入室者の情報
         content:
@@ -1235,10 +1233,14 @@ paths:
   /exh/exit/:
     post:
       summary: 展示退室
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
-      - blogWriter: []
+      - auth: []
       requestBody:
         description: 入室者の情報
         content:
@@ -1270,10 +1272,14 @@ paths:
   /exh/log/:
     get:
       summary: 展示のスキャンログの取得
+      description: |
+        必要な権限:
+        - exhibition
+
       tags:
       - exhibition
       security:
-      - blogWriter: []
+      - auth: []
       responses:
         200:
           description:
@@ -1506,13 +1512,8 @@ components:
       description: 展示 ID
 
   securitySchemes:
-    admin:
-      type: apiKey
-      in: header
-      name: X-ADMIN-TOKEN
-      description: API token の情報
-    blogWriter:
-      type: apiKey
-      in: header
-      name: X-BLOG-WRITER-TOKEN
-      description: API token の情報
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: API token
