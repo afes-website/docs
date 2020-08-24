@@ -1,0 +1,15 @@
+{
+  "name": "docs",
+  "version": "1.7.0",
+  "description": "73rd Afes website API",
+  "repository": "https://github.com/afes-website/docs",
+  "scripts": {
+    "api:build": "aspida"
+  },
+  "dependencies": {
+    "aspida": "^0.20.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}
