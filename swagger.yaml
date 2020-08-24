@@ -412,8 +412,8 @@ paths:
     get:
       summary: revision のリストを取得
       description: |
-        権限 blogAdmin を持っている場合は 全 revision を取得できる  
-        権限 blogWriter を持っている場合は revision の author と writer が一致するもののみ取得できる
+        自身が author であるような revision のみ取得可能  
+        ただし権限 blogAdmin を持っている場合、全ての revision を取得可能
       tags:
       - blog revision
       security:
@@ -520,7 +520,8 @@ paths:
     get:
       summary: revision を取得する
       description: |
-        権限 blogAdmin を持っていない場合、 自身が author ではない revision は取得できない
+        自身が author であるような revision のみ取得可能  
+        ただし権限 blogAdmin を持っている場合、全ての revision を取得可能
       tags:
       - blog revision
       security:
