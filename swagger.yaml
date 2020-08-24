@@ -85,6 +85,12 @@ paths:
                       admin:
                         type: boolean
                         description: DB の操作をする権限
+                      blogAdmin:
+                        type: boolean
+                        description: blogArticleの操作、全Revisionの閲覧
+                      blogWriter:
+                        type: boolean
+                        description: blogRevision の作成
                       exhibition:
                         type: boolean
                         description: |
