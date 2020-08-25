@@ -4,6 +4,5 @@ export interface Methods {
   post: {
     reqHeaders: AuthToken;
     reqBody: { guest_id: string };
-    resBody: {};
-  }
+  };
 }

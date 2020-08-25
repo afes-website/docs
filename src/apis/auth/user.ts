@@ -10,9 +10,8 @@ export interface UserInfo {
     exhibition: boolean;
     general: boolean;
     reservation: boolean;
-  }
+  };
 }
-
 
 export interface Methods {
   get: {

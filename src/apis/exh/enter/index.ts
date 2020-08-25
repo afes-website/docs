@@ -6,5 +6,5 @@ export interface Methods {
     reqHeaders: AuthToken;
     reqBody: { guest_id: string };
     resBody: ExhStatus;
-  }
+  };
 }

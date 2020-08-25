@@ -6,5 +6,5 @@ export interface Methods {
     reqHeaders: AuthToken;
     query: Partial<Omit<ReservationWithPrivateInfo, "id">>;
     resBody: Reservation;
-  }
+  };
 }

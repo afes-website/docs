@@ -5,5 +5,5 @@ export interface Methods {
   get: {
     reqHeaders: AuthToken;
     resBody: GuestDetail[];
-  }
+  };
 }

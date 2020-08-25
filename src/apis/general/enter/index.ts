@@ -10,5 +10,5 @@ export interface Methods {
     reqHeaders: AuthToken;
     reqBody: EnterCredentials;
     resBody: { exit_time: string };
-  }
+  };
 }

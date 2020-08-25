@@ -1,3 +1,3 @@
 export interface AuthToken {
-  "Authorization": string;
+  Authorization: string;
 }
