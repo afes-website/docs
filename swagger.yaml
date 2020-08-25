@@ -1010,7 +1010,7 @@ paths:
           description: |  
             Status Code とエラー内容が下記の通り対応
             | Status Code | Explanation |
-            | :---------- | :-- |
+            | :-- | :-- |
             | `INVALID_WRISTBAND_CODE` | リストバンド ID の形式が正しくない |
             | `ALREADY_USED_WRISTBAND` | そのリストバンドは入場処理済みである |
             | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
@@ -1235,7 +1235,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /exh/exit/:
     post:
-      summary: 展示退室
+      summary: 展示退室処理
       description: |
         必要な権限:
         - exhibition
@@ -1265,7 +1265,7 @@ paths:
           description: |  
             Status Code とエラー内容が下記の通り対応
             | Status Code | Explanation |
-            | :----------|  :-- |
+            | :-- | :-- |
             | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
             | `GUEST_ALREADY_EXITED` | すでに退場済みである |
           content:
@@ -1443,6 +1443,10 @@ components:
           type: string
         color:
           $ref: "#/components/schemas/wristBandColor"
+      required:
+        - id
+        - entered_at
+        - color
     wristBandColor:
       type: object
       properties:
@@ -1452,6 +1456,10 @@ components:
           type: string
         hex:
           type: string
+      required:
+        - id
+        - name
+        - hex
     exhStatus:
       properties:
         count:
@@ -1462,6 +1470,9 @@ components:
           type: integer
         room_id:
           type: string
+      required:
+        - limit
+        - room_id
     activityLog:
       properties:
         id:
@@ -1473,8 +1484,8 @@ components:
           properties:
             id:
               type: string
-            type:
-              type: string
+            color:
+              $ref: "#/components/schemas/wristBandColor"
         exh_id:
           type: string
         log_type:
