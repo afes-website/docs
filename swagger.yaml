@@ -1010,7 +1010,7 @@ paths:
           description: |  
             Status Code とエラー内容が下記の通り対応
             | Status Code | Explanation |
-            | :---------- | :-- |
+            | :-- | :-- |
             | `INVALID_WRISTBAND_CODE` | リストバンド ID の形式が正しくない |
             | `ALREADY_USED_WRISTBAND` | そのリストバンドは入場処理済みである |
             | `RESERVATION_NOT_FOUND` | 該当する予約情報が存在しない |
@@ -1265,7 +1265,7 @@ paths:
           description: |  
             Status Code とエラー内容が下記の通り対応
             | Status Code | Explanation |
-            | :----------|  :-- |
+            | :-- | :-- |
             | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
             | `GUEST_ALREADY_EXITED` | すでに退場済みである |
           content:
