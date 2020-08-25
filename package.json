@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "api:build": "aspida",
-    "lint": "eslint",
+    "lint": "eslint src/*",
+    "lint:fix": "eslint src/* --fix",
     "prepare": "npm run build",
     "build": "pwd && aspida --build && tsc --build tsconfig.json && echo done"
   },
@@ -19,6 +20,8 @@
     "aspida": "^0.20.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.10.0",
+    "@typescript-eslint/parser": "^3.10.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-aspida": "^0.0.2",
