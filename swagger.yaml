@@ -1235,7 +1235,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /exh/exit/:
     post:
-      summary: 展示退室
+      summary: 展示退室処理
       description: |
         必要な権限:
         - exhibition
