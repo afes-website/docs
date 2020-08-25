@@ -832,11 +832,11 @@ paths:
         content:
           application/json:
             schema:
-                allOf:
-                  - $ref: "#/components/schemas/reservationPrivateInfo"
-                  - properties:
-                      id:
-                        readOnly: true
+              allOf:
+                - $ref: "#/components/schemas/reservationPrivateInfo"
+                - properties:
+                    id:
+                      readOnly: true
       responses:
         200:
           description: |
@@ -964,8 +964,7 @@ paths:
               schema:
                 type: array
                 items:
-                  allOf:
-                  - $ref: "#/components/schemas/reservationInfo"
+                  $ref: "#/components/schemas/reservationInfo"
         400:
           description: 誤ったパラメータが含まれている
           content:
