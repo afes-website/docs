@@ -1480,8 +1480,8 @@ components:
           properties:
             id:
               type: string
-            type:
-              type: string
+            color:
+              $ref: "#/components/schemas/wristBandColor"
         exh_id:
           type: string
         log_type:
