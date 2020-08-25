@@ -3,5 +3,12 @@ export interface ExhStatus {
     [key: string]: number;
   };
   limit: number;
-  room_id: string | null;
+  room_id: string;
+}
+
+export interface AllStatus {
+  exh: {
+    [key: string]: ExhStatus;
+  };
+  all: Pick<ExhStatus, "count" | "limit">;
 }

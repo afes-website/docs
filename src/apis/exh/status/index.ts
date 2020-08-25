@@ -1,9 +1,9 @@
 import { AuthToken } from "../../@types";
-import { ExhStatus } from "./@types";
+import { AllStatus } from "./@types";
 
 export interface Methods {
   get: {
     reqHeaders: AuthToken;
-    resBody: { [key: string]: ExhStatus };
+    resBody: AllStatus;
   };
 }
