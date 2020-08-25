@@ -1,5 +1,5 @@
-import { BlogRevision } from "../@types";
-import { AuthToken } from "../../../@types";
+import { BlogRevision } from "../../@types";
+import { AuthToken } from "../../../../@types";
 
 export interface Methods {
   patch: {
