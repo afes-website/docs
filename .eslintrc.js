@@ -3,7 +3,14 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ["eslint:recommended", "prettier", "plugin:aspida/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:aspida/recommended",
+  ],
   parserOptions: {
     ecmaVersion: 2020,
   },
