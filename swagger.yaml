@@ -832,7 +832,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/reservationPrivateInfo"
+                allOf:
+                  - $ref: "#/components/schemas/reservationInfo"
+                  - properties:
+                      id:
+                        readOnly: true
       responses:
         200:
           description: |
