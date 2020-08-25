@@ -832,7 +832,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/reservationPrivateInfo"
+              allOf:
+                - $ref: "#/components/schemas/reservationPrivateInfo"
+                - properties:
+                    id:
+                      readOnly: true
       responses:
         200:
           description: |
@@ -960,11 +964,7 @@ paths:
               schema:
                 type: array
                 items:
-                  allOf:
-                  - $ref: "#/components/schemas/reservationInfo"
-                  - properties:
-                      reservation_id:
-                        type: string
+                  $ref: "#/components/schemas/reservationInfo"
         400:
           description: 誤ったパラメータが含まれている
           content:
@@ -1395,6 +1395,7 @@ components:
     reservationPrivateInfo:
       type: object
       allOf:
+        - $ref: "#/components/schemas/reservationInfo"
         - properties:
             name:
               type: string
@@ -1405,10 +1406,11 @@ components:
             cellphone:
               type: string
               writeOnly: true
-        - $ref: "#/components/schemas/reservationInfo"
     reservationInfo:
       type: object
       properties:
+        id:
+          type: string
         email:
           type: string
         people_count:
@@ -1422,6 +1424,7 @@ components:
         - cellphone
         - people_count
         - time_id
+        - id
     guestInfo:
       type: object
       properties:
@@ -1461,6 +1464,8 @@ components:
           type: string
     activityLog:
       properties:
+        id:
+          type: string
         timestamp:
           type: string
         guest:
