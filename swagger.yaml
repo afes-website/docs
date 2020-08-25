@@ -1443,7 +1443,6 @@ components:
       required:
         - id
         - entered_at
-        - exit_scheduled_time
         - color
     wristBandColor:
       type: object
