@@ -6,4 +6,8 @@ export interface Methods {
     reqHeaders: AuthToken;
     resBody: BlogRevision;
   };
+  post: {
+    reqBody: BlogRevision;
+    resBody: Partial<Omit<BlogRevision, 'id' | 'timestamp' | "status" >>;
+  }
 }
