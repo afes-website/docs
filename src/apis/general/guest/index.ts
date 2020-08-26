@@ -1,4 +1,4 @@
-import { GuestDetail } from "./@types";
+import { Guest } from "./@types";
 import { AuthToken } from "../../@types";
 
 export interface Methods {
@@ -13,6 +13,6 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    resBody: GuestDetail[];
+    resBody: Guest[];
   };
 }

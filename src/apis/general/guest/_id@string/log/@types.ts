@@ -1,9 +1,9 @@
-import { Guest } from "../../@types";
+import { GuestSummary } from "../../@types";
 
 export interface ActivityLog {
   id: string;
   timestamp: string;
-  guest: Guest;
+  guest: GuestSummary;
   exh_id: string;
   log_type: ActivityLogType;
 }
