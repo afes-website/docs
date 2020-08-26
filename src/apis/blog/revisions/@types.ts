@@ -8,6 +8,15 @@ export interface BlogRevision {
   handle_name: string | null;
   timestamp: string;
   content: string;
+
+  /**
+   * 記事の状態
+   *
+   * @remarks
+   * `waiting` : admin の審査待ち
+   * `accepted`: 承認済 この状態の revision のみ公開可能
+   * `rejected`: 却下済
+   */
   status: "waiting" | "accepted" | "rejected";
 }
 
