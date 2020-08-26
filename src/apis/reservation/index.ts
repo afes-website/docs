@@ -7,7 +7,7 @@ export interface Methods {
    * @throws Error
    * 429: 試行回数の上限に到達 (3回 / 10分)
    *
-   * @returns 予約ID
+   * @returns 予約 ID
    * またメールにメール認証用のコードを送付
    */
   post: {
