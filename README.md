@@ -8,4 +8,5 @@ This repository only cotains api definition file `swagger.yaml`.
 Please refer also these repository.
 
 - [front-end repository](https://github.com/afes-website/front)
+- [manage-app repository](https://github.com/afes-website/manage-app)
 - [back-end repository](https://github.com/afes-website/back)
