@@ -1,16 +1,25 @@
+const colors = [
+  "blue",
+  "red",
+  "yellow",
+  "violet",
+  "orange",
+  "green",
+  "gray",
+  "white",
+  "test_blue",
+  "test_red",
+  "test_yellow",
+] as const;
+
 export interface Guest {
   id: string;
-  color: Wristband;
+  color_id: typeof colors[number];
+  term_id: string;
   entered_at: string;
   exit_scheduled_time: string | null;
   exited_at: string | null;
   exh_id: string | null;
 }
 
-export type GuestSummary = Pick<Guest, "id" | "color">;
-
-export interface Wristband {
-  id: string;
-  name: string;
-  hex: string;
-}
+export type GuestSummary = Pick<Guest, "id" | "color_id" | "term_id">;

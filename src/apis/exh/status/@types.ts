@@ -1,6 +1,6 @@
 export interface ExhStatus {
   count: {
-    [key: string]: number;
+    [term_id: string]: number;
   };
   limit: number;
   room_id: string;
@@ -8,7 +8,7 @@ export interface ExhStatus {
 
 export interface AllStatus {
   exh: {
-    [key: string]: ExhStatus;
+    [exh_id: string]: ExhStatus;
   };
   all: Pick<ExhStatus, "count" | "limit">;
 }

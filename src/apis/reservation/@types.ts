@@ -1,7 +1,7 @@
 export interface Reservation {
   id: string;
   email: string;
-  time_id: string;
+  term_id: string;
   people_count: number;
 }
 
