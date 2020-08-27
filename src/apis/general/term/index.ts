@@ -8,6 +8,7 @@ export interface Methods {
    * @remarks
    * 必要な権限:
    * - general
+   * - exhibition
    *
    * @returns 各タームの情報
    */
