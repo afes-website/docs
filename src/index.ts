@@ -15,3 +15,6 @@ export * from "./apis/blog/revisions/@types";
 export * from "./apis/blog/categories/@types";
 export * from "./apis/blog/revisions/contrib/@types";
 export * from "./apis/general/guest/_id@string/log/@types";
+
+// utils
+export * from "./apis/images/@utils";
