@@ -1,4 +1,4 @@
-import { UserInfo } from "../../auth/user";
+import { UserInfo } from "../../auth/@types";
 
 export interface BlogRevision {
   id: number;
