@@ -1,4 +1,5 @@
 import { AuthToken } from "../../@types";
+import { Guest } from "../guest/@types";
 
 interface EnterCredentials {
   reservation_id: string;
@@ -30,6 +31,6 @@ export interface Methods {
   post: {
     reqHeaders: AuthToken;
     reqBody: EnterCredentials;
-    resBody: { exit_time: string };
+    resBody: Guest;
   };
 }
