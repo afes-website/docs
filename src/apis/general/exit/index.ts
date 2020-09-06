@@ -17,6 +17,7 @@ export interface Methods {
    */
   post: {
     reqHeaders: AuthToken;
-    reqBody: Guest;
+    reqBody: { guest_id: string };
+    resBody: Guest;
   };
 }
