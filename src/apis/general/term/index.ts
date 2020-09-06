@@ -12,7 +12,7 @@ export interface Methods {
    *
    * @returns 各タームの情報
    */
-  post: {
+  get: {
     reqHeaders: AuthToken;
     resBody: Terms;
   };
