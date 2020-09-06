@@ -16,7 +16,7 @@ export interface Methods {
    * | `GUEST_NOT_FOUND` | 該当する Guest が存在しない |
    * | `GUEST_ALREADY_EXITED` | すでに退場済みである |
    *
-   * @returns 展示の滞在者数に関する情報
+   * @returns 来場者に関する情報
    */
   post: {
     reqHeaders: AuthToken;
