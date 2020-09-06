@@ -1,5 +1,5 @@
 import { AuthToken } from "../../@types";
-import { ExhStatus } from "../status/@types";
+import { Guest } from "../../general/guest/@types";
 
 export interface Methods {
   /**
@@ -19,11 +19,11 @@ export interface Methods {
    * | `GUEST_ALREADY_EXITED`  | すでに退場済みである                         |
    * | `EXIT_TIME_EXCEEDED`    | 退場予定時刻を過ぎている                     |
    *
-   * @returns 展示の滞在者数に関する情報
+   * @returns 来場者に関する情報
    */
   post: {
     reqHeaders: AuthToken;
     reqBody: { guest_id: string };
-    resBody: ExhStatus;
+    resBody: Guest;
   };
 }

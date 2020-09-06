@@ -1,4 +1,5 @@
 import { AuthToken } from "../../@types";
+import { Guest } from "../guest/@types";
 
 interface EnterCredentials {
   reservation_id: string;
@@ -24,12 +25,12 @@ export interface Methods {
    * | `OUT_OF_RESERVATION_TIME`     | 予約者は入場可能時間外にある               |
    * | `WRONG_WRISTBAND_COLOR`       | リストバンドの色と退場予定時間が一致しない |
    *
-   * @returns 退場時刻
+   * @returns 来場者に関する情報
    * 予約情報を参照して設定
    */
   post: {
     reqHeaders: AuthToken;
     reqBody: EnterCredentials;
-    resBody: { exit_time: string };
+    resBody: Guest;
   };
 }
