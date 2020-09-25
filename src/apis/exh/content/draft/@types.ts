@@ -9,7 +9,7 @@ export interface Draft {
   created_at: string;
 }
 
-export type NewDraft = Pick<Draft, "content" | "comments">;
+export type NewDraft = Pick<Draft, "content">;
 
 export interface DraftComment {
   author: UserInfo;
