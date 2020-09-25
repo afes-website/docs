@@ -1,5 +1,5 @@
 import { AuthToken } from "apis/@types";
-import { Draft, NewDraft } from "./@types";
+import { Draft, DraftParameter, NewDraft } from "./@types";
 
 export interface Methods {
   /**
@@ -15,6 +15,7 @@ export interface Methods {
   get: {
     reqHeaders: AuthToken;
     resBody: Draft[];
+    query?: DraftParameter;
   };
 
   /**

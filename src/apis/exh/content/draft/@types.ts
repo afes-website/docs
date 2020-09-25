@@ -26,3 +26,8 @@ export interface DraftComment {
  * - `published`: 公開済
  */
 export type DraftStatus = "waiting" | "accepted" | "rejected" | "published";
+
+export interface DraftParameter
+  extends Partial<Omit<Draft, "author" | "comments">> {
+  author_id?: string;
+}
