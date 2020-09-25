@@ -2,7 +2,7 @@ import { UserInfo } from "apis/auth/@types";
 
 export interface Draft {
   id: number;
-  author: UserInfo;
+  exh_id: string;
   content: string;
   status: DraftStatus;
   comments: DraftComment[];
