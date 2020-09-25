@@ -25,7 +25,7 @@ export type NewBlogRevision = Omit<
   "id" | "timestamp" | "author" | "status"
 >;
 
-export interface BlogRevisionFilterParameter
-  extends Partial<Omit<BlogRevision, "id" | "timestamp" | "author">> {
-  user_id?: string;
+export interface BlogRevisionParameter
+  extends Partial<Omit<BlogRevision, "author">> {
+  author_id?: string;
 }
