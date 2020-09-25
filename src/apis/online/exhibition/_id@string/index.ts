@@ -1,4 +1,4 @@
-import { Exhibition } from "../../@types";
+import { Exhibition } from "../@types";
 
 export interface Methods {
   /**

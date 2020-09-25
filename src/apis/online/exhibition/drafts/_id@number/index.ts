@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exh : 自身が作成した draft の場合のみ取得可能
+   * - exhibition : 自身が作成した draft の場合のみ取得可能
    * - blogAdmin : 全ての場合において取得可能
    *
    * @throws Error
@@ -26,7 +26,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exh : 自身が作成した draft の場合のみ編集可能
+   * - exhibition : 自身が作成した draft の場合のみ編集可能
    * - blogAdmin : 全ての場合において編集可能
    *
    * @throws Error
