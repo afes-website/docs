@@ -27,7 +27,7 @@ export interface Methods {
    * - exh
    *
    * @throws Error
-   * 400: パラメータに過不足がある
+   * 400: パラメータに不備がある
    *
    * @returns draft の情報
    */
