@@ -1,4 +1,4 @@
-import { AuthToken } from "../../../@types";
+import { AuthToken } from "../../../../@types";
 import { ExhStatus } from "../@types";
 
 export interface Methods {

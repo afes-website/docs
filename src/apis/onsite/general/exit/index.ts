@@ -1,9 +1,9 @@
-import { Guest } from "../@types";
 import { AuthToken } from "../../../@types";
+import { Guest } from "../guest/@types";
 
 export interface Methods {
   /**
-   * 来場者の情報の取得
+   * 文化祭退場処理
    *
    * @remarks
    * 必要な権限:
@@ -11,11 +11,13 @@ export interface Methods {
    *
    * @throws Error
    * 404: ID に該当する Guest が存在しない
+   * 409: 該当する Guest はすでに退場済み
    *
-   * @returns 来場者情報
+   * @returns 来場者に関する情報
    */
-  get: {
+  post: {
     reqHeaders: AuthToken;
+    reqBody: { guest_id: string };
     resBody: Guest;
   };
 }
