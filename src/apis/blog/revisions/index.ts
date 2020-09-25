@@ -1,8 +1,4 @@
-import {
-  BlogRevision,
-  BlogRevisionFilterParameter,
-  NewBlogRevision,
-} from "./@types";
+import { BlogRevision, BlogRevisionParameter, NewBlogRevision } from "./@types";
 import { AuthToken } from "../../@types";
 
 export interface Methods {
@@ -21,7 +17,7 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    query?: BlogRevisionFilterParameter;
+    query?: BlogRevisionParameter;
     resBody: BlogRevision[];
   };
 

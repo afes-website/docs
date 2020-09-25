@@ -12,6 +12,8 @@ export interface BlogArticle {
   handle_name: string | null;
 }
 
-export type BlogArticleParameter = Partial<
-  Omit<BlogArticle, "id" | "created_at" | "updated_at">
->;
+export interface BlogArticleParameter
+  extends Partial<Omit<BlogArticle, "title" | "content" | "author">> {
+  author_id?: string;
+  q?: string;
+}
