@@ -1,4 +1,4 @@
-import { AuthToken } from "../../@types";
+import { AuthToken } from "../../../@types";
 import { Guest } from "../../general/guest/@types";
 
 export interface Methods {

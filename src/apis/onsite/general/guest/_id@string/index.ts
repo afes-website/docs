@@ -1,9 +1,9 @@
+import { Guest } from "../@types";
 import { AuthToken } from "../../../../@types";
-import { ActivityLog } from "./@types";
 
 export interface Methods {
   /**
-   * 対象者の行動ログの取得
+   * 来場者の情報の取得
    *
    * @remarks
    * 必要な権限:
@@ -12,10 +12,10 @@ export interface Methods {
    * @throws Error
    * 404: ID に該当する Guest が存在しない
    *
-   * @returns 対象者の行動ログ
+   * @returns 来場者情報
    */
   get: {
     reqHeaders: AuthToken;
-    resBody: ActivityLog[];
+    resBody: Guest;
   };
 }
