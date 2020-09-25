@@ -24,10 +24,12 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exhibition
+   * - exhibition : exh_id 指定不可
+   * - blogAdmin : 任意の exh_id で作成可能
    *
    * @throws Error
    * 400: パラメータに不備がある
+   * 403: exhibition は exh_id を指定できない
    *
    * @returns draft の情報
    */
