@@ -7,8 +7,8 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exh : 自身が作成した draft のみ
-   * - blogAdmin : 全ての draft
+   * - exh : 自身が作成した draft のみ取得可能
+   * - blogAdmin : 全ての draft を取得可能
    *
    * @returns 条件を満たす draft の配列
    */
