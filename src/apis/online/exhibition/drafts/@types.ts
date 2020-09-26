@@ -4,8 +4,11 @@ export interface Draft {
   id: number;
   exh_id: string;
   content: string;
-  status: DraftStatus;
+  review_status: ReviewStatus;
+  teacher_review_status: ReviewStatus;
+  status: ReviewStatus;
   published: boolean;
+  deleted: boolean;
   comments: DraftComment[];
   created_at: string;
 }
@@ -21,14 +24,14 @@ export interface DraftComment {
 }
 
 /**
- * draft の状態
+ * draft の review の状態
  *
  * @remarks
- * - `waiting` : admin の審査待ち
- * - `accepted`: 承認済 この状態の draft のみ公開可能
+ * - `waiting` : レビュー待ち
+ * - `accepted`: 承認済
  * - `rejected`: 却下済
  */
-export type DraftStatus = "waiting" | "accepted" | "rejected";
+export type ReviewStatus = "waiting" | "accepted" | "rejected";
 
 export interface DraftParameter
   extends Partial<Omit<Draft, "author" | "comments">> {
