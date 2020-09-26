@@ -3,7 +3,7 @@ import { Draft } from "../../@types";
 
 export interface Methods {
   /**
-   * draft を公開し、status を published にする
+   * draft を publish する
    *
    * @remarks
    * 必要な権限:

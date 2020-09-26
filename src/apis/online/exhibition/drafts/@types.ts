@@ -5,6 +5,7 @@ export interface Draft {
   exh_id: string;
   content: string;
   status: DraftStatus;
+  published: boolean;
   comments: DraftComment[];
   created_at: string;
 }
@@ -26,9 +27,8 @@ export interface DraftComment {
  * - `waiting` : admin の審査待ち
  * - `accepted`: 承認済 この状態の draft のみ公開可能
  * - `rejected`: 却下済
- * - `published`: 公開済
  */
-export type DraftStatus = "waiting" | "accepted" | "rejected" | "published";
+export type DraftStatus = "waiting" | "accepted" | "rejected";
 
 export interface DraftParameter
   extends Partial<Omit<Draft, "author" | "comments">> {
