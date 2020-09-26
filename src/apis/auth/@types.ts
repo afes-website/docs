@@ -3,6 +3,7 @@ export interface UserInfo {
   name: string;
   permissions: {
     admin: boolean;
+    teacher: boolean;
     blogAdmin: boolean;
     blogWriter: boolean;
     exhibition: boolean;
