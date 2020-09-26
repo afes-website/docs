@@ -7,7 +7,8 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - blogAdmin
+   * - blogAdmin : review_status を変更
+   * - teacher : teacher_review_status を変更
    *
    * @throws Error
    * 404: 該当する draft が存在しない

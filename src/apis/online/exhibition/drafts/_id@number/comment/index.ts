@@ -9,6 +9,7 @@ export interface Methods {
    * 必要な権限:
    * - exhibition : 自身が作成した draft の場合のみ追加可能
    * - blogAdmin : 全ての場合において追加可能
+   * - teacher : 全ての場合において追加可能
    *
    * @throws Error
    * 400: パラメーターに不備がある
