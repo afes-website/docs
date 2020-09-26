@@ -1,4 +1,4 @@
-import { AuthToken } from "../../@types";
+import { AuthToken } from "../../../@types";
 import { Guest } from "../guest/@types";
 
 interface EnterCredentials {

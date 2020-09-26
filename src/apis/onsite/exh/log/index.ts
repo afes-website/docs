@@ -1,4 +1,4 @@
-import { AuthToken } from "../../@types";
+import { AuthToken } from "../../../@types";
 import { ActivityLog } from "../../general/guest/_id@string/log/@types";
 
 export interface Methods {
