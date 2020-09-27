@@ -2,7 +2,10 @@
   "name": "@afes-website/docs",
   "version": "2.2.1",
   "description": "73rd Afes website API",
-  "repository": "https://github.com/afes-website/docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afes-website/docs.git"
+  },
   "main": "dist/index.js",
   "files": [
     "dist",
