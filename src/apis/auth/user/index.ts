@@ -11,7 +11,7 @@ export interface Methods {
    * @throws Error
    * 401: API Token が無効
    *
-   * @returns ログイン中の admin ユーザー情報
+   * @returns ログイン中のユーザー情報
    */
   get: {
     resBody: UserInfo;
