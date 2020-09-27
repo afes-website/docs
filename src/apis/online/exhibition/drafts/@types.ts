@@ -21,6 +21,7 @@ export interface NewDraft {
 export interface DraftComment {
   author: UserInfo;
   message: string;
+  created_at: string;
 }
 
 /**
