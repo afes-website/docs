@@ -1,4 +1,4 @@
-import { UserInfo } from "apis/auth/@types";
+import { UserInfo } from "../../../auth/@types";
 
 export interface Draft {
   id: number;
