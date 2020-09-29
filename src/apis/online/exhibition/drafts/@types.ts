@@ -4,6 +4,7 @@ import { ExhibitionSummary } from "../@types";
 export interface Draft {
   id: number;
   exhibition: ExhibitionSummary;
+  author: UserInfo;
   content: string;
   review_status: ReviewStatus;
   teacher_review_status: ReviewStatus;
