@@ -3,6 +3,7 @@ import { UserInfo } from "../../../auth/@types";
 export interface Draft {
   id: number;
   exh_id: string;
+  author: UserInfo;
   content: string;
   review_status: ReviewStatus;
   teacher_review_status: ReviewStatus;
