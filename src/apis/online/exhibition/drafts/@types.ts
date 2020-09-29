@@ -1,8 +1,9 @@
 import { UserInfo } from "../../../auth/@types";
+import { ExhibitionSummary } from "../@types";
 
 export interface Draft {
   id: number;
-  exh_id: string;
+  exhibition: ExhibitionSummary;
   author: UserInfo;
   content: string;
   review_status: ReviewStatus;
@@ -16,7 +17,7 @@ export interface Draft {
 
 export interface NewDraft {
   content: Draft["content"];
-  exh_id?: Draft["exh_id"];
+  exh_id?: Draft["exhibition"]["id"];
 }
 
 export interface DraftComment {
