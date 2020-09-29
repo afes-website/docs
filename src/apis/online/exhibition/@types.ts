@@ -5,3 +5,5 @@ export interface Exhibition {
   content: string;
   updated_at: string;
 }
+
+export type ExhibitionSummary = Pick<Exhibition, "id" | "name">;
