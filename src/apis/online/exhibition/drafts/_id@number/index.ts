@@ -9,6 +9,7 @@ export interface Methods {
    * 必要な権限:
    * - exhibition : 自身が作成した draft の場合のみ取得可能
    * - blogAdmin : 全ての場合において取得可能
+   * - teacher : 全ての場合において取得可能
    *
    * @throws Error
    * 403: 該当する draft の閲覧権限がない
