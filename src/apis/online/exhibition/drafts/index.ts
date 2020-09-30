@@ -32,6 +32,7 @@ export interface Methods {
    *
    * @throws Error
    * 400: パラメータに不備がある
+   * 403: 自身以外の exh_id を指定する権限がない
    *
    * @returns draft の情報
    */
