@@ -9,6 +9,7 @@ export interface Methods {
    * 必要な権限:
    * - exhibition : 自身が作成した draft のみ取得可能
    * - blogAdmin : 全ての draft を取得可能
+   * - teacher : 全ての draft を取得可能
    *
    * @returns 条件を満たす draft の配列
    */
