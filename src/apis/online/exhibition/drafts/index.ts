@@ -25,12 +25,15 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exhibition : exh_id 指定不可
-   * - blogAdmin : 任意の exh_id で作成可能
+   * - exhibition
+   * - blogAdmin
+   *
+   * blogAdmin 権限がない場合:
+   *   exh_id はログインしているユーザーの ID と同一でなければならない
    *
    * @throws Error
    * 400: パラメータに不備がある
-   * 403: exhibition は exh_id を指定できない
+   * 403: 自身以外の exh_id を指定する権限がない
    *
    * @returns draft の情報
    */

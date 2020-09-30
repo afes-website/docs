@@ -17,7 +17,7 @@ export interface Draft {
 
 export interface NewDraft {
   content: Draft["content"];
-  exh_id?: Draft["exhibition"]["id"];
+  exh_id: Draft["exhibition"]["id"];
 }
 
 export interface DraftComment {
