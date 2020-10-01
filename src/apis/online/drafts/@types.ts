@@ -1,5 +1,5 @@
-import { UserInfo } from "../../../auth/@types";
-import { ExhibitionSummary } from "../@types";
+import { UserInfo } from "../../auth/@types";
+import { ExhibitionSummary } from "../exhibition/@types";
 
 export interface Draft {
   id: number;

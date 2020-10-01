@@ -1,9 +1,9 @@
-import { AuthToken } from "../../../../../@types";
+import { AuthToken } from "../../../../@types";
 import { Draft } from "../../@types";
 
 export interface Methods {
   /**
-   * draft を承認し、status を accepted にする
+   * draft を却下し、status を rejected にする
    *
    * @remarks
    * 必要な権限:

@@ -1,5 +1,5 @@
-import { Draft, NewDraft } from "../@types";
-import { AuthToken } from "../../../../@types";
+import { Draft } from "../@types";
+import { AuthToken } from "../../../@types";
 
 export interface Methods {
   /**
