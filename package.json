@@ -15,7 +15,6 @@
     "api:build": "aspida",
     "lint": "eslint src/*",
     "lint:fix": "eslint src/* --fix",
-    "prepare": "npm run build",
     "build": "aspida --build && tsc --build tsconfig.json"
   },
   "license": "MIT",
