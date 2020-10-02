@@ -37,6 +37,7 @@ export interface DraftComment {
 export type ReviewStatus = "waiting" | "accepted" | "rejected";
 
 export interface DraftParameter
-  extends Partial<Omit<Draft, "author" | "comments">> {
+  extends Partial<Omit<Draft, "exhibition" | "author" | "comments">> {
+  exh_id?: string;
   author_id?: string;
 }
