@@ -1,9 +1,9 @@
 export type ImageParameters =
   | {
       // image の幅
-      w?: string;
+      w?: number;
       // image の高さ
-      h?: string;
+      h?: number;
     }
   | {
       // オリジナルの画像を取得するかどうか
