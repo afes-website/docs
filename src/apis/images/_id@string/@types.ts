@@ -7,5 +7,5 @@ export type ImageParameters =
     }
   | {
       // オリジナルの画像を取得するかどうか
-      orig?: "yes";
+      orig?: boolean;
     };
