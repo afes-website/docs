@@ -22,7 +22,7 @@ export interface NewDraft {
 
 export interface DraftComment {
   author: UserInfo;
-  message: string;
+  content: string;
   created_at: string;
 }
 
