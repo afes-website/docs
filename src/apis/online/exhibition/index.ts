@@ -1,4 +1,4 @@
-import { Exhibition } from "./@types";
+import { Exhibition, ExhibitionParameter } from "./@types";
 
 export interface Methods {
   /**
@@ -8,5 +8,6 @@ export interface Methods {
    */
   get: {
     resBody: Exhibition[];
+    query?: ExhibitionParameter;
   };
 }
