@@ -29,7 +29,7 @@ export interface Methods {
    */
   patch: {
     reqHeaders: AuthToken;
-    reqBody: NewExhibition;
+    reqBody: Partial<NewExhibition>;
     resBody: Exhibition;
   };
 }
