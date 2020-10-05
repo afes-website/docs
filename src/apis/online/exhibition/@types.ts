@@ -10,3 +10,7 @@ export interface Exhibition {
 export type ExhibitionType = "normal" | "frontier" | "stage";
 
 export type ExhibitionSummary = Pick<Exhibition, "id" | "name">;
+
+export type ExhibitionParameter = Partial<
+  Omit<Exhibition, "thumbnail_image_id" | "content" | "updated_at">
+>;
