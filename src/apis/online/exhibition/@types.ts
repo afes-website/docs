@@ -6,4 +6,6 @@ export interface Exhibition {
   updated_at: string;
 }
 
+export type NewExhibition = Omit<Exhibition, "content" | "updated_at">;
+
 export type ExhibitionSummary = Pick<Exhibition, "id" | "name">;
