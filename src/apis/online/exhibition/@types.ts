@@ -2,7 +2,7 @@ export interface Exhibition {
   id: string;
   name: string;
   thumbnail_image_id: string;
-  content: string;
+  content: string | null;
   updated_at: string;
 }
 
