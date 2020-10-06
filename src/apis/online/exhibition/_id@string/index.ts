@@ -1,4 +1,4 @@
-import { Exhibition, NewExhibition } from "../@types";
+import { Exhibition, UpdateExhibition } from "../@types";
 import { AuthToken } from "../../../@types";
 
 export interface Methods {
@@ -29,7 +29,7 @@ export interface Methods {
    */
   patch: {
     reqHeaders: AuthToken;
-    reqBody: Partial<NewExhibition>;
+    reqBody: UpdateExhibition;
     resBody: Exhibition;
   };
 }
