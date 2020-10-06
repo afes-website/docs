@@ -9,6 +9,10 @@ export interface Exhibition {
 
 export type NewExhibition = Omit<Exhibition, "content" | "updated_at">;
 
+export type UpdateExhibition = Partial<
+  Omit<Exhibition, "content" | "updated_at" | "id">
+>;
+
 export type ExhibitionType = "normal" | "frontier" | "stage";
 
 export type ExhibitionSummary = Pick<Exhibition, "id" | "name">;
