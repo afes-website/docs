@@ -4,6 +4,7 @@ export interface Exhibition {
   type: ExhibitionType;
   thumbnail_image_id: string;
   content: string | null;
+  draft_id: number | null;
   updated_at: string;
 }
 
