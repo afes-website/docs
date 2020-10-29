@@ -15,7 +15,7 @@ export type NewExhibition = Omit<
 >;
 
 export type UpdateExhibition = Partial<
-  Omit<Exhibition, "content" | "updated_at" | "id">
+  Omit<Exhibition, "content" | "updated_at" | "id" | "room_id">
 >;
 
 export type ExhibitionType = "normal" | "frontier" | "stage";
