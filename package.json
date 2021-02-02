@@ -2,6 +2,7 @@
   "name": "@afes-website/docs",
   "version": "2.2.12",
   "description": "73rd Afes website API",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/afes-website/docs.git"
