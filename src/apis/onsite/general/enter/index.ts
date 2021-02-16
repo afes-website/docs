@@ -15,8 +15,9 @@ export interface Methods {
    * - general
    *
    * @throws Error
-   * 400: Status Code とエラー内容が下記の通り対応
-   * | Status Code                   | Explanation                                |
+   * 400: response Body に必ず status_code が 1 つ含まれる。複数該当する場合はどれか 1 つが返される。
+   * 対応表は以下
+   * | status_code                   | Explanation                                |
    * | :---------------------------- | :----------------------------------------- |
    * | `INVALID_WRISTBAND_CODE`      | リストバンド ID の形式が正しくない         |
    * | `ALREADY_USED_WRISTBAND`      | そのリストバンドは入場処理済みである       |
