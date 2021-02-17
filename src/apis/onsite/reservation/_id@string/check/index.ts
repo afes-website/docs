@@ -6,6 +6,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
+   * - general
    * - reservation
    *
    * @throws Error
