@@ -14,7 +14,7 @@ export interface Methods {
    *
    * @returns 入場可否の情報
    * valid: 入場可能であるかどうか
-   * status_code: 入場処理時に予約情報に関して返され得るコード 対応表は以下
+   * status_code: 入場可能である場合は null, そうでない場合は入場処理時に予約情報に関して返され得るコード; 対応表は以下
    * | status_code                   | Explanation                                |
    * | :---------------------------- | :----------------------------------------- |
    * | `RESERVATION_NOT_FOUND`       | 該当する予約情報が存在しない               |
@@ -27,7 +27,7 @@ export interface Methods {
     reqHeaders: AuthToken;
     resBody: {
       valid: boolean;
-      status_code: string;
+      status_code: string | null;
       term_id: string;
     };
   };
