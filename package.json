@@ -18,7 +18,6 @@
     "lint:fix": "eslint src/* --fix",
     "build": "aspida --build && tsc --build tsconfig.json"
   },
-  "license": "MIT",
   "peerDependencies": {
     "aspida": "^0.21.0"
   },
