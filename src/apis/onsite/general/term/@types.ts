@@ -22,5 +22,5 @@ export interface Term {
 }
 
 export interface Terms {
-  [term_id: string]: Omit<Term, "id">;
+  [term_id: string]: Term;
 }
