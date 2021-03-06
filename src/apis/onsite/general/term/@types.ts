@@ -15,11 +15,12 @@ const colorIdList = [
 export type ColorId = typeof colorIdList[number];
 
 export interface Term {
+  id: string;
   enter_scheduled_time: string;
   exit_scheduled_time: string;
   color_id: ColorId;
 }
 
 export interface Terms {
-  [term_id: string]: Term;
+  [term_id: string]: Omit<Term, "id">;
 }
