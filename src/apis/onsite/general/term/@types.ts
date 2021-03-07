@@ -2,7 +2,7 @@ export const guestIdPrefixList = [
   "GB",
   "GR",
   "GY",
-  "GV",
+  "GP",
   "GO",
   "GG",
   "GW",
