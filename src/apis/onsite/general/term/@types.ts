@@ -1,4 +1,4 @@
-export const guestIdPrefixList = [
+export const guestTypeList = [
   "GB", // Guest Blue   (あお)
   "GR", // Guest Red    (あか)
   "GY", // Guest Yellow (きいろ)
@@ -12,13 +12,13 @@ export const guestIdPrefixList = [
   "TY", // Test  Yellow (テスト黄)
 ] as const;
 
-export type GuestIdPrefix = typeof guestIdPrefixList[number];
+export type GuestType = typeof guestTypeList[number];
 
 export interface Term {
   id: string;
   enter_scheduled_time: string;
   exit_scheduled_time: string;
-  prefix: GuestIdPrefix;
+  guest_type: GuestType;
 }
 
 export interface Terms {
