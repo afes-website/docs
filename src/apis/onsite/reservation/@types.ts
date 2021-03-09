@@ -1,7 +1,9 @@
+import { Term } from "../general/term/@types";
+
 export interface Reservation {
   id: string;
   email: string;
-  term_id: string;
+  term: Term;
   people_count: number;
 }
 
