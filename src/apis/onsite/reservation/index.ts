@@ -1,4 +1,4 @@
-import { ReservationWithPrivateInfo } from "./@types";
+import { ReservationQueryWithPrivateInfo } from "./@types";
 
 export interface Methods {
   /**
@@ -10,7 +10,7 @@ export interface Methods {
    * @returns 予約ID
    */
   post: {
-    reqBody: Omit<ReservationWithPrivateInfo, "id">;
+    reqBody: ReservationQueryWithPrivateInfo;
     resBody: { id: string };
   };
 }

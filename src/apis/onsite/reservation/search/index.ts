@@ -1,4 +1,4 @@
-import { Reservation, ReservationWithPrivateInfo } from "../@types";
+import { ReservationQueryWithPrivateInfo, Reservation } from "../@types";
 import { AuthToken } from "../../../@types";
 
 export interface Methods {
@@ -17,7 +17,7 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    query: Partial<Omit<ReservationWithPrivateInfo, "id">>;
+    query: Partial<ReservationQueryWithPrivateInfo>;
     resBody: Reservation;
   };
 }

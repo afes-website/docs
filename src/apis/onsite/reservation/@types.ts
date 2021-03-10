@@ -1,7 +1,8 @@
-export interface Reservation {
+import { Term } from "../general/term/@types";
+
+interface Base {
   id: string;
   email: string;
-  term_id: string;
   people_count: number;
 }
 
@@ -11,4 +12,8 @@ interface PrivateInfo {
   cellphone: string;
 }
 
+export type Reservation = Base & { term: Term };
 export type ReservationWithPrivateInfo = Reservation & PrivateInfo;
+
+export type ReservationQuery = Omit<Base, "id"> & { term_id: string };
+export type ReservationQueryWithPrivateInfo = ReservationQuery & PrivateInfo;
