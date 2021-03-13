@@ -27,3 +27,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish
         run: npm publish --access public
+        if: !contains(github.ref, "alpha")
+      - name: publish as alpha
+        run: npm publish --access public --tag alpha
+        if: contains(github.ref, "alpha")
