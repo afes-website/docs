@@ -9,6 +9,9 @@ export interface Methods {
    * 必要な権限:
    * - exhibition
    *
+   * @throws Error
+   * 404: 該当する展示が存在しない
+   *
    * @returns 展示に関係する行動ログのリスト
    */
   get: {

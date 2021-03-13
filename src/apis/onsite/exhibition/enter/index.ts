@@ -19,6 +19,7 @@ export interface Methods {
    * | `PEOPLE_LIMIT_EXCEEDED` | 人数制限に達した                             |
    * | `GUEST_ALREADY_EXITED`  | すでに退場済みである                         |
    * | `EXIT_TIME_EXCEEDED`    | 退場予定時刻を過ぎている                     |
+   * | `EXHIBITION_NOT_FOUND`  | 該当する展示が存在しない                     |
    *
    * @returns 来場者に関する情報
    */

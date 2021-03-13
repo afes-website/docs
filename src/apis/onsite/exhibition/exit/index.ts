@@ -16,6 +16,7 @@ export interface Methods {
    * | :--------------------- | :-------------------------- |
    * | `GUEST_NOT_FOUND`      | 該当する Guest が存在しない |
    * | `GUEST_ALREADY_EXITED` | すでに退場済みである        |
+   * | `EXHIBITION_NOT_FOUND` | 該当する展示が存在しない    |
    *
    * @returns 来場者に関する情報
    */
