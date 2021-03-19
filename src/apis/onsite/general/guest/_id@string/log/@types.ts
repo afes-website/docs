@@ -8,7 +8,4 @@ export interface ActivityLog {
   log_type: ActivityLogType;
 }
 
-export enum ActivityLogType {
-  enter = "enter",
-  exit = "exit",
-}
+export type ActivityLogType = "enter" | "exit";
