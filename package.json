@@ -14,8 +14,12 @@
   ],
   "scripts": {
     "api:build": "aspida",
-    "lint": "eslint src/*",
-    "lint:fix": "eslint src/* --fix",
+    "lint": "yarn prettier && yarn eslint",
+    "lint:check": "yarn prettier:check && yarn eslint:check",
+    "prettier": "prettier src --write",
+    "prettier:check": "prettier src --check",
+    "eslint": "eslint src --fix",
+    "eslint:check": "eslint src",
     "build": "aspida --build && tsc --build tsconfig.json"
   },
   "peerDependencies": {
@@ -28,7 +32,6 @@
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-aspida": "^0.0.2",
-    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.13",
     "prettier": "^2.2.1",
@@ -41,7 +44,8 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "eslint --fix",
+      "prettier src --write",
+      "eslint src --fix",
       "git add"
     ]
   }
