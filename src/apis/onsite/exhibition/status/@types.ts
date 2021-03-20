@@ -10,6 +10,8 @@ export interface ExhStatus {
      */
     [term_id: string]: number;
   };
+  name: string;
+  thumbnail_image_id: string;
   limit: number;
   room_id: string;
 }
