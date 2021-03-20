@@ -1,4 +1,9 @@
 export interface ExhStatus {
+  info: {
+    room_id: string;
+    name: string;
+    thumbnail_image_id: string;
+  };
   count: {
     /**
      * ターム別の滞在人数
@@ -11,7 +16,6 @@ export interface ExhStatus {
     [term_id: string]: number;
   };
   limit: number;
-  room_id: string;
 }
 
 export interface AllStatus {
