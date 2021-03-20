@@ -13,5 +13,5 @@ export type ActivityLogType = "enter" | "exit";
 export interface ActivityLogParamater
   extends Partial<Omit<ActivityLog, "guest">> {
   guest_id?: string;
-  reservation_id?: string;
+  reservation_id?: string; // 指定するには reservation 権限が必要
 }

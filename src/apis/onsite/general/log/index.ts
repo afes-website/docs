@@ -9,9 +9,14 @@ export interface Methods {
    * 必要な権限:
    * - general
    * - exhibition
+   * - reservation
+   *
+   * @remarks
+   * reservation_id を指定するには reservation 権限が必要
+   *
    *
    * @throws Error
-   * 404: ID に該当する Guest が存在しない
+   * 403: 権限が不足しているか、許可されていないパラメーターを使用している
    *
    * @returns 対象者の行動ログ
    */
