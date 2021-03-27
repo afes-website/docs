@@ -1,6 +1,6 @@
 {
   "name": "@afes-website/docs",
-  "version": "2.2.13",
+  "version": "2.3.0",
   "description": "73rd Afes website API",
   "license": "MIT",
   "repository": {
@@ -14,26 +14,28 @@
   ],
   "scripts": {
     "api:build": "aspida",
-    "lint": "eslint src/*",
-    "lint:fix": "eslint src/* --fix",
+    "lint": "yarn prettier && yarn eslint",
+    "lint:check": "yarn prettier:check && yarn eslint:check",
+    "prettier": "prettier src --write",
+    "prettier:check": "prettier src --check",
+    "eslint": "eslint src --fix",
+    "eslint:check": "eslint src",
     "build": "aspida --build && tsc --build tsconfig.json"
   },
-  "license": "MIT",
   "peerDependencies": {
-    "aspida": "^0.21.0"
+    "aspida": "^1.6.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.10.0",
-    "@typescript-eslint/parser": "^3.10.0",
-    "aspida": "^0.21.0",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.11.0",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "aspida": "^1.6.3",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-aspida": "^0.0.2",
-    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.13",
-    "prettier": "^2.0.5",
-    "typescript": "^4.0.2"
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
   },
   "husky": {
     "hooks": {
@@ -42,7 +44,8 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "eslint --fix",
+      "prettier src --write",
+      "eslint src --fix",
       "git add"
     ]
   }
