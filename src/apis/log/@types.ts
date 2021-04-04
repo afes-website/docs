@@ -1,4 +1,4 @@
-import { GuestSummary } from "../guest/@types";
+import { GuestSummary } from "../guests/@types";
 
 export interface ActivityLog {
   id: string;
