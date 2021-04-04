@@ -1,5 +1,5 @@
 import { AuthToken } from "../../../@types";
-import { Guest } from "../guest/@types";
+import { Guest } from "../../@types";
 
 export interface Methods {
   /**

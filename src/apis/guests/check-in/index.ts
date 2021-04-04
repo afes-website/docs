@@ -1,5 +1,5 @@
-import { AuthToken } from "../../../@types";
-import { Guest } from "../guest/@types";
+import { AuthToken } from "../../@types";
+import { Guest } from "../@types";
 
 interface EnterCredentials {
   reservation_id: string;
