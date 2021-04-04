@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    *
    * @throws Error
    * 404: ID に該当する Guest が存在しない

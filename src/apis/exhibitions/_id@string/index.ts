@@ -8,7 +8,7 @@ export interface Methods {
    * @remarks
    * 必要な権限:
    * - exhibition
-   * - general
+   * - executive
    *
    * @throws Error
    * 404: 該当する展示が存在しない

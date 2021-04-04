@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    * - exhibition
    *
    * @returns 各タームの情報
