@@ -7,11 +7,11 @@ export { default } from "./apis/$api";
 // types
 export * from "./apis/@types";
 export * from "./apis/auth/@types";
-export * from "./apis/onsite/exhibition/status/@types";
-export * from "./apis/onsite/general/term/@types";
-export * from "./apis/onsite/general/guest/@types";
-export * from "./apis/onsite/general/log/@types";
-export * from "./apis/onsite/reservation/@types";
+export * from "./apis/exhibitions/@types";
+export * from "./apis/terms/@types";
+export * from "./apis/guests/@types";
+export * from "./apis/log/@types";
+export * from "./apis/reservations/@types";
 
 // utils
 export * from "./apis/images/@utils";
