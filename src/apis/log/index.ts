@@ -1,5 +1,5 @@
 import { AuthToken } from "../@types";
-import { ActivityLog, ActivityLogParamatar } from "./@types";
+import { ActivityLog, ActivityLogParameter } from "./@types";
 
 export interface Methods {
   /**
@@ -21,7 +21,7 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    query?: ActivityLogParamatar;
+    query?: ActivityLogParameter;
     resBody: ActivityLog[];
   };
 }
