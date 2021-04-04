@@ -1,4 +1,4 @@
-import { AuthToken } from "../../../@types";
+import { AuthToken } from "../@types";
 import { Terms } from "./@types";
 
 export interface Methods {
