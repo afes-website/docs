@@ -4,6 +4,7 @@ interface Base {
   id: string;
   email: string;
   people_count: number;
+  guest_id: string | null;
 }
 
 interface PrivateInfo {
