@@ -1,4 +1,4 @@
-import { GuestSummary } from "../guest/@types";
+import { GuestSummary } from "../guests/@types";
 
 export interface ActivityLog {
   id: string;
@@ -10,7 +10,7 @@ export interface ActivityLog {
 
 export type ActivityLogType = "enter" | "exit";
 
-export interface ActivityLogParamater
+export interface ActivityLogParameter
   extends Partial<Omit<ActivityLog, "guest">> {
   guest_id?: string;
   reservation_id?: string; // 指定するには reservation 権限が必要

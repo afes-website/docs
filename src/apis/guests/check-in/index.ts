@@ -1,5 +1,5 @@
-import { AuthToken } from "../../../@types";
-import { Guest } from "../guest/@types";
+import { AuthToken } from "../../@types";
+import { Guest } from "../@types";
 
 interface EnterCredentials {
   reservation_id: string;
@@ -12,7 +12,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    *
    * @throws Error
    * 400: response Body に必ず status_code が 1 つ含まれる。複数該当する場合はどれか 1 つが返される。

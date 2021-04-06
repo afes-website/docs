@@ -1,4 +1,4 @@
-import { AuthToken } from "../../../@types";
+import { AuthToken } from "../@types";
 import { Terms } from "./@types";
 
 export interface Methods {
@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    * - exhibition
    *
    * @returns 各タームの情報

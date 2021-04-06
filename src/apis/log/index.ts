@@ -1,5 +1,5 @@
-import { AuthToken } from "../../../@types";
-import { ActivityLog, ActivityLogParamater } from "./@types";
+import { AuthToken } from "../@types";
+import { ActivityLog, ActivityLogParameter } from "./@types";
 
 export interface Methods {
   /**
@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    * - exhibition
    * - reservation
    *
@@ -21,7 +21,7 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    query?: ActivityLogParamater;
+    query?: ActivityLogParameter;
     resBody: ActivityLog[];
   };
 }

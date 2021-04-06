@@ -1,5 +1,5 @@
 import { ReservationQueryWithPrivateInfo, Reservation } from "../@types";
-import { AuthToken } from "../../../@types";
+import { AuthToken } from "../../@types";
 
 export interface Methods {
   /**

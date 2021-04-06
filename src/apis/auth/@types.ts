@@ -4,10 +4,8 @@ export interface UserInfo {
   permissions: {
     admin: boolean;
     teacher: boolean;
-    blogAdmin: boolean;
-    blogWriter: boolean;
     exhibition: boolean;
-    general: boolean;
+    executive: boolean;
     reservation: boolean;
   };
 }

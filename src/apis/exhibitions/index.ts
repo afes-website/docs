@@ -1,4 +1,4 @@
-import { AuthToken } from "../../../@types";
+import { AuthToken } from "../@types";
 import { AllStatus } from "./@types";
 
 export interface Methods {
@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    * - exhibition
    *
    * @returns 各展示・校内の情報と滞在状況

@@ -1,4 +1,4 @@
-import { Term } from "../general/term/@types";
+import { Term } from "../terms/@types";
 
 interface Base {
   id: string;

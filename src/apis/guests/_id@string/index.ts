@@ -1,5 +1,5 @@
 import { Guest } from "../@types";
-import { AuthToken } from "../../../../@types";
+import { AuthToken } from "../../@types";
 
 export interface Methods {
   /**
@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - general
+   * - executive
    *
    * @throws Error
    * 404: ID に該当する Guest が存在しない

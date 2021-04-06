@@ -1,4 +1,4 @@
-import { Term } from "../term/@types";
+import { Term } from "../terms/@types";
 
 export interface Guest {
   id: string;

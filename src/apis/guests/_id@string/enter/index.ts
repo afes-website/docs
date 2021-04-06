@@ -1,5 +1,5 @@
 import { AuthToken } from "../../../@types";
-import { Guest } from "../../general/guest/@types";
+import { Guest } from "../../@types";
 
 export interface Methods {
   /**
@@ -25,7 +25,6 @@ export interface Methods {
    */
   post: {
     reqHeaders: AuthToken;
-    reqBody: { guest_id: string };
     resBody: Guest;
   };
 }
