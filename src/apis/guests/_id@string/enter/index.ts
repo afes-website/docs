@@ -16,7 +16,7 @@ export interface Methods {
    * | status_code             | Explanation                                  |
    * | :---------------------- | :------------------------------------------- |
    * | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
-   * | `PEOPLE_LIMIT_EXCEEDED` | 人数制限に達した                             |
+   * | `PEOPLE_CAPACITY_EXCEEDED` | 人数制限に達した                             |
    * | `GUEST_ALREADY_EXITED`  | すでに退場済みである                         |
    * | `EXIT_TIME_EXCEEDED`    | 退場予定時刻を過ぎている                     |
    * | `EXHIBITION_NOT_FOUND`  | 該当する展示が存在しない                     |

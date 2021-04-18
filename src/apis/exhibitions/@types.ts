@@ -15,12 +15,12 @@ export interface ExhStatus {
      */
     [term_id: string]: number;
   };
-  limit: number;
+  capacity: number;
 }
 
 export interface AllStatus {
   exh: {
     [exh_id: string]: ExhStatus;
   };
-  all: Pick<ExhStatus, "count" | "limit">;
+  all: Pick<ExhStatus, "count" | "capacity">;
 }
