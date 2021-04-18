@@ -9,10 +9,6 @@ export interface Methods {
    * 必要な権限:
    * - executive
    * - exhibition
-   * - reservation
-   *
-   * @remarks
-   * reservation_id を指定するには reservation 権限が必要
    *
    * @throws Error
    * 403: 権限が不足しているか、許可されていないパラメーターを使用している
