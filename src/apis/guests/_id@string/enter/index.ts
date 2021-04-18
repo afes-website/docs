@@ -13,13 +13,13 @@ export interface Methods {
    * 404: ID に該当する Guest が存在しない
    * 400: response Body に必ず status_code が 1 つ含まれる。複数該当する場合はどれか 1 つが返される。
    * 対応表は以下
-   * | status_code             | Explanation                                  |
-   * | :---------------------- | :------------------------------------------- |
-   * | `GUEST_ALREADY_ENTERED` | この展示にすでに入室済みでまだ退室していない |
-   * | `PEOPLE_LIMIT_EXCEEDED` | 人数制限に達した                             |
-   * | `GUEST_ALREADY_EXITED`  | すでに退場済みである                         |
-   * | `EXIT_TIME_EXCEEDED`    | 退場予定時刻を過ぎている                     |
-   * | `EXHIBITION_NOT_FOUND`  | 該当する展示が存在しない                     |
+   * | status_code               | Explanation                                  |
+   * | :------------------------ | :------------------------------------------- |
+   * | `GUEST_ALREADY_ENTERED`   | この展示にすでに入室済みでまだ退室していない |
+   * | `PEOPLE_CAPACITY_EXCEEDED` | 人数制限に達した                             |
+   * | `GUEST_ALREADY_EXITED`    | すでに退場済みである                         |
+   * | `EXIT_TIME_EXCEEDED`      | 退場予定時刻を過ぎている                     |
+   * | `EXHIBITION_NOT_FOUND`    | 該当する展示が存在しない                     |
    *
    * @returns 来場者に関する情報
    */
