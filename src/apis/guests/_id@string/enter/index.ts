@@ -25,6 +25,7 @@ export interface Methods {
    */
   post: {
     reqHeaders: AuthToken;
+    reqBody: { exhibition_id: string };
     resBody: Guest;
   };
 }
