@@ -7,8 +7,8 @@ export interface Methods {
    *
    * @remarks
    * 必要な権限:
-   * - exhibition: 自展示の操作のみ許される
-   * - admin: 存在する全展示への操作が許される
+   * - exhibition: 自展示のみ指定可能
+   * - admin: 存在する全展示を指定可能
    *
    * @throws Error
    * 404: ID に該当する Guest が存在しない
