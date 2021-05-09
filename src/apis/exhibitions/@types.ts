@@ -20,7 +20,7 @@ export interface ExhStatus {
 
 export interface AllStatus {
   exh: {
-    [exh_id: string]: ExhStatus;
+    [exhibition_id: string]: ExhStatus;
   };
   all: Pick<ExhStatus, "count" | "capacity">;
 }

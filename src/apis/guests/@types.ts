@@ -4,7 +4,7 @@ export interface Guest {
   id: string;
   entered_at: string;
   exited_at: string | null;
-  exh_id: string | null;
+  exhibition_id: string | null;
   term: Term;
 }
 
