@@ -1,5 +1,5 @@
 import { AuthToken } from "../../@types";
-import { ExhStatus } from "../@types";
+import { ExhibitionStatus } from "../@types";
 
 export interface Methods {
   /**
@@ -17,6 +17,6 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    resBody: ExhStatus;
+    resBody: ExhibitionStatus;
   };
 }

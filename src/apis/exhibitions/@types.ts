@@ -1,4 +1,4 @@
-export interface ExhStatus {
+export interface ExhibitionStatus {
   info: {
     room_id: string;
     name: string;
@@ -19,8 +19,8 @@ export interface ExhStatus {
 }
 
 export interface AllStatus {
-  exh: {
-    [exh_id: string]: ExhStatus;
+  exhibition: {
+    [exhibition_id: string]: ExhibitionStatus;
   };
-  all: Pick<ExhStatus, "count" | "capacity">;
+  all: Pick<ExhibitionStatus, "count" | "capacity">;
 }
