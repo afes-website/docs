@@ -19,7 +19,7 @@ export interface ExhibitionStatus {
 }
 
 export interface AllStatus {
-  exh: {
+  exhibition: {
     [exhibition_id: string]: ExhibitionStatus;
   };
   all: Pick<ExhibitionStatus, "count" | "capacity">;
