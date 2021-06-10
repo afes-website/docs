@@ -18,6 +18,6 @@ export interface Methods {
   get: {
     reqHeaders: AuthToken;
     query: Partial<ReservationQuery>;
-    resBody: Reservation;
+    resBody: Reservation[];
   };
 }
