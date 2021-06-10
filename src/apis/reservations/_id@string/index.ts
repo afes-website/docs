@@ -1,4 +1,4 @@
-import { ReservationWithPrivateInfo } from "../@types";
+import { Reservation } from "../@types";
 import { AuthToken } from "../../@types";
 
 export interface Methods {
@@ -16,6 +16,6 @@ export interface Methods {
    */
   get: {
     reqHeaders: AuthToken;
-    resBody: ReservationWithPrivateInfo;
+    resBody: Reservation;
   };
 }

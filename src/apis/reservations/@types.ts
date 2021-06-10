@@ -1,19 +1,15 @@
 import { Term } from "../terms/@types";
 
-interface Base {
+export interface Reservation {
   id: string;
-  email: string;
-  people_count: number;
+  term: Term;
 }
 
-interface PrivateInfo {
-  name: string;
-  address: string;
-  cellphone: string;
+export interface ReservationQuery {
+  term_id: string;
 }
 
-export type Reservation = Base & { term: Term };
-export type ReservationWithPrivateInfo = Reservation & PrivateInfo;
-
-export type ReservationQuery = Omit<Base, "id"> & { term_id: string };
-export type ReservationQueryWithPrivateInfo = ReservationQuery & PrivateInfo;
+export interface ReservationEntry {
+  id: string;
+  term_id: string;
+}
