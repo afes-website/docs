@@ -8,8 +8,3 @@ export interface Reservation {
 export interface ReservationQuery {
   term_id: string;
 }
-
-export interface ReservationEntry {
-  id: string;
-  term_id: string;
-}
