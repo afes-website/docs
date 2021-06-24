@@ -1,5 +1,5 @@
 import { AuthToken } from "../../../@types";
-import { Term } from "../../../terms/@types";
+import { Reservation } from "../../@types";
 
 export interface Methods {
   /**
@@ -22,14 +22,14 @@ export interface Methods {
    * | `INVALID_RESERVATION_INFO`    | 該当する予約情報に問題がある               |
    * | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである               |
    * | `OUT_OF_RESERVATION_TIME`     | 予約者は入場可能時間外にある               |
-   * term: 予約情報につながっている Term
+   * reservation: 予約情報
    */
   get: {
     reqHeaders: AuthToken;
     resBody: {
       valid: boolean;
       error_code: string | null;
-      term: Term;
+      reservation: Reservation;
     };
   };
 }
