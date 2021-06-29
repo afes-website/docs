@@ -12,6 +12,3 @@ export * from "./apis/terms/@types";
 export * from "./apis/guests/@types";
 export * from "./apis/log/@types";
 export * from "./apis/reservations/@types";
-
-// utils
-export * from "./apis/images/@utils";
