@@ -1,4 +1,3 @@
-import { AuthToken } from "../../@types";
 import { ExhibitionStatus } from "../@types";
 
 export interface Methods {
@@ -11,7 +10,6 @@ export interface Methods {
    * @returns 展示の情報と滞在状況
    */
   get: {
-    reqHeaders: AuthToken;
     resBody: ExhibitionStatus;
   };
 }

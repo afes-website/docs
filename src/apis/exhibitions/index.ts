@@ -1,4 +1,3 @@
-import { AuthToken } from "../@types";
 import { AllStatus } from "./@types";
 
 export interface Methods {
@@ -8,7 +7,6 @@ export interface Methods {
    * @returns 各展示・校内の情報と滞在状況
    */
   get: {
-    reqHeaders: AuthToken;
     resBody: AllStatus;
   };
 }
