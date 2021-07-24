@@ -5,11 +5,6 @@ export interface Methods {
   /**
    * 全展示・校内の情報の取得
    *
-   * @remarks
-   * 必要な権限:
-   * - executive
-   * - exhibition
-   *
    * @returns 各展示・校内の情報と滞在状況
    */
   get: {

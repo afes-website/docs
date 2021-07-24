@@ -5,11 +5,6 @@ export interface Methods {
   /**
    * 展示の情報の取得
    *
-   * @remarks
-   * 必要な権限:
-   * - exhibition
-   * - executive
-   *
    * @throws Error
    * 404: 該当する展示が存在しない
    *
