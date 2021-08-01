@@ -9,6 +9,5 @@
 This repository contains api definition files but no implementations.
 Please refer also these repositories.
 
-- [front-end repository](https://github.com/afes-website/front)
-- [manage-app repository](https://github.com/afes-website/manage-app)
-- [back-end repository](https://github.com/afes-website/back)
+- [cappuccino-app repository](https://github.com/afes-website/cappuccino-app)
+- [cappuccino-back repository](https://github.com/afes-website/cappuccino-back)
