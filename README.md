@@ -1,4 +1,6 @@
-# 73rd Afes website API Documentation
+# CAPPUCCINO API Documentation
+
+***C**ontrol **APP**lication for **U**nited **C**ontactless **C**heck-**IN** **O**peration*
 
 ![ver](https://img.shields.io/github/package-json/v/afes-website/docs/develop?label=version&style=for-the-badge)
 
