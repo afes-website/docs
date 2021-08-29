@@ -3,6 +3,18 @@ interface UserCredentials {
   password: string;
 }
 
+/**
+ * 1. JSON 形式で credentials を用意
+ *   `{"id":"user","pw":"password"}`
+ * 2. base64 で難読化
+ *   `eyJpZCI6InVzZXIiLCJwdyI6InBhc3N3b3JkIn0K`
+ * ---
+ * 3. [back] decode -> verify
+ */
+interface UserEncryptedCredentials {
+  encrypted_credentials: string;
+}
+
 export interface Methods {
   /**
    * ログイン認証と API token の受け取り
@@ -17,7 +29,7 @@ export interface Methods {
    * @returns API token
    */
   post: {
-    reqBody: UserCredentials;
+    reqBody: UserCredentials | UserEncryptedCredentials;
     resBody: {
       token: string;
     };
