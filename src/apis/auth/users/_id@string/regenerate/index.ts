@@ -2,7 +2,7 @@ import { AuthToken } from "../../../../@types";
 
 export interface Methods {
   /**
-   * セッション鍵を再生成する
+   * セッション鍵を再生成し、ログイン済みのセッションをすべて無効化する
    *
    * @remarks
    * 必要な権限:
