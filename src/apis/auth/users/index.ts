@@ -9,7 +9,7 @@ export interface Methods {
    * 必要な権限:
    * - admin
    *
-   * @returns ログイン中のユーザー情報
+   * @returns すべてのユーザー情報の配列
    */
   get: {
     reqHeaders: AuthToken;

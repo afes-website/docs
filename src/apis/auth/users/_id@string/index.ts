@@ -14,7 +14,7 @@ export interface Methods {
    * 403: 許可されていない操作
    * 404: ID に該当する User が存在しない
    *
-   * @returns ログイン中のユーザー情報
+   * @returns ユーザー情報
    */
   get: {
     reqHeaders: AuthToken;
