@@ -1,14 +1,8 @@
-import { AuthToken } from "../../../@types";
 import { Reservation } from "../../@types";
 
 export interface Methods {
   /**
    * 予約者が現在入場可能かのチェック
-   *
-   * @remarks
-   * 必要な権限:
-   * - executive
-   * - reservation
    *
    * @throws Error
    * 404: ID に該当する予約情報が存在しない
@@ -25,7 +19,6 @@ export interface Methods {
    * reservation: 予約情報
    */
   get: {
-    reqHeaders: AuthToken;
     resBody: {
       valid: boolean;
       error_code: string | null;
