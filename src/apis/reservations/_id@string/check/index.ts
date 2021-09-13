@@ -5,7 +5,7 @@ export interface Methods {
    * 予約者が現在入場可能かのチェック
    *
    * @throws Error
-   * 404: ID に該当する予約情報が存在しない
+   * 404, "RESERVATION_NOT_FOUND": ID に該当する予約情報が存在しない
    *
    * @returns 入場可否の情報
    * valid: 入場可能であるかどうか

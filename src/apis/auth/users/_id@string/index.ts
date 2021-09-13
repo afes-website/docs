@@ -12,7 +12,7 @@ export interface Methods {
    *
    * @throws Error
    * 403: 許可されていない操作
-   * 404: ID に該当する User が存在しない
+   * 404, "USER_NOT_FOUND": ID に該当する User が存在しない
    *
    * @returns ユーザー情報
    */
