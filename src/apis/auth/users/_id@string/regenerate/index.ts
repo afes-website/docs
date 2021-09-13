@@ -9,7 +9,7 @@ export interface Methods {
    * - admin: 全ユーザーを指定可能
    *
    * @throws Error
-   * 404: ID に該当する User が存在しない
+   * 404, "USER_NOT_FOUND": ID に該当する User が存在しない
    *
    * @returns 成功 返り値なし
    */

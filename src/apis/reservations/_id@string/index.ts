@@ -10,7 +10,7 @@ export interface Methods {
    * - reservation
    *
    * @throws Error
-   * 404: ID に該当する予約情報が存在しない
+   * 404, "RESERVATION_NOT_FOUND": ID に該当する予約情報が存在しない
    *
    * @returns 予約情報
    */
