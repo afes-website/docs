@@ -1,10 +1,5 @@
 import { AuthToken } from "../../@types";
-import { Guest } from "../@types";
-
-interface EnterCredentials {
-  reservation_id: string;
-  guest_id: string;
-}
+import { Guest, RegisterCredentials } from "../@types";
 
 export interface Methods {
   /**
@@ -31,7 +26,7 @@ export interface Methods {
    */
   post: {
     reqHeaders: AuthToken;
-    reqBody: EnterCredentials;
+    reqBody: RegisterCredentials;
     resBody: Guest;
   };
 }

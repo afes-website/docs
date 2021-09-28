@@ -9,3 +9,8 @@ export interface Guest {
 }
 
 export type GuestSummary = Pick<Guest, "id" | "term">;
+
+export interface RegisterCredentials {
+  reservation_id: string;
+  guest_id: string;
+}
