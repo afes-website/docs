@@ -22,7 +22,6 @@ export interface Methods {
    * | `INVALID_WRISTBAND_CODE`   | リストバンド ID の形式が正しくない         |
    * | `ALREADY_USED_WRISTBAND`   | そのリストバンドは入場処理済みである       |
    * | `RESERVATION_NOT_FOUND`    | 該当する予約情報が存在しない               |
-   * | `INVALID_RESERVATION_INFO` | 該当する予約情報に問題がある               |
    * | `ALL_MEMBER_CHECKED_IN`    | 予約人数の全員が入場済みである             |
    * | `OUT_OF_RESERVATION_TIME`  | 予約者は入場可能時間外にある               |
    * | `WRONG_WRISTBAND_COLOR`    | リストバンドの色と退場予定時間が一致しない |

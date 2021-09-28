@@ -13,7 +13,6 @@ export interface Methods {
    * | error_code                    | Explanation                                |
    * | :---------------------------- | :----------------------------------------- |
    * | `RESERVATION_NOT_FOUND`       | 該当する予約情報が存在しない               |
-   * | `INVALID_RESERVATION_INFO`    | 該当する予約情報に問題がある               |
    * | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである               |
    * | `OUT_OF_RESERVATION_TIME`     | 予約者は入場可能時間外にある               |
    * reservation: 予約情報
