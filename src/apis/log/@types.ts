@@ -1,14 +1,13 @@
 import { GuestSummary } from "../guests/@types";
 
-export interface ActivityLog {
+export type ActivityLog = {
   id: string;
   timestamp: string;
   guest: GuestSummary;
-  exhibition_id: string;
-  log_type: ActivityLogType;
-}
-
-export type ActivityLogType = "enter" | "exit";
+} & (
+  | { log_type: "check-in" | "check-out" | "register-spare" | "force-revoke" }
+  | { log_type: "enter" | "exit"; exhibition_id: string }
+);
 
 export interface ActivityLogParameter
   extends Partial<Omit<ActivityLog, "guest">> {

@@ -3,7 +3,7 @@ import { Guest, RegisterCredentials } from "../@types";
 
 export interface Methods {
   /**
-   * 文化祭入場処理
+   * 予約人数に計上されない spare としての guest を登録する
    *
    * @remarks
    * 必要な権限:
@@ -17,8 +17,8 @@ export interface Methods {
    * | `INVALID_WRISTBAND_CODE`   | リストバンド ID の形式が正しくない         |
    * | `ALREADY_USED_WRISTBAND`   | そのリストバンドは入場処理済みである       |
    * | `RESERVATION_NOT_FOUND`    | 該当する予約情報が存在しない               |
-   * | `ALL_MEMBER_CHECKED_IN`    | 予約人数の全員が入場済みである             |
-   * | `OUT_OF_RESERVATION_TIME`  | 予約者は入場可能時間外にある               |
+   * | `NO_MEMBER_CHECKED_IN`     | まだ誰も入場していない                     |
+   * | `EXIT_TIME_EXCEEDED`       | 退場予定時刻を過ぎている                   |
    * | `WRONG_WRISTBAND_COLOR`    | リストバンドの色と退場予定時間が一致しない |
    *
    * @returns 来場者に関する情報
