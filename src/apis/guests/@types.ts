@@ -5,7 +5,6 @@ export interface Guest {
   registered_at: string;
   revoked_at: string | null;
   is_spare: boolean;
-  is_force_revoked: boolean;
   exhibition_id: string | null;
   term: Term;
 }
