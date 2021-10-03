@@ -10,11 +10,11 @@ export interface Methods {
    * @returns 入場可否の情報
    * valid: 入場可能であるかどうか
    * error_code: 入場可能である場合は null, そうでない場合は入場処理時に予約情報に関して返され得るコード; 対応表は以下
-   * | error_code                    | Explanation                                |
-   * | :---------------------------- | :----------------------------------------- |
-   * | `RESERVATION_NOT_FOUND`       | 該当する予約情報が存在しない               |
-   * | `ALREADY_ENTERED_RESERVATION` | 予約者はすでに入場済みである               |
-   * | `OUT_OF_RESERVATION_TIME`     | 予約者は入場可能時間外にある               |
+   * | error_code                       | Explanation                  |
+   * | :------------------------------- | :--------------------------- |
+   * | `RESERVATION_NOT_FOUND`          | 該当する予約情報が存在しない |
+   * | `ALREADY_CHECKED_IN_RESERVATION` | 予約者はすでに入場済みである |
+   * | `OUT_OF_RESERVATION_TIME`        | 予約者は入場可能時間外にある |
    * reservation: 予約情報
    */
   get: {
