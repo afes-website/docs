@@ -15,10 +15,10 @@ export interface Methods {
    * 403: 許可されていない操作
    * 400: response Body に必ず error_code が 1 つ含まれる。複数該当する場合はどれか 1 つが返される。
    * 対応表は以下
-   * | error_code             | Explanation                 |
-   * | :--------------------- | :-------------------------- |
-   * | `GUEST_ALREADY_EXITED` | すでに退場済みである        |
-   * | `EXHIBITION_NOT_FOUND` | 該当する展示が存在しない    |
+   * | error_code                  | Explanation                 |
+   * | :-------------------------- | :-------------------------- |
+   * | `GUEST_ALREADY_CHECKED_OUT` | すでに退場済みである        |
+   * | `EXHIBITION_NOT_FOUND`      | 該当する展示が存在しない    |
    *
    * @returns 来場者に関する情報
    */
