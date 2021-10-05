@@ -16,7 +16,7 @@ export interface Methods {
    * | error_code                  | Explanation                 |
    * | :-------------------------- | :-------------------------- |
    * | `GUEST_ALREADY_CHECKED_OUT` | すでに退場済みである              |
-   * | `PROHIBITED_TO_CHECKOUT`    | その Guest の退場は禁止されている |
+   * | `CHECK_OUT_PROHIBITED`      | その Guest の退場は禁止されている |
    *
    * @returns 来場者に関する情報
    */
