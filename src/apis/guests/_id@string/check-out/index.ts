@@ -13,9 +13,10 @@ export interface Methods {
    * 404, "GUEST_NOT_FOUND": ID に該当する Guest が存在しない
    * 400: response Body に必ず error_code が 1 つ含まれる。複数該当する場合はどれか 1 つが返される。
    * 対応表は以下
-   * | error_code                  | Explanation                 |
-   * | :-------------------------- | :-------------------------- |
-   * | `GUEST_ALREADY_CHECKED_OUT` | すでに退場済みである        |
+   * | error_code                  | Explanation                       |
+   * | :-------------------------- | :-------------------------------- |
+   * | `GUEST_ALREADY_CHECKED_OUT` | すでに退場済みである              |
+   * | `CHECK_OUT_PROHIBITED`      | その Guest の退場は禁止されている |
    *
    * @returns 来場者に関する情報
    */
