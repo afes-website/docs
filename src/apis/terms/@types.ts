@@ -11,11 +11,14 @@ export type GuestType =
   | "TestRed"
   | "TestYellow";
 
+export type GuestClass = "General" | "Student";
+
 export interface Term {
   id: string;
   enter_scheduled_time: string;
   exit_scheduled_time: string;
   guest_type: GuestType;
+  guest_class: GuestClass;
 }
 
 export interface Terms {
