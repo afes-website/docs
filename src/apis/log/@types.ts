@@ -11,5 +11,6 @@ export type ActivityLog = {
 
 export interface ActivityLogParameter
   extends Partial<Omit<ActivityLog, "guest">> {
+  exhibition_id?: string | null;
   guest_id?: string;
 }
