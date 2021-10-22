@@ -9,7 +9,7 @@ export type GuestType =
   | "TestRed"
   | "TestYellow";
 
-export type GuestClass = "General" | "Student";
+export type GuestClass = "General" | "Student" | "Parent";
 
 export interface Term {
   id: string;
