@@ -18,7 +18,7 @@ export interface Term {
   enter_scheduled_time: string;
   exit_scheduled_time: string;
   guest_type: GuestType;
-  guest_class: GuestClass;
+  class: GuestClass;
 }
 
 export interface Terms {
