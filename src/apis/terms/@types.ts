@@ -2,14 +2,14 @@ export type GuestType =
   | "GuestBlue"
   | "GuestRed"
   | "GuestYellow"
-  | "ParentPurple"
   | "GuestWhite"
+  | "ParentPurple"
   | "StudentGray"
   | "TestBlue"
   | "TestRed"
   | "TestYellow";
 
-export type GuestClass = "General" | "Student" | "Parent";
+export type GuestClass = "General" | "Parent" | "Student";
 
 export interface Term {
   id: string;
