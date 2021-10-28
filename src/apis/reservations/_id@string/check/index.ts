@@ -1,4 +1,5 @@
 import { Reservation } from "../../@types";
+import { AuthToken } from "../../../@types";
 
 export interface Methods {
   /**
@@ -18,6 +19,7 @@ export interface Methods {
    * reservation: 予約情報
    */
   get: {
+    reqHeaders: AuthToken;
     resBody: {
       valid: boolean;
       error_code: string | null;
