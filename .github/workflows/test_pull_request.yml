@@ -30,7 +30,7 @@ jobs:
         run: yarn build
   version:
     runs-on: ubuntu-latest
-    if: !contains(github.event.pull_request.labels.*.name, 'skip-version')
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip-version') }}
     steps:
       - uses: actions/checkout@v2
         with:
