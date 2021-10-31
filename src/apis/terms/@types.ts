@@ -2,6 +2,7 @@ export type GuestType =
   | "GuestBlue"
   | "GuestRed"
   | "GuestYellow"
+  | "GuestGreen"
   | "GuestWhite"
   | "ParentPurple"
   | "StudentGray"
