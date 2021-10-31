@@ -7,7 +7,7 @@ on:
       - synchronize
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,3 +28,11 @@ jobs:
         run: yarn eslint:check
       - name: build
         run: yarn build
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-deps: 0
+      - name: check version differences
+        run: git diff ${{ github.payload.pull_request.head.ref }} -- package.json | grep '"version"'
