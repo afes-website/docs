@@ -3,20 +3,33 @@ import { BulkQuery, BulkResult } from "./@types";
 
 export interface Methods {
   /**
-   * 検証が行えなかった処理の記録を送信する
+   * 送信できなかった処理の記録を送信する
+   *
+   * @description
+   * check-in, check-out, exit, enter の処理記録をまとめて送信する。
+   * Guest が存在しない、権限不足などの致命的な問題がない限りすべての処理が Guest テーブル に反映される。
+   * 権限不足でない限り、成功したかどうかに関わらずすべて Log に記録される。
+   * bulk-update によって生成された Log はすべて verified = false となる。
    *
    * @remarks
-   * Request 内の配列の順番と Response の配列の順番は一致する
+   * check-in, check-out の実行に必要な権限：
+   * - executive
+   * enter, exit の実行に必要な権限：
+   * - exhibition
+   * timestamp: 以下の条件すべてを満たすもののみ受け付け、そうでないものは受け付けない (INVALID_TIMESTAMP)
+   * - サーバー時間より過去の時間である
+   * - 「1970-01-01 00:00:01」から「2038-01-19 03:14:07」の間である
    *
-   * 正しくない処理を要求した場合でも可能な限り受け付ける。受け付けた場合、処理は以下のようになる。
-   * - 生成される ActivityLog について verified = false となる。
-   * - is_succeeded = true となり、かつ code に発生した問題が（複数あれば一つだけが）代入される。
-   *
-   * 受け付けなかった場合は is_succeeded = false となり、受け付けられなかった原因となる code が（複数あれば一つだけが）出力される。
-   *
-   * code の対応表は各パスの対応表を参照。
-   *
-   * @returns 来場者に関する情報
+   * @returns 処理結果
+   * Request 内の配列の順番と対応した配列が Response に入る。
+   * is_succeeded: Guest テーブルに反映されたかどうか
+   * code: 反映できなかった原因; 対応表は以下
+   * | error_code          | Explanation                                |
+   * | :------------------ | :----------------------------------------- |
+   * | `FORBIDDEN`         | 権限が不足している                         |
+   * | `BAD_REQUEST`       | (その要素について)パラメーターに不備がある |
+   * | `INVALID_TIMESTAMP` | timestamp が受け付けられない               |
+   * | その他              | 各パスの対応表を参照                       |
    */
   post: {
     reqHeaders: AuthToken;
