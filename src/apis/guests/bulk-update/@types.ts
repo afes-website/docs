@@ -7,6 +7,6 @@ export type BulkQuery = {
 );
 
 export type BulkResult = {
-  is_succeeded: boolean;
+  is_applied: boolean;
   code: string | null;
 };

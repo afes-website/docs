@@ -22,7 +22,7 @@ export interface Methods {
    *
    * @returns 処理結果
    * Request 内の配列の順番と対応した配列が Response に入る。
-   * is_succeeded: Guest テーブルに反映されたかどうか
+   * is_applied: Guest テーブルに反映されたかどうか
    * code: 反映できなかった原因; 対応表は以下
    * | error_code          | Explanation                                |
    * | :------------------ | :----------------------------------------- |
