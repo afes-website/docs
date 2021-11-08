@@ -3,32 +3,30 @@ import { BulkQuery, BulkResult } from "./@types";
 
 export interface Methods {
   /**
-   * 送信できなかった処理の記録を送信する
+   * リアルタイムで送信できなかった処理の記録を送信する
    *
    * @description
    * check-in, check-out, exit, enter の処理記録をまとめて送信する。
-   * Guest が存在しない、権限不足などの致命的な問題がない限りすべての処理が Guest テーブル に反映される。
-   * 権限不足でない限り、成功したかどうかに関わらずすべて Log に記録される。
-   * bulk-update によって生成された Log はすべて verified = false となる。
+   * 各エントリについて順に、状態を再現するように可能な限り処理される。
+   * また、権限不足でない限り、すべて Log に記録される。ただし、verified = false となる。
    *
    * @remarks
-   * check-in, check-out の実行に必要な権限：
+   * check-in, check-out の実行に必要な権限:
    * - executive
-   * enter, exit の実行に必要な権限：
+   * enter, exit の実行に必要な権限:
    * - exhibition
-   * timestamp: 以下の条件すべてを満たすもののみ受け付け、そうでないものは受け付けない (INVALID_TIMESTAMP)
-   * - サーバー時間より過去の時間である
-   * - 「1970-01-01 00:00:01」から「2038-01-19 03:14:07」の間である
+   *
+   * timestamp: 32bit符号付きUNIX Timeの有効な範囲、かつサーバー時間より過去のもののみ受け付ける。そうでないものはINVALID_TIMESTAMPを返却し処理しない。
    *
    * @returns 処理結果
-   * Request 内の配列の順番と対応した配列が Response に入る。
-   * is_applied: Guest テーブルに反映されたかどうか
-   * code: 反映できなかった原因; 対応表は以下
-   * | error_code          | Explanation                                |
+   * Request 内の配列の順番に対応した配列
+   * is_applied: Guest テーブルに状態を反映したかどうか
+   * code: 正しく処理されたならばnull、そうでなければ該当する理由を表すコード; 対応表は以下
+   * | code          | Explanation                                |
    * | :------------------ | :----------------------------------------- |
    * | `FORBIDDEN`         | 権限が不足している                         |
-   * | `BAD_REQUEST`       | (その要素について)パラメーターに不備がある |
-   * | `INVALID_TIMESTAMP` | timestamp が受け付けられない               |
+   * | `BAD_REQUEST`       | パラメーターに不備がある |
+   * | `INVALID_TIMESTAMP` | timestamp が不正               |
    * | その他              | 各パスの対応表を参照                       |
    */
   post: {
