@@ -5,6 +5,11 @@ export interface Methods {
   /**
    * 予約者が現在入場可能かのチェック
    *
+   * @remarks
+   * 必要な権限:
+   * - executive
+   * - reservation
+   *
    * @throws Error
    * 404, "RESERVATION_NOT_FOUND": ID に該当する予約情報が存在しない
    *
