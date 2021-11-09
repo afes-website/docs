@@ -22,11 +22,11 @@ export interface Methods {
    * Request 内の配列の順番に対応した配列
    * is_applied: Guest テーブルに状態を反映したかどうか
    * code: 正しく処理されたならばnull、そうでなければ該当する理由を表すコード; 対応表は以下
-   * | code          | Explanation                                |
+   * | code                | Explanation                                |
    * | :------------------ | :----------------------------------------- |
    * | `FORBIDDEN`         | 権限が不足している                         |
-   * | `BAD_REQUEST`       | パラメーターに不備がある |
-   * | `INVALID_TIMESTAMP` | timestamp が不正               |
+   * | `BAD_REQUEST`       | パラメーターに不備がある                   |
+   * | `INVALID_TIMESTAMP` | timestamp が不正                           |
    * | その他              | 各パスの対応表を参照                       |
    */
   post: {
