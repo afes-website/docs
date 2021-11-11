@@ -7,7 +7,7 @@ export interface Methods {
    *
    * @description
    * check-in, check-out, exit, enter の処理記録をまとめて送信する。
-   * 各エントリについて順に、状態を再現するように可能な限り処理される。
+   * 各エントリについて、timestamp をもとにして致命的な問題がない限り処理される。
    * また、権限不足でない限り、すべて Log に記録される。ただし、verified = false となる。
    *
    * @remarks
