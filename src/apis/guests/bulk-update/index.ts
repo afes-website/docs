@@ -21,7 +21,7 @@ export interface Methods {
    *
    * @returns 処理結果
    * Request 内の配列の順番に対応した配列
-   * is_applied: Guest テーブルに状態を反映したかどうか
+   * is_ok: Guest テーブルに状態を反映したかどうか
    * code: 正しく処理されたならば null 、そうでなければ該当する理由を表すコード; 対応表は以下
    * | code                | Explanation                                |
    * | :------------------ | :----------------------------------------- |
