@@ -16,12 +16,13 @@ export interface Methods {
    * enter, exit の実行に必要な権限:
    * - exhibition
    *
-   * timestamp: 32bit符号付きUNIX Timeの有効な範囲、かつサーバー時間より過去のもののみ受け付ける。そうでないものはINVALID_TIMESTAMPを返却し処理しない。
+   * timestamp: 32bit 符号付き UNIX Time の有効な範囲、かつサーバー時間より過去のもののみ受け付ける。
+   * そうでないものは INVALID_TIMESTAMP を返却し処理しない。
    *
    * @returns 処理結果
    * Request 内の配列の順番に対応した配列
    * is_applied: Guest テーブルに状態を反映したかどうか
-   * code: 正しく処理されたならばnull、そうでなければ該当する理由を表すコード; 対応表は以下
+   * code: 正しく処理されたならば null 、そうでなければ該当する理由を表すコード; 対応表は以下
    * | code                | Explanation                                |
    * | :------------------ | :----------------------------------------- |
    * | `FORBIDDEN`         | 権限が不足している                         |
