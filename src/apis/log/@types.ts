@@ -4,6 +4,7 @@ export type ActivityLog = {
   id: string;
   timestamp: string;
   guest: GuestSummary;
+  verified: boolean;
 } & (
   | { log_type: "check-in" | "check-out" | "register-spare" | "force-revoke" }
   | { log_type: "enter" | "exit"; exhibition_id: string }

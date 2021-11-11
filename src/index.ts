@@ -10,5 +10,6 @@ export * from "./apis/auth/@types";
 export * from "./apis/exhibitions/@types";
 export * from "./apis/terms/@types";
 export * from "./apis/guests/@types";
+export * from "./apis/guests/bulk-update/@types";
 export * from "./apis/log/@types";
 export * from "./apis/reservations/@types";
